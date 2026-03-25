@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
     <title>東京真隼 2026 応援歌シート</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,13 +60,53 @@
         /* モバイル等での表示調整（JSが動かない場合の予備） */
         @media screen and (max-width: 420mm) {
             .sheet {
-                zoom: 0.4;
+                /* JSによるスケーリングを優先するため、ここでは基本サイズを維持 */
+                transform-origin: top center;
             }
         }
-        
-        @media screen and (max-width: 210mm) {
-            .sheet {
-                zoom: 0.25;
+
+        /* ズームボタンのスタイル */
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .zoom-btn {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14pt;
+            font-weight: 900;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            user-select: none;
+        }
+
+        .zoom-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* スマホでのスクロール補助 */
+        @media screen and (max-width: 768px) {
+            body {
+                align-items: flex-start;
+                display: block; /* 中央寄せを解除してスクロールしやすくする */
+            }
+            .container-wrapper {
+                padding: 10px;
+                display: block;
+                width: fit-content;
             }
         }
 
@@ -382,7 +422,13 @@
     </div>
 </div>
 
+<div class="zoom-controls">
+    <div class="zoom-btn" onclick="toggleZoom()" id="zoomBtn">🔎</div>
+</div>
+
 <script>
+let isZoomed = false;
+
 function scaleSheet() {
     const sheet = document.getElementById('ouenkaSheet');
     if (!sheet) return;
@@ -396,23 +442,43 @@ function scaleSheet() {
     const availableW = window.innerWidth - padding;
     const availableH = window.innerHeight - padding;
     
-    // 要素の実際のサイズを取得（スケール前のサイズ）
-    // 注意: transformがかかっているとgetBoundingClientRectはスケール後のサイズを返すため、
-    // 一旦リセットするか、mm単位から計算する
     const mmToPx = 3.78; // 96dpiでの1mmあたりのピクセル数
     const sheetW = baseWidthMm * mmToPx;
     const sheetH = baseHeightMm * mmToPx;
     
-    const scaleW = availableW / sheetW;
-    const scaleH = availableH / sheetH;
+    let scale;
     
-    // 横幅と高さ、どちらか小さい方のスケールを採用（全体が収まるように）
-    let scale = Math.min(scaleW, scaleH);
-    
-    // 1倍より大きくはしない（印刷時のレイアウト崩れ防止）
-    if (scale > 1) scale = 1;
+    if (isZoomed) {
+        // ズーム状態: スマホの幅に合わせて「読みやすい」サイズにする
+        // 幅を画面の95%に合わせる（ただし縮小しすぎない）
+        scale = Math.max(0.6, (window.innerWidth - 10) / sheetW);
+        if (scale > 1.2) scale = 1.2;
+    } else {
+        // 全体表示状態: 画面内に完全に収める
+        const scaleW = availableW / sheetW;
+        const scaleH = availableH / sheetH;
+        scale = Math.min(scaleW, scaleH);
+        if (scale > 1) scale = 1;
+    }
 
     sheet.style.transform = `scale(${scale})`;
+    
+    // 中央寄せの調整
+    if (isZoomed && window.innerWidth < sheetW * scale) {
+        document.body.style.justifyContent = 'flex-start';
+    } else {
+        document.body.style.justifyContent = 'center';
+    }
+}
+
+function toggleZoom() {
+    isZoomed = !isZoomed;
+    const btn = document.getElementById('zoomBtn');
+    btn.innerText = isZoomed ? "全" : "🔎";
+    scaleSheet();
+    if (isZoomed) {
+        window.scrollTo(0, 0);
+    }
 }
 
 window.addEventListener('resize', scaleSheet);
