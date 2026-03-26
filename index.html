@@ -48,7 +48,7 @@
             height: 297mm;
             background-color: var(--bg-white);
             box-sizing: border-box;
-            padding: 18mm 13mm 10mm; /* Moved down: was 8mm */
+            padding: 14mm 13mm 5mm; /* Vertical space optimized */
             position: relative;
             overflow: hidden;
             display: flex;
@@ -76,15 +76,15 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 3.5px solid var(--primary-color);
-            padding: 2mm 5mm;
-            margin-bottom: 3.5mm;
+            padding: 1.5mm 5mm;
+            margin-bottom: 2mm;
             z-index: 10;
             background-color: var(--primary-color);
             border-radius: 1mm;
         }
 
         header .team-name {
-            font-size: 16pt;
+            font-size: 15pt;
             font-weight: 700;
             color: #000;
         }
@@ -96,13 +96,13 @@
         }
 
         .group-name {
-            font-size: 24pt;
+            font-size: 22pt;
             font-weight: 900;
             color: #000;
         }
 
         .header-sns a {
-            font-size: 20pt;
+            font-size: 18pt;
             text-decoration: none;
             color: #000;
             margin-left: 2mm;
@@ -118,82 +118,77 @@
         .song-list {
             display: flex;
             flex-direction: column;
-            gap: 1mm;
+            gap: 0.2mm; /* Tightened */
         }
 
         .category-header {
             background-color: var(--category-bg);
             color: var(--category-text);
-            padding: 1mm 4mm;
+            padding: 0.8mm 3mm;
             font-weight: 900;
-            font-size: 11.5pt;
-            margin-top: 1.5mm;
-            margin-bottom: 1.5mm;
+            font-size: 10.5pt;
+            margin-top: 1.2mm;
+            margin-bottom: 1.2mm;
             border-radius: 1mm;
             display: inline-block;
         }
 
         .song-item {
             display: grid;
-            grid-template-columns: 25mm 32mm 1fr;
+            grid-template-columns: 20mm 24mm 1fr; /* Narrower columns for left-shift */
             align-items: baseline;
             border-bottom: 1px solid #eee;
-            padding-bottom: 0.5mm;
-            gap: 2mm;
+            padding-bottom: 0.3mm;
+            gap: 1.5mm;
         }
 
         .song-num {
             background-color: var(--primary-color);
             color: #000;
             width: fit-content;
-            min-width: 8mm;
-            padding: 0 1.5mm;
-            height: 6mm;
+            min-width: 7mm;
+            padding: 0 1mm;
+            height: 5.5mm;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: 900;
-            font-size: 10pt;
+            font-size: 9.5pt;
             border-radius: 0.8mm;
         }
         
         .song-num.generic {
             background-color: #444;
             color: #fff;
-            font-size: 7.5pt;
-            min-width: 23mm;
+            font-size: 7.2pt;
+            min-width: 18mm;
         }
 
-        /* .song-info is now just a container for name and lyrics if needed, 
-           but we'll place name and lyrics directly in the grid for easier alignment if possible.
-           Actually, let's keep the HTML structure but adjust the song-info to be a grid or subgrid.
-        */
         .song-info {
-            display: contents; /* Makes children participate in the parent grid directly! */
+            display: contents; 
         }
 
         .song-name {
-            font-size: 11pt;
+            font-size: 10.5pt;
             font-weight: 900;
             white-space: nowrap;
         }
 
         .song-lyrics {
-            font-size: 9.4pt;
-            line-height: 1.25;
+            font-size: 9.3pt;
+            line-height: 1.2;
             color: #000;
         }
 
-        /* チャンステーマ セクション */
         .chance-theme-container {
-            margin-top: 5mm;
+            margin-top: 3mm; /* Tightened */
             position: relative;
         }
 
         .chance-header-wrapper {
             display: flex;
             align-items: center;
-            margin-bottom: -1px; /* Overlap with grid border */
+            margin-bottom: -1px;
             z-index: 10;
         }
 
@@ -201,33 +196,32 @@
             background-color: #fff;
             border: 2px solid var(--primary-color);
             border-bottom: none;
-            padding: 1mm 4mm;
-            font-size: 11.5pt;
+            padding: 0.8mm 3.5mm;
+            font-size: 11pt;
             font-weight: 900;
-            border-radius: 2mm 2mm 0 0;
+            border-radius: 1.5mm 1.5mm 0 0;
         }
 
-        /* L字レイアウトのより堅牢な実装 */
         .chance-layout-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 0; /* Align perfectly */
+            gap: 0;
         }
 
         .chance-col {
             border: 2px solid var(--primary-color);
-            padding: 3mm;
+            padding: 2mm; /* Tightened */
             display: flex;
             flex-direction: column;
-            gap: 2.5mm;
-            margin-right: -2px; /* Prevent double borders */
+            gap: 2mm;
+            margin-right: -2px; 
+            background-color: #fff;
         }
 
         .chance-col:last-child {
             margin-right: 0;
         }
 
-        /* L字の形状: 4列目は1段目だけ */
         .chance-col.full-col {
             grid-row: span 2;
         }
@@ -238,69 +232,80 @@
         }
 
         .chance-item {
-            font-size: 8.2pt;
+            font-size: 8pt;
             border: 1px solid #eee;
-            padding: 1.5mm;
+            padding: 1.2mm;
             border-radius: 1mm;
-            line-height: 1.25;
-            background-color: #fff;
+            line-height: 1.2;
         }
 
         .chance-name {
             font-weight: 900;
             color: #000;
             border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 1.2mm;
+            margin-bottom: 0.8mm;
             display: block;
-            font-size: 8.8pt;
+            font-size: 8.5pt;
         }
 
         .chance-lyrics-full {
             white-space: pre-wrap;
         }
 
-        /* 募集ボックス (黄色背景) */
+        /* 募集ボックス (横型・黄色背景) */
         .recruitment-box {
             grid-column: 4;
             grid-row: 2;
             background-color: var(--primary-color);
             border: 2px solid #000;
             border-radius: 2mm;
-            padding: 4mm;
+            padding: 3mm 4mm;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
+            flex-direction: row; /* Horizontal layout */
+            justify-content: space-between;
             align-items: center;
-            text-align: center;
-            gap: 2mm;
-            margin-top: 10px; /* Space from chance col above */
+            gap: 3mm;
+            margin-top: 5px; 
+            box-sizing: border-box;
+        }
+
+        .recruit-left {
+            flex: 1;
+            text-align: left;
         }
 
         .recruit-title {
-            font-size: 13pt;
+            font-size: 11.5pt;
             font-weight: 900;
             color: #000;
             border-bottom: 2px solid #000;
-            padding-bottom: 1mm;
-            margin-bottom: 1mm;
+            display: inline-block;
+            margin-bottom: 1.5mm;
         }
 
         .recruit-msg {
-            font-size: 8pt;
-            line-height: 1.4;
+            font-size: 7.3pt;
+            line-height: 1.3;
             color: #000;
             font-weight: 700;
+        }
+
+        .recruit-right {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .recruit-link {
             background-color: #000;
             color: var(--primary-color);
-            padding: 1.5mm 5mm;
+            padding: 2mm 4mm;
             border-radius: 4mm;
             text-decoration: none;
             font-weight: 900;
-            font-size: 10pt;
-            margin-top: 1mm;
+            font-size: 9.5pt;
+            white-space: nowrap;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
@@ -325,7 +330,7 @@
             </div>
         </header>
 
-        <main style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 10mm;">
+        <main style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm;">
             <div class="song-list">
                 <div class="category-header">投手</div>
                 <div class="song-item"><div class="song-num">10</div><div class="song-info"><span class="song-name">上沢 直之</span><span class="song-lyrics">♪ 我らが待ち望む 勝利を手にする為 多彩な持ち球を 繰り出せ上沢</span></div></div>
@@ -340,6 +345,8 @@
                 <div class="song-item"><div class="song-num">53</div><div class="song-info"><span class="song-name">大山 凌</span><span class="song-lyrics">♪ 魂込めて ボールを投げ込め 果敢に攻めて 勝利へ導け</span></div></div>
                 <div class="song-item"><div class="song-num">66</div><div class="song-info"><span class="song-name">松本 裕樹</span><span class="song-lyrics">♪ 胸元突き刺す 速い球みせ 決めろその球で 敵を討ち取れ</span></div></div>
                 <div class="song-item"><div class="song-num">120</div><div class="song-info"><span class="song-name">長谷川 威展</span><span class="song-lyrics">♪ 気迫溢れる その球で 行（ゆ）けよ威展 ひたむきに</span></div></div>
+                
+                <div class="category-header">投手汎用</div>
                 <div class="song-item"><div class="song-num generic">右投手汎用</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">♪ 恐れるな 立ち向かえ 気持ち見せろ 仲間を信じて</span></div></div>
                 <div class="song-item"><div class="song-num generic">左投手汎用</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">♪ 抑えるチャンス 物にするぞ この腕で 必ず掴むぞ</span></div></div>
                 
@@ -352,7 +359,7 @@
             <div class="song-list">
                 <div class="category-header">内野手</div>
                 <div class="song-item"><div class="song-num">0</div><div class="song-info"><span class="song-name">川瀬 晃</span><span class="song-lyrics">♪ 風の如く駆け抜け グラブ捌き魅せるぜ 快音を響かせ</span></div></div>
-                <div class="song-item"><div class="song-num">4</div><div class="song-info"><span class="song-name">ジーター・ダウンズ</span><span class="song-lyrics">♪ ラララ～ ジーター 君の出番だ オオオ～（オイ！）掴めVictory</span></div></div>
+                <div class="song-item"><div class="song-num">4</div><div class="song-info"><span class="song-name">ジーター</span><span class="song-lyrics">♪ ラララ～ ジーター 君の出番だ オオオ～（オイ！）掴めVictory</span></div></div>
                 <div class="song-item"><div class="song-num">6</div><div class="song-info"><span class="song-name">今宮 健太</span><span class="song-lyrics">♪ 生まれ持つセンス 風を切り走れ 空高く飛ばせ 柔らかなリストで</span></div></div>
                 <div class="song-item"><div class="song-num">8</div><div class="song-info"><span class="song-name">牧原 大成</span><span class="song-lyrics">♪ みなぎるそのエナジー 轟け地の果てまで 縦横無尽に駆け抜け</span></div></div>
                 <div class="song-item"><div class="song-num">24</div><div class="song-info"><span class="song-name">栗原 陵矢</span><span class="song-lyrics">♪ 輝く時だ 後世に語り継がれる 伝説を今から 作れよ栗原</span></div></div>
@@ -386,21 +393,20 @@
                         <div class="chance-lyrics-full">【導入】熱く燃えろ（選手名）×３
 ラーララ... ここで決めて勝つんだ 俺たちが勝利の使者に
 Let’s Go Let’s Go
-【本編】チャンス チャンス 今チャンス 拳を挙げ オイオイオイ
-チャンス今チャンス 燃やせ魂 オイオイオイ
+【本編】チャンス今チャンス 拳を挙げ オイオイオイ
 （選手名）決めろ 熱く燃えろ（選手名）</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">押忍！チャンス</span>
                         <div class="chance-lyrics-full">【導入】これからだー 1-2-3-4 よっしゃ行くぞ！
-【本編】行け行け... 撃て撃て...（選手名）オイオイオイ
-Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっしゃ行くぞ！</div>
+【本編】撃て撃て...（選手名）オイオイオイ
+Go Go Let’s Go! Let’s Go（選手名）</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">関東チャンス</span>
                         <div class="chance-lyrics-full">【前奏】オイオイオイ...（突き放せor勝ち越しor逆転）
-【本編】かっとばせ（選手名）（選手名） 一発狙えスタンドへ
-かせかせ（選手名） かせかせ（選手名） いざ行け （選手名）</div>
+【本編】かっとばせ（選手名）（選手名） 一発狙え
+かせかせ（選手名） かせかせ（選手名） いざ行け</div>
                     </div>
                 </div>
 
@@ -408,9 +414,9 @@ Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっし
                 <div class="chance-col full-col">
                     <div class="chance-item">
                         <span class="chance-name">北のチャンス</span>
-                        <div class="chance-lyrics-full">【前奏】野球場の中から がんばれと言っている 今ここでがんばれ！
-【本編】燃える闘志今見せてやれ （選手名）一振りで決めてやれ
-勝利決まれば お前の夜だ （選手名）（選手名）いまがんばれ！</div>
+                        <div class="chance-lyrics-full">野球場の中から がんばれと言っている 今ここでがんばれ！
+燃える闘志今見せてやれ （選手名）一振りで決めてやれ
+（選手名）（選手名）いまがんばれ！</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">鷹の道</span>
@@ -421,7 +427,7 @@ Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっし
                         <span class="chance-name">アッコちゃん</span>
                         <div class="chance-lyrics-full">オーオーオー そ～れ いけいけ ×2
 （選手名）～ 今こそ～ 戦え～
-さあ行こう 俺らならやれるさ 男なら行こうぜ （選手名）戦え</div>
+男なら行こうぜ （選手名）戦え</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">オオサカツンデレラ</span>
@@ -435,8 +441,8 @@ Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっし
                     <div class="chance-item">
                         <span class="chance-name">令和</span>
                         <div class="chance-lyrics-full">ウォイ！ウォイ！ウォイ！（選手名）
-今宵勝利の為に 俺ら叫び続ける 此処にいる仲間と共に
-ウォイ！ウォイ！ウォイ！（選手名）</div>
+今宵勝利の為に 俺ら叫び続ける
+仲間と共に ウォイ！ウォイ！ウォイ！（選手名）</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">藤本</span>
@@ -451,10 +457,9 @@ Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっし
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">鷹の爪</span>
-                        <div class="chance-lyrics-full">【前奏】勝利を掴みとれ （選手名）
-勝利に向かて突き進め 打ちまくれ
+                        <div class="chance-lyrics-full">勝利に向かって突き進め 打ちまくれ
 お前の力を見せてくれ それ行け （選手名）
-【男性】ここで決めろ！ 【女性】ここで決めろ！ （選手名）</div>
+【男性】ここで決めろ！ 【女性】ここで決めろ！</div>
                     </div>
                 </div>
 
@@ -463,9 +468,8 @@ Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっし
                     <div class="chance-item">
                         <span class="chance-name">G.F.V</span>
                         <div class="chance-lyrics-full">【導入】オイ × 2
-【本編】ラララーラーラーラー 熱いハートで突き進め
-ラララーラーラーラー 攻めまくれ 掴み取れ
-今日の勝利を オイ！オイ！オイ！</div>
+【本編】熱いハートで突き進め
+攻めまくれ 掴み取れ 今日の勝利を オイ！オイ！オイ！</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">勝利目指して</span>
@@ -477,13 +481,17 @@ Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっし
 
                 <!-- 募集ボックス -->
                 <div class="recruitment-box">
-                    <div class="recruit-title">団員大募集！</div>
-                    <div class="recruit-msg">
-                        ビジター球場でも一緒に<br>応援活動してくれる仲間を募集中！<br>
-                        音楽未経験者、老若男女問わず大歓迎！<br>
-                        一緒にスタンドを盛り上げましょう。
+                    <div class="recruit-left">
+                        <div class="recruit-title">団員大募集！</div>
+                        <div class="recruit-msg">
+                            ビジター球場でも一緒に応援活動してくれる仲間を募集中！<br>
+                            音楽未経験者、老若男女問わず大歓迎！<br>
+                            一緒にスタンドを盛り上げましょう。
+                        </div>
                     </div>
-                    <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募・詳細はこちらをクリック</a>
+                    <div class="recruit-right">
+                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募・詳細はこちら</a>
+                    </div>
                 </div>
             </div>
         </div>
