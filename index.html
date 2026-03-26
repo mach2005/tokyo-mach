@@ -45,7 +45,7 @@
 
         .sheet {
             width: 420mm;
-            height: 297mm;
+            height: 296mm; /* 1-page PDF fix: slightly shorter than A3 (297mm) */
             background-color: var(--bg-white);
             box-sizing: border-box;
             padding: 8mm;
@@ -296,18 +296,25 @@
         }
 
         .chance-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            display: flex;
             gap: 2mm;
+            justify-content: space-between;
             align-items: stretch;
+        }
+
+        .chance-category {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5mm;
         }
 
         .chance-item {
             font-size: 8pt;
             border: 1px solid #eee;
-            padding: 1.5mm;
+            padding: 1.2mm;
             border-radius: 1mm;
-            line-height: 1.25;
+            line-height: 1.2;
             display: flex;
             flex-direction: column;
         }
@@ -316,9 +323,9 @@
             font-weight: 900;
             color: #111;
             border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 1mm;
+            margin-bottom: 0.8mm;
             display: block;
-            font-size: 9pt;
+            font-size: 8.5pt;
         }
 
         .chance-lyrics-full {
@@ -386,10 +393,12 @@
             font-weight: 700;
         }
 
-        /* 印刷設定 */
+        /* 印刷設定: 1ページ・余白なし強制 */
         @media print {
-            body { background-color: white; }
-            .sheet { box-shadow: none; margin: 0; }
+            body { background-color: white; margin: 0 !important; padding: 0 !important; }
+            .container-wrapper { padding: 0 !important; margin: 0 !important; box-sizing: border-box; }
+            .sheet { box-shadow: none; margin: 0 auto; page-break-after: always; width: 420mm; height: 296mm; }
+            .zoom-controls { display: none !important; }
         }
     </style>
 </head>
@@ -462,99 +471,123 @@
             </div>
         </main>
 
-        <div class="chance-theme-container">
-            <h3>チャンステーマ・マルチテーマ</h3>
+        <div class="chance-theme-container" style="border: 2px solid var(--primary-color); padding: 2mm; border-radius: 2mm; margin-top: 2mm;">
+            <h3 style="margin-top: 0; margin-bottom: 2mm; background-color: var(--primary-color); color: #000; padding: 1mm 3mm; border-radius: 1mm; display: inline-block; font-size: 11pt;">チャンステーマ・マルチテーマ</h3>
             <div class="chance-grid">
-                <div class="chance-item">
-                    <span class="chance-name">アッチャン</span>
-                    <div class="chance-lyrics-full">【導入】熱く燃えろ（選手名）×３
+                <!-- カテゴリ1: 通常1 -->
+                <div class="chance-category">
+                    <div class="chance-item">
+                        <span class="chance-name">アッチャン</span>
+                        <div class="chance-lyrics-full">【導入】熱く燃えろ（選手名）×３
 ラーララララララー　ラーララララララー
-ここで決めて勝つんだ　そうだ俺達が
-勝利の使者になろう　Let’s Go Let’s Go
+勝機を掴むんだ 俺達が 勝利の使者になろう
 【本編】チャンス チャンス 今チャンス
 拳を挙げて オイオイオイ
 チャンス チャンス 今チャンス
 燃やせよ魂 オイオイオイ
 （選手名）決めろ　熱く燃えろ（選手名）</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">押忍！チャンス</span>
-                    <div class="chance-lyrics-full">【導入】これからだー ワン ツー スリー フォー
-オー よっしゃ行くぞ！
-【本編】行け行け行け行け　押せ押せ押せ押せ
-撃て撃て撃て撃て　撃て 撃て（選手名）
-行け 行け 押せ 押せ
-Go Go Let’s Go!　Let’s Go （選手名）
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">押忍！チャンス</span>
+                        <div class="chance-lyrics-full">【導入】これからだー ワン ツー スリー フォー
+【本編】行け行け行け行け 押せ押せ押せ押せ
+撃て撃て撃て撃て 撃て 撃て（選手名）
+オイオイオイオイ オイ オイ（選手名）
+Go Go Let’s Go! Let’s Go（選手名）
 行～け 押～せ オー よっしゃ行くぞ！</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">関東チャンス</span>
-                    <div class="chance-lyrics-full">【前奏】オイオイオイ　オイオイオイ
-突き放せor勝ち越しだor逆転だ
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">関東チャンス</span>
+                        <div class="chance-lyrics-full">【前奏】オイオイオイ　オイオイオイ
 【本編】かっとばせ（選手名） （選手名） ここで一発
 かっとばせ（選手名） 狙えスタンドへ
 かせかせ（選手名） かせかせ（選手名）
 いざ行け （選手名）</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">北のチャンス</span>
-                    <div class="chance-lyrics-full">【前奏】野球場の中から　がんばれって言っている
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">北のチャンス</span>
+                        <div class="chance-lyrics-full">【前奏】野球場の中から　がんばれって言っている
 激しく熱く　今ここで がんばれ！
 【本編】燃える闘志今見せてやれ
 （選手名）一振りで決めてやれ
-勝利　決まれば　お前の夜だ
-（選手名）（選手名）　いまここで がんばれ！</div>
+勝利 決まれば お前の夜だ
+（選手名）（選手名）いまここで がんばれ！</div>
+                    </div>
                 </div>
-                <div class="chance-item">
-                    <span class="chance-name">鷹の道</span>
-                    <div class="chance-lyrics-full">行けよ男たち チャンスだ燃え上がれ
+
+                <!-- カテゴリ2: 通常2 -->
+                <div class="chance-category">
+                    <div class="chance-item">
+                        <span class="chance-name">鷹の道</span>
+                        <div class="chance-lyrics-full">行けよ男たち チャンスだ燃え上がれ
 俊足巧打で突き進め それが鷹の道</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">アッコちゃん</span>
-                    <div class="chance-lyrics-full">オーオーオー そ～れ いけいけ
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">アッコちゃん</span>
+                        <div class="chance-lyrics-full">オーオーオー そ～れ いけいけ ×2
 （選手名） 今こそ 戦え
-さあ行こう　俺らならやれるさ
-熱くなれ　男なら行こうぜ
-（選手名） 今こそ　戦え</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">オオサカツンデレラ</span>
-                    <div class="chance-lyrics-full">ラララララララララー
+さあ行こう 俺らならやれるさ
+熱くなれ 男なら行こうぜ
+（選手名） 今こそ 戦え</div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">オオサカツンデレラ</span>
+                        <div class="chance-lyrics-full">ラララララララララー
 （選手名）（選手名）（選手名）
 （選手名）ラララー</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">令和</span>
-                    <div class="chance-lyrics-full">今宵勝利の為に 俺ら叫び続ける
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">令和</span>
+                        <div class="chance-lyrics-full">今宵勝利の為に 俺ら叫び続ける
 争覇期する時まで 此処にいる仲間と共に
 ウォイ！ウォイ！ウォイ！（選手名）</div>
+                    </div>
                 </div>
-                <div class="chance-item">
-                    <span class="chance-name">藤本・若井</span>
-                    <div class="chance-lyrics-full">【藤本】わっしょいわっしょい 行け！打て！ （選手名） 熱くなれ！
-【若井】燃えろ燃えろ （選手名） かっ飛ばせ （選手名）
-チャンスに強いガッツマン 我らの （選手名）</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">令和・鷹の爪</span>
-                    <div class="chance-lyrics-full">【前奏】勝利を掴みとれ （選手名）
-【本編】勝利に向かって突き進め 打ちまくれ 打ちまくれ
-お前の力を見せてくれ それ行け （選手名）
+
+                <!-- カテゴリ3: 選手用 -->
+                <div class="chance-category">
+                    <div class="chance-item">
+                        <span class="chance-name">藤本</span>
+                        <div class="chance-lyrics-full">わっしょいわっしょい 行け！打て！
+（選手名） 熱くなれ！
+チャンスに強いガッツマン
+我らの （選手名）</div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">若井</span>
+                        <div class="chance-lyrics-full">燃えろ燃えろ （選手名）
+かっ飛ばせ （選手名）
+チャンスに強いガッツマン
+我らの （選手名）</div>
+                    </div>
+                    <div class="chance-item" style="flex-grow: 1;">
+                        <span class="chance-name">鷹の爪</span>
+                        <div class="chance-lyrics-full">【前奏】勝利を掴みとれ （選手名）
+【本編】勝利に向かって突き進め
+打ちまくれ 打ちまくれ
+お前の力を見せてくれ
+それ行け （選手名）
 【コール】ここで決めろ！ （選手名）</div>
+                    </div>
                 </div>
-                <div class="chance-item">
-                    <span class="chance-name">マルチ：G.F.V</span>
-                    <div class="chance-lyrics-full">【導入】オイ × 2
+
+                <!-- カテゴリ4: マルチ -->
+                <div class="chance-category">
+                    <div class="chance-item">
+                        <span class="chance-name">G.F.V</span>
+                        <div class="chance-lyrics-full">【導入】オイ × 2
 【本編】ラララー 突き進め ラーラーラー 攻めまくれ
-掴み取れ 今日の勝利を オイ！オイ！オイ！</div>
-                </div>
-                <div class="chance-item">
-                    <span class="chance-name">勝利目指して</span>
-                    <div class="chance-lyrics-full">オーーオーオオーオオーー
+掴み取れ 今日の勝利を
+オイ！オイ！オイ！
+【後奏】ラララー 攻めまくれ 掴み取れ 今日も（オイ！）</div>
+                    </div>
+                    <div class="chance-item" style="flex-grow: 1;">
+                        <span class="chance-name">勝利目指して</span>
+                        <div class="chance-lyrics-full">オーーオーオオーオオーー
 勝利目指して オイ！オイ！オイ！オイ！
 いざゆけ ホークス！ホークス！
 絶対勝つぞ！ホークス！</div>
+                    </div>
                 </div>
             </div>
         </div>
