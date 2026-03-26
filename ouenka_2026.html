@@ -202,18 +202,7 @@
         }
 
         .song-name.generic {
-            background-color: #444;
-            color: #fff;
-            font-size: 8pt;
-            padding: 0 1.5mm;
-            height: 5.5mm;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.8mm;
-            width: fit-content;
-            min-width: 19mm;
-            font-weight: 700;
+            display: none; /* No longer using the spanning gray box style */
         }
 
         .song-info {
@@ -372,14 +361,50 @@
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
         }
 
-        .sns-tile.web {
-            background-color: #ffd54f; /* More vibrant yellow as requested */
+        .sns-tile:hover {
+            transform: scale(1.05);
+        }
+
+        /* Webタイルを2段に分割 */
+        .sns-tile.web-container {
+            background: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1mm;
+            border: none;
+        }
+
+        .sns-sub-tile {
+            flex: 1;
+            width: 100%;
+            border-radius: 1mm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.2s;
+            padding: 0.3mm;
+            box-sizing: border-box;
+            background-color: #ffd54f;
             color: #000;
             border: 1px solid #ffb300;
         }
 
-        .sns-tile:hover {
-            transform: scale(1.05);
+        .sns-sub-tile:hover {
+            transform: translateY(-0.3mm);
+            box-shadow: 0 0.5mm 1mm rgba(0,0,0,0.2);
+            filter: brightness(1.1);
+        }
+
+        .sns-sub-tile i {
+            font-size: 9pt;
+            margin-bottom: 0.1mm;
+        }
+
+        .sns-sub-tile .sns-label {
+            font-size: 7.5pt;
         }
 
         .sns-tile i {
@@ -565,12 +590,12 @@
 
                     <div class="category-header">投手汎用</div>
                     <div class="song-item">
-                        <div class="song-num"></div>
-                        <div class="song-info"><span class="song-name generic">右投手汎用</span><span class="song-lyrics">恐れるな　立ち向かえ　気持ち見せろ　仲間を　信じて　全て賭け闘え</span></div>
+                        <div class="song-num">汎用</div>
+                        <div class="song-info"><span class="song-name">右投手</span><span class="song-lyrics">恐れるな　立ち向かえ　気持ち見せろ　仲間を　信じて　全て賭け闘え</span></div>
                     </div>
                     <div class="song-item">
-                        <div class="song-num"></div>
-                        <div class="song-info"><span class="song-name generic">左投手汎用</span><span class="song-lyrics">抑えるチャンス　物にするぞ　この腕で　必ず掴むぞ</span></div>
+                        <div class="song-num">汎用</div>
+                        <div class="song-info"><span class="song-name">左投手</span><span class="song-lyrics">抑えるチャンス　物にするぞ　この腕で　必ず掴むぞ</span></div>
                     </div>
 
                     <div class="category-header">捕手</div>
@@ -651,12 +676,12 @@
 
                     <div class="category-header">打者汎用</div>
                     <div class="song-item">
-                        <div class="song-num"></div>
-                        <div class="song-info"><span class="song-name generic">右打者汎用</span><span class="song-lyrics">待ちわびた場所で　真の力を解け　限界超えるその日まで　夢の道繋げろ</span></div>
+                        <div class="song-num">汎用</div>
+                        <div class="song-info"><span class="song-name">右打者</span><span class="song-lyrics">待ちわびた場所で　真の力を解け　限界超えるその日まで　夢の道繋げろ</span></div>
                     </div>
                     <div class="song-item">
-                        <div class="song-num"></div>
-                        <div class="song-info"><span class="song-name generic">左打者汎用</span><span class="song-lyrics">今舞台が出来たぞ　お前が輝く　最高の瞬間　羽ばたけ</span></div>
+                        <div class="song-num">汎用</div>
+                        <div class="song-info"><span class="song-name">左打者</span><span class="song-lyrics">今舞台が出来たぞ　お前が輝く　最高の瞬間　羽ばたけ</span></div>
                     </div>
                 </div>
             </main>
@@ -813,10 +838,17 @@
                                 <span class="sns-label">Instagram</span>
                                 <span class="sns-id">@tokyo_mach</span>
                             </a>
-                            <a href="https://steady-semolina-dca548.netlify.app/" target="_blank" class="sns-tile web">
-                                <i class="fa-regular fa-file-lines"></i>
-                                <span class="sns-label">スマホの方は<br>こちらから</span>
-                            </a>
+                            <div class="sns-tile web-container">
+                                <a href="https://steady-semolina-dca548.netlify.app/" target="_blank"
+                                    class="sns-sub-tile">
+                                    <i class="fa-solid fa-mobile-screen-button"></i>
+                                    <span class="sns-label">スマホの方は<br>こちらから</span>
+                                </a>
+                                <a href="javascript:void(0)" target="_blank" class="sns-sub-tile">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                    <span class="sns-label">印刷PDFは<br>こちらから</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
