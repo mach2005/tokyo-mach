@@ -48,7 +48,7 @@
             height: 297mm;
             background-color: var(--bg-white);
             box-sizing: border-box;
-            padding: 14mm 13mm 5mm; /* Vertical space optimized */
+            padding: 10mm 12mm 3mm; /* Optimized to avoid bottom cutoff */
             position: relative;
             overflow: hidden;
             display: flex;
@@ -75,7 +75,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 3.5px solid var(--primary-color);
+            border-bottom: 4px solid #000;
             padding: 1.5mm 5mm;
             margin-bottom: 2mm;
             z-index: 10;
@@ -84,15 +84,15 @@
         }
 
         header .team-name {
-            font-size: 15pt;
-            font-weight: 700;
+            font-size: 21pt; /* Scaled up to fit bar */
+            font-weight: 900;
             color: #000;
         }
 
         header .header-right {
             display: flex;
             align-items: center;
-            gap: 5mm;
+            gap: 6mm;
         }
 
         .group-name {
@@ -101,24 +101,42 @@
             color: #000;
         }
 
-        .header-sns a {
-            font-size: 18pt;
-            text-decoration: none;
-            color: #000;
-            margin-left: 2mm;
+        .header-sns {
+            display: flex;
+            gap: 3mm;
+            align-items: center;
         }
 
-        .header-sns a.ig-link {
-            background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+        .header-sns a {
+            font-size: 22pt;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .ig-link i {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
+        }
+        
+        .x-link i {
+            color: #000;
+        }
+
+        .header-apply-btn {
+            background: #000;
+            color: var(--primary-color);
+            padding: 2mm 6mm;
+            border-radius: 2mm;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 13pt;
         }
 
         .song-list {
             display: flex;
             flex-direction: column;
-            gap: 0.2mm; /* Tightened */
+            gap: 0; 
         }
 
         .category-header {
@@ -127,18 +145,18 @@
             padding: 0.8mm 3mm;
             font-weight: 900;
             font-size: 10.5pt;
-            margin-top: 1.2mm;
-            margin-bottom: 1.2mm;
+            margin-top: 1mm;
+            margin-bottom: 1mm;
             border-radius: 1mm;
             display: inline-block;
         }
 
         .song-item {
             display: grid;
-            grid-template-columns: 20mm 24mm 1fr; /* Narrower columns for left-shift */
+            grid-template-columns: 20mm 24mm 1fr;
             align-items: baseline;
             border-bottom: 1px solid #eee;
-            padding-bottom: 0.3mm;
+            padding-bottom: 0.15mm;
             gap: 1.5mm;
         }
 
@@ -181,7 +199,7 @@
         }
 
         .chance-theme-container {
-            margin-top: 3mm; /* Tightened */
+            margin-top: 2.5mm;
             position: relative;
         }
 
@@ -210,10 +228,10 @@
 
         .chance-col {
             border: 2px solid var(--primary-color);
-            padding: 2mm; /* Tightened */
+            padding: 1.8mm;
             display: flex;
             flex-direction: column;
-            gap: 2mm;
+            gap: 1.5mm;
             margin-right: -2px; 
             background-color: #fff;
         }
@@ -232,18 +250,18 @@
         }
 
         .chance-item {
-            font-size: 8pt;
+            font-size: 7.8pt;
             border: 1px solid #eee;
             padding: 1.2mm;
-            border-radius: 1mm;
-            line-height: 1.2;
+            border-radius: 1.2mm;
+            line-height: 1.25;
         }
 
         .chance-name {
             font-weight: 900;
             color: #000;
             border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 0.8mm;
+            margin-bottom: 1.2mm;
             display: block;
             font-size: 8.5pt;
         }
@@ -259,14 +277,15 @@
             background-color: var(--primary-color);
             border: 2px solid #000;
             border-radius: 2mm;
-            padding: 3mm 4mm;
+            padding: 2.5mm 4mm;
             display: flex;
-            flex-direction: row; /* Horizontal layout */
+            flex-direction: row; 
             justify-content: space-between;
             align-items: center;
             gap: 3mm;
-            margin-top: 5px; 
+            margin-top: 4px; 
             box-sizing: border-box;
+            box-shadow: 0 1mm 3mm rgba(0,0,0,0.1);
         }
 
         .recruit-left {
@@ -275,7 +294,7 @@
         }
 
         .recruit-title {
-            font-size: 11.5pt;
+            font-size: 11pt;
             font-weight: 900;
             color: #000;
             border-bottom: 2px solid #000;
@@ -284,28 +303,36 @@
         }
 
         .recruit-msg {
-            font-size: 7.3pt;
-            line-height: 1.3;
+            font-size: 7.2pt;
+            line-height: 1.25;
             color: #000;
             font-weight: 700;
         }
 
         .recruit-right {
             display: flex;
-            flex-direction: column;
+            justify-content: flex-end;
             align-items: center;
         }
 
+        /* Square Button */
         .recruit-link {
             background-color: #000;
             color: var(--primary-color);
-            padding: 2mm 4mm;
-            border-radius: 4mm;
+            width: 20mm;
+            height: 20mm;
+            border-radius: 2mm;
             text-decoration: none;
             font-weight: 900;
-            font-size: 9.5pt;
-            white-space: nowrap;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-size: 10pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2mm;
+            box-sizing: border-box;
+            box-shadow: 0 1mm 2mm rgba(0,0,0,0.3);
+            line-height: 1.2;
         }
 
         .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
@@ -323,10 +350,10 @@
             <div class="header-right">
                 <span class="group-name">東京真隼</span>
                 <div class="header-sns">
-                    <a href="https://x.com/tokyo_mach" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/tokyo_mach/" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://x.com/tokyo_mach" target="_blank" class="x-link"><i class="fa-brands fa-square-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="ig-link"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-                <a href="https://t.co/NuiNCqluh0" target="_blank" style="background: #000; color: var(--primary-color); padding: 1mm 5mm; border-radius: 3mm; text-decoration: none; font-weight: 900; font-size: 12pt; margin-left: 4mm;">応募</a>
+                <a href="https://t.co/NuiNCqluh0" target="_blank" class="header-apply-btn">応募</a>
             </div>
         </header>
 
@@ -376,7 +403,7 @@
                 <div class="song-item"><div class="song-num">57</div><div class="song-info"><span class="song-name">緒方 理貢</span><span class="song-lyrics">♪ 夢追いかけ 打て魂乗せ 行（い）けダイヤモンド駆け抜け</span></div></div>
 
                 <div class="category-header">打者汎用</div>
-                <div class="song-item"><div class="song-num generic">右打者汎用</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">♪ 待ちわびた場所で 真の力を解け 限界超える日まで</span></div></div>
+                <div class="song-item"><div class="song-num generic">右打者汎用</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">♪ 待ちわびた場所で 真の力を解け 限界超える その日まで</span></div></div>
                 <div class="song-item"><div class="song-num generic">左打者汎用</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">♪ 今舞台が出来たぞ お前が輝く 最高の瞬間 羽ばたけ</span></div></div>
             </div>
         </main>
@@ -390,22 +417,22 @@
                 <div class="chance-col full-col">
                     <div class="chance-item">
                         <span class="chance-name">アッチャン</span>
-                        <div class="chance-lyrics-full">【導入】熱く燃えろ（選手名）×３
+                        <div class="chance-lyrics-full"><br>【導入】熱く燃えろ（選手名）×３
 ラーララ... ここで決めて勝つんだ 俺たちが勝利の使者に
 Let’s Go Let’s Go
-【本編】チャンス今チャンス 拳を挙げ オイオイオイ
+<br>【本編】チャンス今チャンス 拳を挙げ オイオイオイ
 （選手名）決めろ 熱く燃えろ（選手名）</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">押忍！チャンス</span>
-                        <div class="chance-lyrics-full">【導入】これからだー 1-2-3-4 よっしゃ行くぞ！
-【本編】撃て撃て...（選手名）オイオイオイ
+                        <div class="chance-lyrics-full"><br>【導入】これからだー 1-2-3-4 よっしゃ行くぞ！
+<br>【本編】撃て撃て...（選手名）オイオイオイ
 Go Go Let’s Go! Let’s Go（選手名）</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">関東チャンス</span>
-                        <div class="chance-lyrics-full">【前奏】オイオイオイ...（突き放せor勝ち越しor逆転）
-【本編】かっとばせ（選手名）（選手名） 一発狙え
+                        <div class="chance-lyrics-full"><br>【前奏】オイオイオイ...（突き放せor勝ち越しor逆転）
+<br>【本編】かっとばせ（選手名）（選手名） 一発狙え
 かせかせ（選手名） かせかせ（選手名） いざ行け</div>
                     </div>
                 </div>
@@ -457,9 +484,9 @@ Go Go Let’s Go! Let’s Go（選手名）</div>
                     </div>
                     <div class="chance-item">
                         <span class="chance-name">鷹の爪</span>
-                        <div class="chance-lyrics-full">勝利に向かって突き進め 打ちまくれ
+                        <div class="chance-lyrics-full"><br>【前奏】勝利に向かって突き進め 打ちまくれ
 お前の力を見せてくれ それ行け （選手名）
-【男性】ここで決めろ！ 【女性】ここで決めろ！</div>
+<br>【男性】ここで決めろ！ <br>【女性】ここで決めろ！</div>
                     </div>
                 </div>
 
@@ -467,8 +494,8 @@ Go Go Let’s Go! Let’s Go（選手名）</div>
                 <div class="chance-col short-col">
                     <div class="chance-item">
                         <span class="chance-name">G.F.V</span>
-                        <div class="chance-lyrics-full">【導入】オイ × 2
-【本編】熱いハートで突き進め
+                        <div class="chance-lyrics-full"><br>【導入】オイ × 2
+<br>【本編】熱いハートで突き進め
 攻めまくれ 掴み取れ 今日の勝利を オイ！オイ！オイ！</div>
                     </div>
                     <div class="chance-item">
@@ -482,7 +509,7 @@ Go Go Let’s Go! Let’s Go（選手名）</div>
                 <!-- 募集ボックス -->
                 <div class="recruitment-box">
                     <div class="recruit-left">
-                        <div class="recruit-title">団員大募集！</div>
+                        <div class="recruit-title">東京真隼応援団員大募集！</div>
                         <div class="recruit-msg">
                             ビジター球場でも一緒に応援活動してくれる仲間を募集中！<br>
                             音楽未経験者、老若男女問わず大歓迎！<br>
@@ -490,7 +517,7 @@ Go Go Let’s Go! Let’s Go（選手名）</div>
                         </div>
                     </div>
                     <div class="recruit-right">
-                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募・詳細はこちら</a>
+                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募・詳細<br>はこちら</a>
                     </div>
                 </div>
             </div>
