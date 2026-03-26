@@ -229,14 +229,31 @@
             z-index: 10;
         }
 
-        .chance-header {
-            background-color: #fff;
-            border: 2px solid var(--primary-color);
-            border-bottom: none;
-            padding: 0.5mm 3mm;
-            font-size: 10pt;
+        .chance-theme-headers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr) 25%;
+            gap: 2mm;
+            margin-bottom: 0.5mm;
+        }
+
+        .chance-title-box {
+            background: linear-gradient(90deg, #000 0%, #333 100%);
+            color: var(--primary-color);
+            padding: 1mm 4mm;
+            font-size: 11pt;
             font-weight: 900;
-            border-radius: 1.5mm 1.5mm 0 0;
+            border-radius: 1mm;
+            text-align: center;
+            letter-spacing: 1mm;
+        }
+
+        .chance-title-box.chan {
+            grid-column: span 3;
+        }
+
+        .chance-title-box.multi {
+            grid-column: span 1;
+            background: linear-gradient(90deg, #333 0%, #000 100%);
         }
 
         .chance-layout-grid {
@@ -296,34 +313,58 @@
             background-color: var(--primary-color);
             border: 2px solid #000;
             border-radius: 2mm;
-            padding: 2.5mm 4mm;
+            padding: 2mm 3.5mm;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             align-items: center;
-            gap: 3mm;
+            gap: 4mm;
             margin-top: 4px;
             box-sizing: border-box;
             box-shadow: 0 1mm 3mm rgba(0, 0, 0, 0.1);
         }
 
-        .recruit-left {
+        .recruit-sns {
+            display: flex;
+            gap: 3mm;
+        }
+
+        .sns-btn {
+            background-color: #000;
+            color: var(--primary-color);
+            width: 14mm;
+            height: 14mm;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 20pt;
+            transition: transform 0.2s;
+        }
+
+        .sns-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .recruit-main {
             flex: 1;
             text-align: left;
         }
 
         .recruit-title {
-            font-size: 11pt;
+            font-size: 14pt;
             font-weight: 900;
             color: #000;
             border-bottom: 2px solid #000;
             display: inline-block;
-            margin-bottom: 1.5mm;
+            margin-bottom: 1mm;
+            padding-bottom: 0.5mm;
         }
 
         .recruit-msg {
-            font-size: 7.2pt;
-            line-height: 1.25;
+            font-size: 8pt;
+            line-height: 1.3;
             color: #000;
             font-weight: 700;
         }
@@ -338,20 +379,18 @@
         .recruit-link {
             background-color: #000;
             color: var(--primary-color);
-            width: 18mm;
-            height: 18mm;
+            width: 22mm;
+            height: 14mm;
             border-radius: 2mm;
             text-decoration: none;
             font-weight: 900;
-            font-size: 10pt;
+            font-size: 9pt;
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 2mm;
-            box-sizing: border-box;
-            box-shadow: 0 1mm 2mm rgba(0, 0, 0, 0.3);
-            line-height: 1.2;
+            line-height: 1.1;
+            box-shadow: 0 1mm 2mm rgba(0,0,0,0.3);
         }
 
         .zoom-controls {
@@ -548,10 +587,11 @@
             </main>
 
             <div class="chance-theme-container">
-                <div class="chance-header-wrapper">
-                    <div class="chance-header">チャンステーマ・マルチテーマ</div>
-                </div>
-                <div class="chance-layout-grid">
+            <div class="chance-theme-headers">
+                <div class="chance-title-box chan">チャンステーマ</div>
+                <div class="chance-title-box multi">マルチテーマ</div>
+            </div>
+            <div class="chance-layout-grid">
                     <!-- 列1 -->
                     <div class="chance-col full-col">
                         <div class="chance-item">
@@ -687,16 +727,19 @@
 
                     <!-- 募集ボックス -->
                     <div class="recruitment-box">
-                        <div class="recruit-left">
+                        <div class="recruit-sns">
+                            <a href="https://x.com/tokyo_mach" target="_blank" class="sns-btn"><i class="fa-brands fa-square-x-twitter"></i></a>
+                            <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="sns-btn"><i class="fa-brands fa-instagram"></i></a>
+                        </div>
+                        <div class="recruit-main">
                             <div class="recruit-title">東京真隼応援団員大募集！</div>
                             <div class="recruit-msg">
                                 ビジター球場でも一緒に応援活動してくれる仲間を募集中！<br>
-                                音楽未経験者、老若男女問わず大歓迎！<br>
-                                一緒にスタンドを盛り上げましょう。
+                                音楽未経験者、老若男女問わず大歓迎！ 一緒にスタンドを盛り上げましょう。
                             </div>
                         </div>
                         <div class="recruit-right">
-                            <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募・詳細はこちら</a>
+                            <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募<br>詳細<br>はこちら</a>
                         </div>
                     </div>
                 </div>
