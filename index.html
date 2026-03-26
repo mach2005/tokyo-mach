@@ -45,75 +45,30 @@
 
         .sheet {
             width: 420mm;
-            height: 296mm; /* 1-page PDF fix: slightly shorter than A3 (297mm) */
+            height: 297mm;
             background-color: var(--bg-white);
             box-sizing: border-box;
-            padding: 8mm;
+            padding: 8mm 12mm;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            /* 固定レイアウトのためのスケール処理 */
             transform-origin: top center;
         }
 
-        /* モバイル等での表示調整（JSが動かない場合の予備） */
-        @media screen and (max-width: 420mm) {
-            .sheet {
-                /* JSによるスケーリングを優先するため、ここでは基本サイズを維持 */
-                transform-origin: top center;
+        @media print {
+            body { background: none; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+            .container-wrapper { padding: 0 !important; margin: 0 !important; }
+            .sheet { 
+                box-shadow: none; 
+                margin: 0; 
+                width: 420mm; 
+                height: 297mm; 
+                transform: none !important; 
+                page-break-after: always;
             }
-        }
-
-        /* ズームボタンのスタイル */
-        .zoom-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .zoom-btn {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 14pt;
-            font-weight: 900;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            cursor: pointer;
-            border: 2px solid var(--primary-color);
-            user-select: none;
-        }
-
-        .zoom-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* スマホでのスクロール補助 */
-        @media screen and (max-width: 768px) {
-            body {
-                align-items: flex-start;
-                display: block; /* 中央寄せを解除してスクロールしやすくする */
-            }
-            .container-wrapper {
-                padding: 10px;
-                display: block;
-                width: fit-content;
-            }
-        }
-
-        /* 水印ロゴ削除 */
-        .watermark {
-            display: none;
+            .zoom-controls { display: none !important; }
         }
 
         header {
@@ -122,15 +77,10 @@
             align-items: center;
             border-bottom: 3px solid var(--primary-color);
             padding: 1.5mm 5mm;
-            margin-bottom: 4mm;
-            z-index: 1;
+            margin-bottom: 2mm;
+            z-index: 10;
             background-color: var(--primary-color);
             border-radius: 1mm;
-        }
-
-        header .header-left {
-            display: flex;
-            align-items: center;
         }
 
         header .team-name {
@@ -149,25 +99,13 @@
             font-size: 22pt;
             font-weight: 900;
             color: #000;
-            margin-right: 2mm;
-        }
-
-        .header-sns {
-            display: flex;
-            gap: 3mm;
-            align-items: center;
         }
 
         .header-sns a {
             font-size: 18pt;
             text-decoration: none;
-            transition: transform 0.2s;
-            display: flex;
-            align-items: center;
-        }
-
-        .header-sns a.x-link {
             color: #000;
+            margin-left: 2mm;
         }
 
         .header-sns a.ig-link {
@@ -177,26 +115,10 @@
             background-clip: text;
         }
 
-        .header-sns a:hover {
-            transform: scale(1.1);
-        }
-
-        .apply-btn-header {
-            background-color: #000;
-            color: var(--primary-color);
-            padding: 1.5mm 5mm;
-            border-radius: 4mm;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 13pt;
-            transition: opacity 0.2s;
-            white-space: nowrap;
-        }
-
         .song-list {
             display: flex;
             flex-direction: column;
-            gap: 1mm;
+            gap: 0.8mm;
         }
 
         .category-header {
@@ -204,37 +126,39 @@
             color: var(--category-text);
             padding: 1mm 3mm;
             font-weight: 900;
-            font-size: 12pt;
-            margin-bottom: 2mm;
+            font-size: 11pt;
+            margin-top: 1mm;
+            margin-bottom: 1.5mm;
             border-radius: 1mm;
             display: inline-block;
         }
 
         .song-item {
             display: flex;
-            align-items: flex-start;
+            align-items: baseline;
             border-bottom: 1px solid #eee;
-            padding-bottom: 0.5mm;
+            padding-bottom: 0.3mm;
         }
 
         .song-num {
             background-color: var(--primary-color);
-            color: var(--bg-white);
+            color: #000;
             min-width: 6mm;
-            height: 6mm;
+            height: 5.5mm;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: 700;
-            font-size: 11pt;
+            font-weight: 900;
+            font-size: 10pt;
             margin-right: 2mm;
-            border-radius: 1mm;
+            border-radius: 0.8mm;
         }
         
         .song-num.generic {
             background-color: #444;
-            font-size: 8pt;
+            color: #fff;
             min-width: 12mm;
+            font-size: 7.5pt;
         }
 
         .song-info {
@@ -245,68 +169,53 @@
         }
 
         .song-name {
-            font-size: 11pt;
-            font-weight: 700;
+            font-size: 10.5pt;
+            font-weight: 900;
             white-space: nowrap;
         }
 
-        .new-tag {
-            background-color: #ff3b30;
-            color: white;
-            font-size: 8pt;
-            padding: 0.2mm 1.5mm;
-            border-radius: 0.5mm;
-            font-weight: 700;
-        }
-
         .song-lyrics {
-            font-size: 9.5pt;
+            font-size: 9.3pt;
             line-height: 1.2;
-            color: #222;
+            color: #111;
         }
 
-        .song-lyrics .symbol {
-            color: #666;
-            margin-right: 1mm;
-        }
-
-        footer {
-            margin-top: 3mm;
-            border-top: 3px solid var(--primary-color);
-            padding-top: 3mm;
-            z-index: 1;
-        }
-
+        /* チャンステーマ L字レイアウト用 */
         .chance-theme-container {
-            border: 2px solid var(--primary-color);
-            padding: 3mm;
-            margin-bottom: 5mm;
+            margin-top: 2.5mm;
             position: relative;
         }
 
-        .chance-theme-container h3 {
-            position: absolute;
-            top: -4mm;
-            left: 3mm;
-            background-color: var(--bg-white);
-            padding: 0 2mm;
-            margin: 0;
-            font-size: 11pt;
-            font-weight: 700;
+        .chance-grid-wrapper {
+            background-color: var(--primary-color);
+            padding: 2.5px;
+            border-radius: 2mm;
+            /* L字にクリップ (右下 約1/4 をカット) */
+            clip-path: polygon(0% 0%, 100% 0%, 100% 64.5%, 74.5% 64.5%, 74.5% 100%, 0% 100%);
         }
 
         .chance-grid {
-            display: flex;
-            gap: 2mm;
-            justify-content: space-between;
-            align-items: stretch;
+            background-color: #fff;
+            border-radius: 1.8mm;
+            padding: 2.5mm;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: auto auto;
+            gap: 2.5mm;
+            grid-template-areas: 
+                "col1 col2 col3 col4"
+                "col1 col2 col3 recruit-spacer";
         }
+        
+        .chance-category:nth-child(1) { grid-area: col1; }
+        .chance-category:nth-child(2) { grid-area: col2; }
+        .chance-category:nth-child(3) { grid-area: col3; }
+        .chance-category:nth-child(4) { grid-area: col4; }
 
         .chance-category {
-            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 1.5mm;
+            gap: 2mm;
         }
 
         .chance-item {
@@ -315,15 +224,13 @@
             padding: 1.2mm;
             border-radius: 1mm;
             line-height: 1.2;
-            display: flex;
-            flex-direction: column;
         }
 
         .chance-name {
             font-weight: 900;
-            color: #111;
+            color: #000;
             border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 0.8mm;
+            margin-bottom: 1mm;
             display: block;
             font-size: 8.5pt;
         }
@@ -332,73 +239,49 @@
             white-space: pre-wrap;
         }
 
-        .footer-recruitment {
+        .recruitment-box {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: calc(25% - 1.5mm);
+            height: calc(35.5% - 1mm);
+            border: 2.5px solid var(--primary-color);
+            background-color: #fff;
+            border-radius: 2mm;
+            padding: 3mm;
+            display: flex;
+            align-items: center;
+            gap: 4mm;
+            box-sizing: border-box;
+            z-index: 5;
+        }
+
+        .recruit-info { flex: 1; }
+        .recruit-title { font-size: 11pt; font-weight: 900; color: #000; margin-bottom: 1.5mm; border-bottom: 2px solid var(--primary-color); display: inline-block; }
+        .recruit-msg { font-size: 7.2pt; line-height: 1.3; color: #222; font-weight: 700; }
+        .recruit-qr { width: 17mm; height: 17mm; border: 1px solid #ddd; padding: 1px; background: #fff; }
+        .recruit-qr img { width: 100%; height: 100%; }
+
+        .zoom-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .zoom-btn {
+            background-color: #000;
+            color: var(--primary-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100%;
-            padding: 1mm 0;
-        }
-
-        .footer-recruitment-text {
-            font-size: 12pt;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .footer-recruitment-text a {
-            color: #d32f2f;
-            text-decoration: underline;
-        }
-
-        .sns-buttons {
-            display: flex;
-            gap: 4mm;
-        }
-
-        .sns-btn {
-            background-color: var(--secondary-color);
-            color: var(--primary-color);
-            padding: 2.5mm 6mm;
-            border-radius: 2mm;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 10pt;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 35mm;
-            transition: opacity 0.2s;
-        }
-
-        .sns-btn:hover {
-            opacity: 0.8;
-        }
-
-        .sns-btn .sns-label-small {
-            font-size: 7pt;
-            font-weight: 400;
-            color: #aaa;
-            margin-bottom: 0.5mm;
-        }
-
-        .org-logo {
-            font-size: 24pt;
-            font-weight: 900;
-            letter-spacing: 2mm;
-        }
-
-        .org-sub {
-            font-size: 10pt;
-            font-weight: 700;
-        }
-
-        /* 印刷設定: 1ページ・余白なし強制 */
-        @media print {
-            body { background-color: white; margin: 0 !important; padding: 0 !important; }
-            .container-wrapper { padding: 0 !important; margin: 0 !important; box-sizing: border-box; }
-            .sheet { box-shadow: none; margin: 0 auto; page-break-after: always; width: 420mm; height: 296mm; }
-            .zoom-controls { display: none !important; }
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid var(--primary-color);
         }
     </style>
 </head>
@@ -406,8 +289,6 @@
 
 <div class="container-wrapper">
     <div class="sheet" id="ouenkaSheet">
-
-
         <header>
             <div class="header-left">
                 <span class="team-name">福岡ソフトバンクホークス 選手別応援歌 2026</span>
@@ -415,181 +296,180 @@
             <div class="header-right">
                 <span class="group-name">東京真隼</span>
                 <div class="header-sns">
-                    <a href="https://x.com/tokyo_mach" target="_blank" class="x-link" title="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="ig-link" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://x.com/tokyo_mach" target="_blank" class="x-link"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="ig-link"><i class="fa-brands fa-instagram"></i></a>
                 </div>
-                <a href="https://t.co/NuiNCqluh0" class="apply-btn-header">応募</a>
+                <a href="https://t.co/NuiNCqluh0" target="_blank" style="background: #000; color: var(--primary-color); padding: 1mm 4mm; border-radius: 3mm; text-decoration: none; font-weight: 900; margin-left: 4mm;">応募</a>
             </div>
         </header>
 
-        <main style="display: grid; grid-template-columns: 1.1fr 1fr; column-gap: 8mm;">
-            <div class="song-list column-left">
+        <main style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm;">
+            <div class="song-list">
                 <div class="category-header">投手</div>
-                <div class="song-item"><div class="song-num">10</div><div class="song-info"><span class="song-name">上沢 直之</span><div class="song-lyrics">♪ 我らが待ち望む　勝利を手にする為　多彩な持ち球を　繰り出せ上沢</div></div></div>
-                <div class="song-item"><div class="song-num">11</div><div class="song-info"><span class="song-name">津森 宥紀</span><div class="song-lyrics">♪ 男勝負の時だ　思い切り投げ込め　気迫あふれる闘志で　勝利へ導け</div></div></div>
-                <div class="song-item"><div class="song-num">16</div><div class="song-info"><span class="song-name">東浜 巨</span><div class="song-lyrics">♪ 立ち向かえよ　勝利の為　この地に今輝いて　高み目指せ</div></div></div>
-                <div class="song-item"><div class="song-num">19</div><div class="song-info"><span class="song-name">大津 亮介</span><div class="song-lyrics">♪ 制球乱れなく　緩急手繰る腕　青き翼を広げ羽ばたけ　魅せろ多彩な魔球</div></div></div>
-                <div class="song-item"><div class="song-num">39</div><div class="song-info"><span class="song-name">尾形 崇斗</span><div class="song-lyrics">♪ 夢を賭けた　マウンドで　尾形崇斗よ　今見せてやれ</div></div></div>
-                <div class="song-item"><div class="song-num">40</div><div class="song-info"><span class="song-name">杉山 一樹</span><div class="song-lyrics">♪ 高い位置から　速いボールで　敵を追い込み　勝利を掴め</div></div></div>
-                <div class="song-item"><div class="song-num">47</div><div class="song-info"><span class="song-name">大関 友久</span><div class="song-lyrics">♪ ほとばしる汗の中　歓声を胸に秘め　男なら今ここで　勝つんだ大関</div></div></div>
-                <div class="song-item"><div class="song-num">48</div><div class="song-info"><span class="song-name">藤井 皓哉</span><div class="song-lyrics">♪ 辛い時を乗り超えて　来たぞ夢の舞台　心ひとつに腕を振り抜き　勝利へ導けよ</div></div></div>
-                <div class="song-item"><div class="song-num">49</div><div class="song-info"><span class="song-name">松本 晴</span><div class="song-lyrics">♪ 鍛えたその腕を　自信持って振り抜き　揺るがぬ覚悟胸に　松本晴輝け</div></div></div>
-                <div class="song-item"><div class="song-num">53</div><div class="song-info"><span class="song-name">大山 凌</span><div class="song-lyrics">♪ 魂込めて　ボールを投げ込め　果敢に攻めて　勝利へ導け</div></div></div>
-                <div class="song-item"><div class="song-num">66</div><div class="song-info"><span class="song-name">松本 裕樹</span><div class="song-lyrics">♪ 胸元突き刺す　速い球みせ　決めろその球で　敵を討ち取れ</div></div></div>
-                <div class="song-item"><div class="song-num">120</div><div class="song-info"><span class="song-name">長谷川 威展</span><div class="song-lyrics">♪ 気迫溢れる　その球で　行（ゆ）けよ威展　ひたむきに</div></div></div>
-                <div class="song-item"><div class="song-num generic">右投手汎用</div><div class="song-info"><div class="song-lyrics">♪ 恐れるな　立ち向かえ　気持ち見せろ　仲間を信じて</div></div></div>
-                <div class="song-item"><div class="song-num generic">左投手汎用</div><div class="song-info"><div class="song-lyrics">♪ 抑えるチャンス　物にするぞ　この腕で　必ず掴むぞ</div></div></div>
+                <div class="song-item"><div class="song-num">10</div><div class="song-info"><span class="song-name">上沢 直之</span><div class="song-lyrics">♪ 我らが待ち望む 勝利を手にする為 多彩な持ち球を 繰り出せ上沢</div></div></div>
+                <div class="song-item"><div class="song-num">11</div><div class="song-info"><span class="song-name">津森 宥紀</span><div class="song-lyrics">♪ 男勝負の時だ 思い切り投げ込め 気迫あふれる闘志で 勝利へ導け</div></div></div>
+                <div class="song-item"><div class="song-num">16</div><div class="song-info"><span class="song-name">東浜 巨</span><div class="song-lyrics">♪ 立ち向かえよ 勝利の為 この地に今輝いて 高み目指せ</div></div></div>
+                <div class="song-item"><div class="song-num">19</div><div class="song-info"><span class="song-name">大津 亮介</span><div class="song-lyrics">♪ 制球乱れなく 緩急手繰る腕 青き翼を広げ羽ばたけ 魅せろ多彩な魔球</div></div></div>
+                <div class="song-item"><div class="song-num">39</div><div class="song-info"><span class="song-name">尾形 崇斗</span><div class="song-lyrics">♪ 夢を賭けた マウンドで 尾形崇斗よ 今見せてやれ</div></div></div>
+                <div class="song-item"><div class="song-num">40</div><div class="song-info"><span class="song-name">杉山 一樹</span><div class="song-lyrics">♪ 高い位置から 速いボールで 敵を追い込み 勝利を掴め</div></div></div>
+                <div class="song-item"><div class="song-num">47</div><div class="song-info"><span class="song-name">大関 友久</span><div class="song-lyrics">♪ ほとばしる汗の中 歓声を胸に秘め 男なら今ここで 勝つんだ大関</div></div></div>
+                <div class="song-item"><div class="song-num">48</div><div class="song-info"><span class="song-name">藤井 皓哉</span><div class="song-lyrics">♪ 辛い時を乗り超えて 来たぞ夢の舞台 心ひとつに腕を振り抜き 勝利へ導けよ</div></div></div>
+                <div class="song-item"><div class="song-num">49</div><div class="song-info"><span class="song-name">松本 晴</span><div class="song-lyrics">♪ 鍛えたその腕を 自信持って振り抜き 揺るがぬ覚悟胸に 松本晴輝け</div></div></div>
+                <div class="song-item"><div class="song-num">53</div><div class="song-info"><span class="song-name">大山 凌</span><div class="song-lyrics">♪ 魂込めて ボールを投げ込め 果敢に攻めて 勝利へ導け</div></div></div>
+                <div class="song-item"><div class="song-num">66</div><div class="song-info"><span class="song-name">松本 裕樹</span><div class="song-lyrics">♪ 胸元突き刺す 速い球みせ 決めろその球で 敵を討ち取れ</div></div></div>
+                <div class="song-item"><div class="song-num">120</div><div class="song-info"><span class="song-name">長谷川 威展</span><div class="song-lyrics">♪ 気迫溢れる その球で 行（ゆ）けよ威展 ひたむきに</div></div></div>
+                <div class="song-item"><div class="song-num generic">右投手汎用</div><div class="song-info"><div class="song-lyrics">♪ 恐れるな 立ち向かえ 気持ち見せろ 仲間を信じて</div></div></div>
+                <div class="song-item"><div class="song-num generic">左投手汎用</div><div class="song-info"><div class="song-lyrics">♪ 抑えるチャンス 物にするぞ この腕で 必ず掴むぞ</div></div></div>
                 
-                <div class="category-header" style="margin-top: 3mm;">捕手</div>
-                <div class="song-item"><div class="song-num">12</div><div class="song-info"><span class="song-name">嶺井 博希</span><div class="song-lyrics">♪ 高み目指す男よ　立ち上がれさぁ　嶺井博希今こそ　強く闘え</div></div></div>
-                <div class="song-item"><div class="song-num">45</div><div class="song-info"><span class="song-name">谷川原 健太</span><div class="song-lyrics">♪ 鋭い打球飛ばし　鋭い肩で魅せろ　今こそ本当（マジ）決めろよ</div></div></div>
-                <div class="song-item"><div class="song-num">62</div><div class="song-info"><span class="song-name">海野 隆司</span><div class="song-lyrics">♪ 歓声背に受け　熱い想い胸に秘め　攻守に輝き　勝利へ導け</div></div></div>
+                <div class="category-header">捕手</div>
+                <div class="song-item"><div class="song-num">12</div><div class="song-info"><span class="song-name">嶺井 博希</span><div class="song-lyrics">♪ 高み目指す男よ 立ち上がれさぁ 嶺井博希今こそ 強く闘え</div></div></div>
+                <div class="song-item"><div class="song-num">45</div><div class="song-info"><span class="song-name">谷川原 健太</span><div class="song-lyrics">♪ 鋭い打球飛ばし 鋭い肩で魅せろ 今こそ本当（マジ）決めろよ</div></div></div>
+                <div class="song-item"><div class="song-num">62</div><div class="song-info"><span class="song-name">海野 隆司</span><div class="song-lyrics">♪ 歓声背に受け 熱い想い胸に秘め 攻守に輝き 勝利へ導け</div></div></div>
             </div>
 
-            <div class="song-list column-right">
+            <div class="song-list">
                 <div class="category-header">内野手</div>
-                <div class="song-item"><div class="song-num">0</div><div class="song-info"><span class="song-name">川瀬 晃</span><div class="song-lyrics">♪ 風の如く駆け抜け　グラブ捌き魅せるぜ　快音を響かせ</div></div></div>
-                <div class="song-item"><div class="song-num">4</div><div class="song-info"><span class="song-name">ジーター・ダウンズ</span><div class="song-lyrics">♪ ラララ～　ジーター　君の出番だ　オオオ～（オイ！）掴めVictory</div></div></div>
-                <div class="song-item"><div class="song-num">6</div><div class="song-info"><span class="song-name">今宮 健太</span><div class="song-lyrics">♪ 生まれ持つセンス　風を切り走れ　空高く飛ばせ　柔らかなリストで</div></div></div>
-                <div class="song-item"><div class="song-num">8</div><div class="song-info"><span class="song-name">牧原 大成</span><div class="song-lyrics">♪ みなぎるそのエナジー　轟け地の果てまで　横無尽に駆け抜け</div></div></div>
-                <div class="song-item"><div class="song-num">24</div><div class="song-info"><span class="song-name">栗原 陵矢</span><div class="song-lyrics">♪ 輝く時だ　後世に語り継がれる　伝説を今から　作れよ栗原</div></div></div>
-                <div class="song-item"><div class="song-num">33</div><div class="song-info"><span class="song-name">山川 穂高</span><div class="song-lyrics">♪ 鮮烈な一打を　放てスタンドの彼方へ　一振りで決めるぞ</div></div></div>
-                <div class="song-item"><div class="song-num">99</div><div class="song-info"><span class="song-name">野村 勇</span><div class="song-lyrics">♪ ここで見せろ力強く　凌駕する一撃　全速前進フルスピードで</div></div></div>
-                
-                <div class="category-header" style="margin-top: 3mm;">外野手</div>
-                <div class="song-item"><div class="song-num">3</div><div class="song-info"><span class="song-name">近藤 健介</span><div class="song-lyrics">♪ 極めた技で　打球が冴え渡る　遥か夢追い求めて　頂へと進め</div></div></div>
-                <div class="song-item"><div class="song-num">7</div><div class="song-info"><span class="song-name">中村 晃</span><div class="song-lyrics">♪ 新たな扉を　今から開け　愛する男さ　中村晃</div></div></div>
-                <div class="song-item"><div class="song-num">9</div><div class="song-info"><span class="song-name">柳田 悠岐</span><div class="song-lyrics">♪ 光のような足と　突き刺すようなスロー　いざ一振り決めて</div></div></div>
-                <div class="song-item"><div class="song-num">23</div><div class="song-info"><span class="song-name">周東 佑京</span><div class="song-lyrics">♪ たゆまぬ努力で　時代を築け　志ひとつに　行けスピードソルジャー</div></div></div>
-                <div class="song-item"><div class="song-num">31</div><div class="song-info"><span class="song-name">正木 智也</span><div class="song-lyrics">♪ 狙い研ぎ澄まし　殊勲の一打を　高らかに放て　正木の一振りで</div></div></div>
-                <div class="song-item"><div class="song-num">32</div><div class="song-info"><span class="song-name">柳町 達</span><div class="song-lyrics">♪ 熾烈な争いを　勝ち上がる為　闘う男の一振り　華麗に打ち捌け</div></div></div>
-                <div class="song-item"><div class="song-num">57</div><div class="song-info"><span class="song-name">緒方 理貢</span><div class="song-lyrics">♪ 夢追いかけ　打て魂乗せ　行（い）けダイヤモンド駆け抜け</div></div></div>
-                
-                <div class="category-header" style="margin-top: 3mm;">打者汎用</div>
-                <div class="song-item"><div class="song-num generic">右打者汎用</div><div class="song-info"><div class="song-lyrics">♪ 待ちわびた場所で　真の力を解け　限界超える日まで</div></div></div>
-                <div class="song-item"><div class="song-num generic">左打者汎用</div><div class="song-info"><div class="song-lyrics">♪ 今舞台が出来たぞ　お前が輝く　最高の瞬間　羽ばたけ</div></div></div>
+                <div class="song-item"><div class="song-num">0</div><div class="song-info"><span class="song-name">川瀬 晃</span><div class="song-lyrics">♪ 風の如く駆け抜け グラブ捌き魅せるぜ 快音を響かせ</div></div></div>
+                <div class="song-item"><div class="song-num">4</div><div class="song-info"><span class="song-name">ジーター・ダウンズ</span><div class="song-lyrics">♪ ラララ～ ジーター 君の出番だ オオオ～（オイ！）掴めVictory</div></div></div>
+                <div class="song-item"><div class="song-num">6</div><div class="song-info"><span class="song-name">今宮 健太</span><div class="song-lyrics">♪ 生まれ持つセンス 風を切り走れ 空高く飛ばせ 柔らかなリストで</div></div></div>
+                <div class="song-item"><div class="song-num">8</div><div class="song-info"><span class="song-name">牧原 大成</span><div class="song-lyrics">♪ みなぎるそのエナジー 轟け地の果てまで 縦横無尽に駆け抜け</div></div></div>
+                <div class="song-item"><div class="song-num">24</div><div class="song-info"><span class="song-name">栗原 陵矢</span><div class="song-lyrics">♪ 輝く時だ 後世に語り継がれる 伝説を今から 作れよ栗原</div></div></div>
+                <div class="song-item"><div class="song-num">33</div><div class="song-info"><span class="song-name">山川 穂高</span><div class="song-lyrics">♪ 鮮烈な一打を 放てスタンドの彼方へ 一振りで決めるぞ</div></div></div>
+                <div class="song-item"><div class="song-num">99</div><div class="song-info"><span class="song-name">野村 勇</span><div class="song-lyrics">♪ ここで見せろ力強く 凌駕する一撃 全速前進フルスピードで</div></div></div>
+
+                <div class="category-header">外野手</div>
+                <div class="song-item"><div class="song-num">3</div><div class="song-info"><span class="song-name">近藤 健介</span><div class="song-lyrics">♪ 極めた技で 打球が冴え渡る 遥か夢追い求めて 頂へと進め</div></div></div>
+                <div class="song-item"><div class="song-num">7</div><div class="song-info"><span class="song-name">中村 晃</span><div class="song-lyrics">♪ 新たな扉を 今から開け 愛する男さ 中村晃</div></div></div>
+                <div class="song-item"><div class="song-num">9</div><div class="song-info"><span class="song-name">柳田 悠岐</span><div class="song-lyrics">♪ 光のような足と 突き刺すようなスロー いざ一振り決めて</div></div></div>
+                <div class="song-item"><div class="song-num">23</div><div class="song-info"><span class="song-name">周東 佑京</span><div class="song-lyrics">♪ たゆまぬ努力で 時代を築け 志ひとつに 行けスピードソルジャー</div></div></div>
+                <div class="song-item"><div class="song-num">31</div><div class="song-info"><span class="song-name">正木 智也</span><div class="song-lyrics">♪ 狙い研ぎ澄まし 殊勲の一打を 高らかに放て 正木の一振りで</div></div></div>
+                <div class="song-item"><div class="song-num">32</div><div class="song-info"><span class="song-name">柳町 達</span><div class="song-lyrics">♪ 熾烈な争いを 勝ち上がる為 闘う男の一振り 華麗に打ち捌け</div></div></div>
+                <div class="song-item"><div class="song-num">57</div><div class="song-info"><span class="song-name">緒方 理貢</span><div class="song-lyrics">♪ 夢追いかけ 打て魂乗せ 行（い）けダイヤモンド駆け抜け</div></div></div>
+
+                <div class="category-header">打者汎用</div>
+                <div class="song-item"><div class="song-num generic">右打者汎用</div><div class="song-info"><div class="song-lyrics">♪ 待ちわびた場所で 真の力を解け 限界超える日まで</div></div></div>
+                <div class="song-item"><div class="song-num generic">左打者汎用</div><div class="song-info"><div class="song-lyrics">♪ 今舞台が出来たぞ お前が輝く 最高の瞬間 羽ばたけ</div></div></div>
             </div>
         </main>
 
-        <div class="chance-theme-container" style="border: 2px solid var(--primary-color); padding: 2mm; border-radius: 2mm; margin-top: 2mm;">
-            <h3 style="margin-top: 0; margin-bottom: 2mm; background-color: var(--primary-color); color: #000; padding: 1mm 3mm; border-radius: 1mm; display: inline-block; font-size: 11pt;">チャンステーマ・マルチテーマ</h3>
-            <div class="chance-grid">
-                <!-- カテゴリ1: 通常1 -->
-                <div class="chance-category">
-                    <div class="chance-item">
-                        <span class="chance-name">アッチャン</span>
-                        <div class="chance-lyrics-full">【導入】熱く燃えろ（選手名）×３
-ラーララララララー　ラーララララララー
-ここで決めて勝つんだ そうだ俺達が 勝利の使者になろう
+        <div class="chance-theme-container">
+            <h3 style="background-color: #fff; padding: 0 2mm; font-size: 11pt; font-weight: 900; position: absolute; top: -3.5mm; left: 4mm; z-index: 10;">チャンステーマ・マルチテーマ</h3>
+            <div class="chance-grid-wrapper">
+                <div class="chance-grid">
+                    <!-- 列1 -->
+                    <div class="chance-category">
+                        <div class="chance-item">
+                            <span class="chance-name">アッチャン</span>
+                            <div class="chance-lyrics-full">【導入】熱く燃えろ（選手名）×３
+ラーララ... ここで決めて勝つんだ 俺たちが勝利の使者に
 Let’s Go Let’s Go
-【本編】チャンス チャンス 今チャンス
-拳を挙えて オイオイオイ　チャンス チャンス 今チャンス
-燃やせよ魂 オイオイオイ
-（選手名）決めろ　熱く燃えろ（選手名）</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">押忍！チャンス</span>
-                        <div class="chance-lyrics-full">【導入】(お楽しみは)これからだー ワン ツー スリー フォー　オー よっしゃ行くぞ！
-【本編】行け行け行け行け 押せ押せ押せ押せ
-撃て撃て撃て撃て 撃て 撃て（選手名）　オイオイオイオイ オイ オイ（選手名）
-Go Go Let’s Go! Let’s Go（選手名）　行～け 押～せ オー よっしゃ行くぞ！</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">関東チャンス</span>
-                        <div class="chance-lyrics-full">【前奏】オイオイオイ　オイオイオイ　（突き放せor勝ち越しだor逆転だ)
-【本編】かっとばせ（選手名） （選手名） ここで一発
-かっとばせ（選手名） 狙えスタンドへ
+【本編】チャンス チャンス 今チャンス 拳を挙げ オイオイオイ
+チャンス チャンス 今チャンス 燃やせ魂 オイオイオイ
+（選手名）決めろ 熱く燃えろ（選手名）</div>
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">押忍！チャンス</span>
+                            <div class="chance-lyrics-full">【導入】これからだー 1-2-3-4 よっしゃ行くぞ！
+【本編】行け行け... 撃て撃て...（選手名）オイオイオイ
+Go Go Let’s Go! Let’s Go（選手名） 行～け 押～せ オー よっしゃ行くぞ！</div>
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">関東チャンス</span>
+                            <div class="chance-lyrics-full">【前奏】オイオイオイ...（突き放せor勝ち越しor逆転）
+【本編】かっとばせ（選手名）（選手名） 一発狙えスタンドへ
 かせかせ（選手名） かせかせ（選手名） いざ行け （選手名）</div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- カテゴリ2: 通常2 -->
-                <div class="chance-category">
-                    <div class="chance-item">
-                        <span class="chance-name">北のチャンス</span>
-                        <div class="chance-lyrics-full">【前奏】野球場の中から　がんばれって言っている
-激しく熱く　今ここで がんばれ！
+                    <!-- 列2 -->
+                    <div class="chance-category">
+                        <div class="chance-item">
+                            <span class="chance-name">北のチャンス</span>
+                            <div class="chance-lyrics-full">【前奏】野球場の中から がんばれと言っている 今ここでがんばれ！
 【本編】燃える闘志今見せてやれ （選手名）一振りで決めてやれ
-勝利 決まれば お前の夜だ （選手名）（選手名）いまここで がんばれ！</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">鷹の道</span>
-                        <div class="chance-lyrics-full">行けよ男たち チャンスだ燃え上がれ
+勝利決まれば お前の夜だ （選手名）（選手名）いまがんばれ！</div>
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">鷹の道</span>
+                            <div class="chance-lyrics-full">行けよ男たち チャンスだ燃え上がれ
 俊足巧打で突き進め それが鷹の道</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">アッコちゃん</span>
-                        <div class="chance-lyrics-full">オーオーオー そ～れ いけいけ ×2
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">アッコちゃん</span>
+                            <div class="chance-lyrics-full">オーオーオー そ～れ いけいけ ×2
 （選手名）～ 今こそ～ 戦え～
-さあ行こう 俺らならやれるさ 熱くなれ 男なら行こうぜ
-（選手名）～ 今こそ～ 戦え～</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">オオサカツンデレラ</span>
-                        <div class="chance-lyrics-full">ラララララララララー
+さあ行こう 俺らならやれるさ 男なら行こうぜ （選手名）戦え</div>
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">オオサカツンデレラ</span>
+                            <div class="chance-lyrics-full">ラララララララララー
 （選手名）（選手名）（選手名）（選手名）ラララー</div>
+                        </div>
                     </div>
-                </div>
 
-                <!-- カテゴリ3: 選手用 -->
-                <div class="chance-category">
-                    <div class="chance-item">
-                        <span class="chance-name">令和</span>
-                        <div class="chance-lyrics-full">ウォイ！ウォイ！ウォイ！（選手名）
-今宵勝利の為に 俺ら叫び続ける
-争覇期する時まで 此処にいる仲間と共に
+                    <!-- 列3 -->
+                    <div class="chance-category">
+                        <div class="chance-item">
+                            <span class="chance-name">令和</span>
+                            <div class="chance-lyrics-full">ウォイ！ウォイ！ウォイ！（選手名）
+今宵勝利の為に 俺ら叫び続ける 此処にいる仲間と共に
 ウォイ！ウォイ！ウォイ！（選手名）</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">藤本</span>
-                        <div class="chance-lyrics-full">わっしょいわっしょい (選手名) ×2
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">藤本</span>
+                            <div class="chance-lyrics-full">わっしょいわっしょい (選手名) ×2
 行け！打て！ （選手名） 熱くなれ！</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">若井</span>
-                        <div class="chance-lyrics-full">（選手名） （選手名） （選手名）
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">若井</span>
+                            <div class="chance-lyrics-full">（選手名） （選手名） （選手名）
 燃えろ燃えろ （選手名） かっ飛ばせ （選手名）
-チャンスに強いガッツマン 我らの （選手名）
-かっ飛ばせ （選手名）</div>
+チャンスに強いガッツマン 我らの （選手名）</div>
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">鷹の爪</span>
+                            <div class="chance-lyrics-full">【前奏】勝利を掴みとれ （選手名）
+【本編】勝利に向かって突き進め 打ちまくれ 打ちまくれ
+お前の力を見せてくれ それ行け （選手名）
+【男性】ここで決めろ！ 【女性】ここで決めろ！ （選手名）</div>
+                        </div>
                     </div>
-                    <div class="chance-item">
-                        <span class="chance-name">鷹の爪</span>
-                        <div class="chance-lyrics-full">【前奏】勝利を掴みとれ （選手名）
-【本編】勝利に向かって突き進め　打ちまくれ 打ちまくれ
-お前の力を見せてくれ　それ行け （選手名）
-【男性】ここで決めろ！
-【女性】ここで決めろ！
-（選手名）</div>
-                    </div>
-                </div>
 
-                <!-- カテゴリ4: マルチ -->
-                <div class="chance-category">
-                    <div class="chance-item">
-                        <span class="chance-name">G.F.V</span>
-                        <div class="chance-lyrics-full">【導入】オイ × 2
-【本編】ラララーララーラーラー
-ラーラーラーラーラーラー 熱いそのハートで 突き進め
-ラララーララーラーラー ラーラーラーラーラーラー
-攻めまくれ 掴み取れ 今日の勝利を オイ！オイ！オイ！</div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">勝利目指して</span>
-                        <div class="chance-lyrics-full">オーーオーオオーオオーー
+                    <!-- 列4 -->
+                    <div class="chance-category">
+                        <div class="chance-item">
+                            <span class="chance-name">G.F.V</span>
+                            <div class="chance-lyrics-full">【導入】オイ × 2
+【本編】ラララーラーラーラー 熱いそのハートで 突き進め
+ラララーラーラーラー 攻めまくれ 掴み取れ
+今日の勝利を オイ！オイ！オイ！</div>
+                        </div>
+                        <div class="chance-item">
+                            <span class="chance-name">勝利目指して</span>
+                            <div class="chance-lyrics-full">オーーオーオオーオオーー
 勝利目指して オイ！オイ！オイ！オイ！
-いざゆけ ホークス！ホークス！
-絶対勝つぞ！ホークス！</div>
+いざゆけ ホークス！ 絶対勝つぞ！</div>
+                        </div>
                     </div>
+                    
+                    <div style="grid-area: recruit-spacer;"></div>
                 </div>
             </div>
 
-        </div>
-
-        <footer style="margin-top: auto; border-top: 2px solid #eee; padding-top: 1mm;">
-            <div class="footer-recruitment">
-                <span class="footer-recruitment-text">応援団員募集中！興味ある方はこちらからお問い合わせください（<a href="https://t.co/NuiNCqluh0" target="_blank">応募フォームはこちら</a>）</span>
+            <div class="recruitment-box">
+                <div class="recruit-info">
+                    <div class="recruit-title">団員大募集！</div>
+                    <div class="recruit-msg">
+                        福岡ソフトバンクホークスを愛する仲間を募集中！<br>
+                        一緒にスタンドを黄色に染め、熱いエールを送りませんか？<br>
+                        未経験者・女性も大歓迎です。詳細・応募は右記より！
+                    </div>
+                </div>
+                <div class="recruit-qr">
+                    <img src="qr_recruitment.png" alt="応募フォームQR">
+                </div>
             </div>
-        </footer>
+        </div>
     </div>
 </div>
 
@@ -604,28 +484,27 @@ function scaleSheet() {
     const sheet = document.getElementById('ouenkaSheet');
     if (!sheet) return;
     
-    // A3 landscape dimensions in mm
+    // 印刷時はスケーリングを解除
+    if (window.matchMedia('print').matches) {
+        sheet.style.transform = 'none';
+        return;
+    }
+
     const baseWidthMm = 420;
     const baseHeightMm = 297;
-    
-    // ブラウザの表示領域（余白を考慮）
     const padding = 20;
     const availableW = window.innerWidth - padding;
     const availableH = window.innerHeight - padding;
     
-    const mmToPx = 3.78; // 96dpiでの1mmあたりのピクセル数
+    const mmToPx = 3.78; 
     const sheetW = baseWidthMm * mmToPx;
     const sheetH = baseHeightMm * mmToPx;
     
     let scale;
-    
     if (isZoomed) {
-        // ズーム状態: スマホの幅に合わせて「読みやすい」サイズにする
-        // 幅を画面の95%に合わせる（ただし縮小しすぎない）
         scale = Math.max(0.6, (window.innerWidth - 10) / sheetW);
         if (scale > 1.2) scale = 1.2;
     } else {
-        // 全体表示状態: 画面内に完全に収める
         const scaleW = availableW / sheetW;
         const scaleH = availableH / sheetH;
         scale = Math.min(scaleW, scaleH);
@@ -633,23 +512,15 @@ function scaleSheet() {
     }
 
     sheet.style.transform = `scale(${scale})`;
-    
-    // 中央寄せの調整
-    if (isZoomed && window.innerWidth < sheetW * scale) {
-        document.body.style.justifyContent = 'flex-start';
-    } else {
-        document.body.style.justifyContent = 'center';
-    }
+    document.body.style.justifyContent = (isZoomed && window.innerWidth < sheetW * scale) ? 'flex-start' : 'center';
 }
 
 function toggleZoom() {
     isZoomed = !isZoomed;
-    const btn = document.getElementById('zoomBtn');
+    const btn = document.querySelector('.zoom-btn');
     btn.innerText = isZoomed ? "全" : "🔎";
     scaleSheet();
-    if (isZoomed) {
-        window.scrollTo(0, 0);
-    }
+    if (isZoomed) window.scrollTo(0, 0);
 }
 
 window.addEventListener('resize', scaleSheet);
