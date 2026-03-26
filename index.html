@@ -269,7 +269,7 @@
             flex-direction: column;
             gap: 1.5mm;
             margin-right: -2px;
-            background-color: #fff;
+            background-color: #fffdf0; /* Subtle distinction from player songs */
         }
 
         .chance-col:last-child {
@@ -326,25 +326,52 @@
 
         .recruit-sns {
             display: flex;
-            gap: 3mm;
+            gap: 2mm;
         }
 
-        .sns-btn {
-            background-color: #000;
-            color: var(--primary-color);
-            width: 14mm;
+        .sns-tile {
+            width: 25mm;
             height: 14mm;
-            border-radius: 50%;
+            border-radius: 1.5mm;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            font-size: 20pt;
             transition: transform 0.2s;
+            color: #fff;
+            padding: 1mm;
+            box-sizing: border-box;
         }
 
-        .sns-btn:hover {
-            transform: scale(1.1);
+        .sns-tile.x {
+            background-color: #000;
+        }
+
+        .sns-tile.ig {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+        }
+
+        .sns-tile:hover {
+            transform: scale(1.05);
+        }
+
+        .sns-tile i {
+            font-size: 14pt;
+            margin-bottom: 0.5mm;
+        }
+
+        .sns-label {
+            font-size: 6pt;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .sns-id {
+            font-size: 5pt;
+            font-weight: 400;
+            opacity: 0.9;
+            margin-top: 0.2mm;
         }
 
         .recruit-main {
@@ -728,8 +755,16 @@
                     <!-- 募集ボックス -->
                     <div class="recruitment-box">
                         <div class="recruit-sns">
-                            <a href="https://x.com/tokyo_mach" target="_blank" class="sns-btn"><i class="fa-brands fa-square-x-twitter"></i></a>
-                            <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="sns-btn"><i class="fa-brands fa-instagram"></i></a>
+                            <a href="https://x.com/tokyo_mach" target="_blank" class="sns-tile x">
+                                <i class="fa-brands fa-x-twitter"></i>
+                                <span class="sns-label">X (Twitter)</span>
+                                <span class="sns-id">@tokyo_mach</span>
+                            </a>
+                            <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="sns-tile ig">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span class="sns-label">Instagram</span>
+                                <span class="sns-id">@tokyo_mach</span>
+                            </a>
                         </div>
                         <div class="recruit-main">
                             <div class="recruit-title">東京真隼応援団員大募集！</div>
