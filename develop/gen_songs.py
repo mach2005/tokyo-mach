@@ -1,5 +1,7 @@
 import os
+import re
 
+# 2026 Season Player Data (Source of Truth)
 PITCHERS = """10 上沢 直之;我らが待ち望む　勝利を手にする為　多彩な持ち球を 繰り出せ上沢
 11 津森 宥紀;男勝負の時だ 思い切り投げ込め 気迫あふれる闘志で 勝利へ導け
 16 東浜 巨;立ち向かえよ 勝利の為 この地に今輝いて 高み目指せ
@@ -49,12 +51,12 @@ CHANCE = """アッチャン;【導入】\\n熱く燃えろ（選手名）×３\\
 令和;ウォイ！ウォイ！ウォイ！（選手名）\\n\\n今宵勝利の為に 俺ら叫び続ける\\n争覇期する時まで 此処にいる仲間と共に\\n\\nウォイ！ウォイ！ウォイ！（選手名）
 藤本;わっしょいわっしょい 「選手名」\\nわっしょいわっしょい 「選手名」\\n行け！打て！ 「選手名」 熱くなれ！
 若井;「選手名」 「選手名」 「選手名」\\n燃えろ燃えろ 「選手名」\\nかっ飛ばせ 「選手名」\\nチャンスに強いガッツマン 我らの 「選手名」\\nかっ飛ばせ 「選手名」
-鷹の爪;勝利を掴みとれ ～～ 「選手名」\\n\\n勝利に向かって突き進め 打ちまくれ～打ちまくれ～\\nお前の力を見せてくれ それ行け 「選手名」\\n\\n男性：ここで決めろ！\\n女性：ここで決めろ！\\n「選手名」"""
+鷹の爪;【前奏】\\n勝利を掴みとれ 「選手名」\\n\\n【本編】\\n勝利に向かって突き進め 打ちまくれ～打ちまくれ～\\nお前の力を見せてくれ それ行け 「選手名」\\n\\n男性：ここで決めろ！\\n女性：ここで決めろ！\\n「選手名」"""
 
 MULTI = """G.F.V (GO FOR VICTORY);【導入】\\nオイ × 2\\n\\n【本編】\\nラララーララーラーラー\\nラーラーラーラーラーラー\\n熱いそのハートで\\n突き進め\\n\\nラララーララーラーラー\\nラーラーラーラーラーラー\\n攻めまくれ 掴み取れ\\n今日の勝利を オイ！オイ！オイ！
-勝利目指して;【導入】\\nオイ × 2\\n\\n【本編】\\n勝利目指して\\nオーーオーオオーオオーー\\n勝利目指して\\nオイ！オイ！オイ！オイ！\\n勝利目指して\\nオーーオーオオーオオーー\\n勝利目指して\\nいざゆけ\\nホークス！ホークス！\\n絶対勝つぞ！ホークス！"""
+勝利目指して;【導入】\\nオイ × 2\\n\\n【本編】\\n勝利目指して\\nオーーオーオオーオオーー\\n勝利目指して\\nオイ！オイ！オイ！オイ！\\n勝利目指して\\nオーーオーオオーオオーー\\n勝利目指して\\いざゆけ\\nホークス！ホークス！\\n絶対勝つぞ！ホークス！"""
 
-import re
+# ===== HTML GENERATION LOGIC =====
 
 def format_song(text, allow_theme=False):
     res = ""
@@ -88,12 +90,11 @@ def format_song(text, allow_theme=False):
                 header_html = f"<div class='song-num'>*</div><div class='song-name'>{title_raw}</div>"
         
         audio_html = ""
-        # Map player numbers to audio files
         audio_map = {
-            "45": "./public/audio/45_tanigawara.aac",
-            "49": "./public/audio/49_matsumoto_hare.m4a",
-            "53": "./public/audio/53_oyama.m4a",
-            "57": "./public/audio/57_ogata.m4a"
+            "45": "../public/audio/45_tanigawara.aac",
+            "49": "../public/audio/49_matsumoto_hare.m4a",
+            "53": "../public/audio/53_oyama.m4a",
+            "57": "../public/audio/57_ogata.m4a"
         }
         if m and m.group(1) in audio_map:
             audio_html = f"<div class='song-audio'><audio controls src='{audio_map[m.group(1)]}'></audio></div>"
@@ -111,27 +112,16 @@ def format_song(text, allow_theme=False):
         </div>"""
     return res
 
-TOP = """<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>応援歌 - 東京真隼 TOKYO MACH</title>
-  <meta name="description" content="東京真隼（TOKYO MACH）は福岡ソフトバンクホークスの私設応援団です。">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="./public/style.css">
-  <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
+DIR = os.path.dirname(os.path.abspath(__file__))
+
+# Read Template from Index
+with open(os.path.join(DIR, '../HP/index.html'), 'r', encoding='utf-8') as f:
+    index = f.read()
+
+# Common Styles for Audio & Card
+extra_style = """
   <style>
-    .songs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
-    .generic-badge { background: #eee; color: #333; border-radius: 4px; padding: 4px 10px; font-weight: bold; display: inline-block; }
-    .song-audio { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
-    .song-audio audio { width: 100%; height: 32px; border-radius: 4px; }
-    /* Premium audio player styling */
-    .song-audio audio::-webkit-media-controls-enclosure { background-color: #f8f8f8; }
-    .song-audio audio::-webkit-media-controls-panel { background-color: #f8f8f8; }
+    .songs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; border-bottom: 2px solid #eee; padding-bottom: 20px; flex-wrap: wrap; }
     .song-tab-btn { background: #fff; border: 2px solid #ddd; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 5px; color: #333; transition: all 0.3s; }
     .song-tab-btn.active, .song-tab-btn:hover { background: #ffcc00; border-color: #ffcc00; color: #111; }
     .tab-content { display: none; }
@@ -139,37 +129,37 @@ TOP = """<!DOCTYPE html>
     .role-section { margin-bottom: 50px; }
     .role-section h3 { font-size: 1.5rem; color: #111; border-bottom: 3px solid #ffcc00; padding-bottom: 8px; margin-bottom: 25px; display: inline-block; padding-right: 30px; }
     .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .generic-badge { background: #eee; color: #333; border-radius: 4px; padding: 4px 10px; font-weight: bold; display: inline-block; }
+    .song-audio { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+    .song-audio audio { width: 100%; height: 32px; border-radius: 4px; }
+    @media (max-width: 768px) { .songs-grid { grid-template-columns: 1fr; } }
   </style>
-</head>
-<body>
-<nav class="main-nav" id="mainNav">
-  <div class="nav-inner">
-    <a href="./index.html" class="nav-logo">
-      <span class="nav-logo-main">東京真隼</span>
-      <span class="nav-logo-sub">TOKYO MACH</span>
-    </a>
-    <button class="hamburger" id="hamburger" aria-label="メニュー">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="./index.html">HOME</a></li>
-      <li><a href="./schedule.html">日程</a></li>
-      <li><a href="./songs.html" class="active">応援歌</a></li>
-      <li><a href="./gallery.html">ギャラリー</a></li>
-      <li><a href="./faq.html">Q&amp;A</a></li>
-      <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener" class="nav-cta">団員募集</a></li>
-    </ul>
-  </div>
-</nav>
+"""
 
+# Base HTML Construction
+# 1. Header (up to Hero Section)
+header_end = index.find('<!-- Hero Section -->')
+head_with_style = index[:index.find('</head>')] + extra_style + index[index.find('</head>'):header_end]
+head_with_style = head_with_style.replace('<title>東京真隼 TOKYO MACH - ホークス私設応援団</title>',
+                        '<title>応援歌 - 東京真隼 TOKYO MACH</title>')
+
+# 2. Hero Section for Songs
+hero_html = """
 <section class="page-hero">
   <div class="page-hero-content">
-    <span class="page-hero-label">FIGHT SONGS</span>
+    <span class="page-hero-label"> FIGHT SONGS</span>
     <h1>応援歌</h1>
     <p>2026シーズン 選手応援歌・チャンステーマ</p>
   </div>
 </section>
+"""
 
+# 3. Footer
+footer_start = index.find('<footer class="site-footer">')
+footer = index[footer_start:]
+
+# Content Tabs
+mid = """
 <section class="section">
   <div class="container">
     <div class="songs-nav">
@@ -180,62 +170,31 @@ TOP = """<!DOCTYPE html>
     </div>
 """
 
-BOT = """  </div>
+# Tab Sections
+mid += "    <div class='tab-content active' id='tab-pitcher'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>\n" + format_song(PITCHERS) + format_song(PITCHERS_GEN, True) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += "    <div class='tab-content' id='tab-fielder'>\n"
+mid += "      <div class='role-section'><h3>捕手</h3><div class='songs-grid'>" + format_song(CATCHERS) + "</div></div>\n"
+mid += "      <div class='role-section'><h3>内野手</h3><div class='songs-grid'>" + format_song(INFIELDERS) + "</div></div>\n"
+mid += "      <div class='role-section'><h3>外野手</h3><div class='songs-grid'>" + format_song(OUTFIELDERS) + "</div></div>\n"
+mid += "      <div class='role-section'><h3>汎用</h3><div class='songs-grid'>" + format_song(FIELDERS_GEN, True) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += "    <div class='tab-content' id='tab-chance'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(CHANCE, True) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += "    <div class='tab-content' id='tab-multi'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(MULTI, True) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += """
+  </div>
 </section>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <div class="footer-logo">東京真隼</div>
-        <p class="footer-tagline">TOKYO MACH - 世界最強のホークス私設応援団</p>
-        <p class="footer-desc">世界最強を目指し, <br>ビジターの地でホークスの勝利を叫ぶ。</p>
-      </div>
-      <div class="footer-links-grid">
-        <div class="footer-col">
-          <h4>メニュー</h4>
-          <ul>
-            <li><a href="./index.html">HOME</a></li>
-            <li><a href="./schedule.html">日程</a></li>
-            <li><a href="./songs.html">応援歌</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>コンテンツ</h4>
-          <ul>
-            <li><a href="./gallery.html">ギャラリー</a></li>
-            <li><a href="./faq.html">Q&A</a></li>
-            <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener">団員募集</a></li>
-          </ul>
-        </div>
-        <div class="footer-col">
-          <h4>SNS</h4>
-          <ul>
-            <li><a href="https://x.com/tokyo_mach" target="_blank" rel="noopener"><i class="fab fa-x-twitter"></i> X (Twitter)</a></li>
-            <li><a href="https://www.instagram.com/tokyo_mach/" target="_blank" rel="noopener"><i class="fab fa-instagram"></i> Instagram</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div class="footer-sns-icons">
-        <a href="https://x.com/tokyo_mach" target="_blank" rel="noopener" aria-label="X"><i class="fab fa-x-twitter"></i></a>
-        <a href="https://www.instagram.com/tokyo_mach/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-      </div>
-      <p>&copy; 2026 東京真隼 TOKYO MACH. All Rights Reserved.</p>
-    </div>
-  </div>
-</footer>
 <script>
-document.getElementById('hamburger').addEventListener('click', function() {
-  this.classList.toggle('active');
-  document.getElementById('navLinks').classList.toggle('active');
-});
-window.addEventListener('scroll', () => {
-  const nav = document.getElementById('mainNav');
-  if (window.scrollY > 50) nav.classList.add('scrolled');
-  else nav.classList.remove('scrolled');
-});
 document.querySelectorAll('.song-tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.song-tab-btn').forEach(b => b.classList.remove('active'));
@@ -245,45 +204,10 @@ document.querySelectorAll('.song-tab-btn').forEach(btn => {
   });
 });
 </script>
-</body>
-</html>
 """
 
-mid = ""
+# Write Output
+with open(os.path.join(DIR, '../HP/songs.html'), 'w', encoding='utf-8') as f:
+    f.write(head_with_style + hero_html + mid + footer)
 
-# Pitcher tab
-mid += "<div class='tab-content active' id='tab-pitcher'>\n"
-mid += "  <div class='role-section'>\n"
-mid += "    <div class='songs-grid'>\n"
-mid += format_song(PITCHERS) + "\n"
-mid += format_song(PITCHERS_GEN, True) + "\n"
-mid += "    </div>\n  </div>\n"
-mid += "</div>\n"
-
-# Fielder tab
-mid += "<div class='tab-content' id='tab-fielder'>\n"
-mid += "  <div class='role-section'><h3>捕手</h3><div class='songs-grid'>" + format_song(CATCHERS) + "</div></div>\n"
-mid += "  <div class='role-section'><h3>内野手</h3><div class='songs-grid'>" + format_song(INFIELDERS) + "</div></div>\n"
-mid += "  <div class='role-section'><h3>外野手</h3><div class='songs-grid'>" + format_song(OUTFIELDERS) + "</div></div>\n"
-mid += "  <div class='role-section'><h3>汎用</h3><div class='songs-grid'>" + format_song(FIELDERS_GEN, True) + "</div></div>\n"
-mid += "</div>\n"
-
-# Chance tab
-mid += "<div class='tab-content' id='tab-chance'>\n"
-mid += "  <div class='role-section'>\n"
-mid += "    <div class='songs-grid'>\n"
-mid += format_song(CHANCE, True) + "\n"
-mid += "    </div>\n  </div>\n"
-mid += "</div>\n"
-
-# Multi theme tab
-mid += "<div class='tab-content' id='tab-multi'>\n"
-mid += "  <div class='role-section'>\n"
-mid += "    <div class='songs-grid'>\n"
-mid += format_song(MULTI, True) + "\n"
-mid += "    </div>\n  </div>\n"
-mid += "</div>\n"
-
-with open('../HP/songs.html', 'w', encoding='utf-8') as f:
-    f.write(TOP + mid + BOT)
 print("Generated ../HP/songs.html")
