@@ -308,7 +308,7 @@ a:hover {
 .new-songs-container { position: relative; z-index: 1; }
 .new-songs-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 25px;
   margin-top: 40px;
 }
@@ -401,7 +401,7 @@ a:hover {
 
 @media (max-width: 768px) {
   .hamburger { display: flex; }
-  .grid-2, .grid-3, .footer-top, .footer-links-grid, .about-grid, .recruit-content, .links-grid, .sns-grid, .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
+  .grid-2, .grid-3, .footer-top, .footer-links-grid, .about-grid, .recruit-content, .links-grid, .sns-grid, .gallery-grid, .new-songs-grid { grid-template-columns: 1fr; gap: 20px; }
   .nav-links {
     position: absolute; top: 100%; left: 0; width: 100%; background: #111;
     flex-direction: column; padding: 20px; display: none;
