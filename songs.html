@@ -9,15 +9,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../public/style.css">
-  <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./public/style.css">
+  <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
   <style>
     .songs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
-    .generic-badge { background: #eee; color: #333; border-radius: 4px; padding: 4px 10px; font-weight: bold; display: inline-block; }
-    .song-audio { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
-    .song-audio audio { width: 100%; height: 32px; border-radius: 4px; }
-    .song-audio audio::-webkit-media-controls-enclosure { background-color: #f8f8f8; }
-    .song-audio audio::-webkit-media-controls-panel { background-color: #f8f8f8; }
     .song-tab-btn { background: #fff; border: 2px solid #ddd; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 5px; color: #333; transition: all 0.3s; }
     .song-tab-btn.active, .song-tab-btn:hover { background: #ffcc00; border-color: #ffcc00; color: #111; }
     .tab-content { display: none; }
@@ -25,18 +20,19 @@
     .role-section { margin-bottom: 50px; }
     .role-section h3 { font-size: 1.5rem; color: #111; border-bottom: 3px solid #ffcc00; padding-bottom: 8px; margin-bottom: 25px; display: inline-block; padding-right: 30px; }
     .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
-    .song-card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
-    .song-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
-    .song-num { background: #111; color: #ffcc00; font-weight: 900; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; }
-    .song-name { font-size: 1.3rem; font-weight: 900; color: #111; }
-    .song-lyrics { line-height: 1.6; font-size: 1.1rem; color: #444; }
-    .new-badge { background: #e74c3c; color: #fff; font-size: 0.7rem; font-weight: 900; padding: 2px 6px; border-radius: 4px; margin-left: auto; }
+    .new-badge { background: #ff3b30; color: #fff; font-size: 0.75rem; font-weight: bold; padding: 2px 6px; border-radius: 3px; margin-left: 8px; vertical-align: middle; }
+    .generic-badge { background: #eee; color: #333; border-radius: 4px; padding: 4px 10px; font-weight: bold; display: inline-block; }
+    .song-audio { margin-top: 15px; border-top: 1px solid #eee; padding-top: 10px; }
+    .song-audio audio { width: 100%; height: 32px; border-radius: 4px; }
+    /* Premium audio player styling */
+    .song-audio audio::-webkit-media-controls-enclosure { background-color: #f8f8f8; }
+    .song-audio audio::-webkit-media-controls-panel { background-color: #f8f8f8; }
   </style>
 </head>
 <body>
 <nav class="main-nav" id="mainNav">
   <div class="nav-inner">
-    <a href="../index.html" class="nav-logo">
+    <a href="./index.html" class="nav-logo">
       <span class="nav-logo-main">東京真隼</span>
       <span class="nav-logo-sub">TOKYO MACH</span>
     </a>
@@ -44,7 +40,7 @@
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="../index.html">HOME</a></li>
+      <li><a href="./index.html">HOME</a></li>
       <li><a href="./schedule.html">日程</a></li>
       <li><a href="./songs.html" class="active">応援歌</a></li>
       <li><a href="./gallery.html">ギャラリー</a></li>
@@ -71,7 +67,7 @@
       <button class="song-tab-btn" data-tab="multi">マルチテーマ</button>
     </div>
 
-    <!-- 投手タブ -->
+    <!-- Pitcher Tab -->
     <div class="tab-content active" id="tab-pitcher">
       <div class="role-section">
         <div class="songs-grid">
@@ -83,8 +79,8 @@
           <div class="song-card"><div class="song-header"><div class="song-num">40</div><div class="song-name">杉山 一樹</div></div><div class="song-lyrics">高い位置から<br>速いボールで<br>敵を追い込み<br>勝利を掴め</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">47</div><div class="song-name">大関 友久</div></div><div class="song-lyrics">ほとばしる汗の中<br>歓声を胸に秘め<br>男なら今ここで<br>勝つんだ大関</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">48</div><div class="song-name">藤井 皓哉</div></div><div class="song-lyrics">辛い時を乗り超えて<br>来たぞ夢の舞台<br>心ひとつに腕を振り抜き<br>勝利へ導けよ</div></div>
-          <div class="song-card"><div class="song-header"><div class="song-num">49</div><div class="song-name">松本 晴</div><span class="new-badge">NEW</span></div><div class="song-lyrics">鍛えたその腕を<br>自信持って振り抜き<br>揺るがぬ覚悟胸に<br>松本晴輝け</div><div class="song-audio"><audio controls src="../public/audio/49_matsumoto_hare.m4a"></audio></div></div>
-          <div class="song-card"><div class="song-header"><div class="song-num">53</div><div class="song-name">大山 凌</div><span class="new-badge">NEW</span></div><div class="song-lyrics">魂込めて<br>ボールを投げ込め<br>果敢に攻めて<br>勝利へ導け</div><div class="song-audio"><audio controls src="../public/audio/53_oyama.m4a"></audio></div></div>
+          <div class="song-card"><div class="song-header"><div class="song-num">49</div><div class="song-name">松本 晴</div><span class="new-badge">NEW</span></div><div class="song-lyrics">鍛えたその腕を<br>自信持って振り抜き<br>揺るがぬ覚悟胸に<br>松本晴輝け</div><div class="song-audio"><audio controls src="./public/audio/49_matsumoto_hare.m4a"></audio></div></div>
+          <div class="song-card"><div class="song-header"><div class="song-num">53</div><div class="song-name">大山 凌</div><span class="new-badge">NEW</span></div><div class="song-lyrics">魂込めて<br>ボールを投げ込め<br>果敢に攻めて<br>勝利へ導け</div><div class="song-audio"><audio controls src="./public/audio/53_oyama.m4a"></audio></div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">66</div><div class="song-name">松本 裕樹</div></div><div class="song-lyrics">胸元突き刺す<br>速い球みせ<br>決めろその球で<br>敵を討ち取れ</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">120</div><div class="song-name">長谷川 威展</div></div><div class="song-lyrics">気迫溢れる<br>その球で<br>行（ゆ）けよ威展<br>ひたむきに</div></div>
           <div class="song-card"><div class="song-header"><div class="generic-badge">右投手汎用</div></div><div class="song-lyrics">恐れるな<br>立ち向かえ<br>気持ち見せろ<br>仲間を信じて<br>全て賭け闘え</div></div>
@@ -93,13 +89,13 @@
       </div>
     </div>
 
-    <!-- 野手タブ -->
+    <!-- Fielder Tab -->
     <div class="tab-content" id="tab-fielder">
       <div class="role-section">
         <h3>捕手</h3>
         <div class="songs-grid">
           <div class="song-card"><div class="song-header"><div class="song-num">12</div><div class="song-name">嶺井 博希</div></div><div class="song-lyrics">高み目指す男よ<br>立ち上がれさぁ<br>嶺井博希今こそ<br>強く闘え</div></div>
-          <div class="song-card"><div class="song-header"><div class="song-num">45</div><div class="song-name">谷川原 健太</div><span class="new-badge">NEW</span></div><div class="song-lyrics">鋭い打球飛ばし<br>鋭い肩で魅せろ<br>今こそ本当（マジ）決めろよ<br>さあ谷川原行（ゆ）け</div><div class="song-audio"><audio controls src="../public/audio/45_tanigawara.aac"></audio></div></div>
+          <div class="song-card"><div class="song-header"><div class="song-num">45</div><div class="song-name">谷川原 健太</div><span class="new-badge">NEW</span></div><div class="song-lyrics">鋭い打球飛ばし<br>鋭い肩で魅せろ<br>今こそ本当（マジ）決めろよ<br>さあ谷川原行（ゆ）け</div><div class="song-audio"><audio controls src="./public/audio/45_tanigawara.aac"></audio></div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">62</div><div class="song-name">海野 隆司</div></div><div class="song-lyrics">歓声背に受け<br>熱い想い胸に秘め<br>攻守に輝き<br>勝利へ導け</div></div>
         </div>
       </div>
@@ -107,8 +103,8 @@
         <h3>内野手</h3>
         <div class="songs-grid">
           <div class="song-card"><div class="song-header"><div class="song-num">0</div><div class="song-name">川瀬 晃</div></div><div class="song-lyrics">風の如く駆け抜け<br>グラブ捌き魅せるぜ<br>快音を響かせ<br>バットも魅せるぜ</div></div>
-          <div class="song-card"><div class="song-header"><div class="song-num">4</div><div class="song-name">ジーター・ダウンズ</div></div><div class="song-lyrics">ラララ～<br>ジーター<br>君の出番だ（Let's go!!）<br>オオオ～（オイ！）掴めVictory</div></div>
-          <div class="song-card"><div class="song-header"><div class="song-num">32</div><div class="song-name">山川 穂高</div></div><div class="song-lyrics">どかんと一発<br>山川<br>ホットに飛ばせ<br>スタンドへ<br>勝利の一撃<br>期待を込めて<br>放て山川</div></div>
+          <div class="song-card"><div class="song-header"><div class="song-num">4</div><div class="song-name">ジーター・ダウンズ</div></div><div class="song-lyrics">ラララ～<br>ジーター<br>君の出番だ（Let's<br>go!!）<br>オオオ～（オイ！）掴めVictory</div></div>
+          <div class="song-card"><div class="song-header"><div class="song-num">33</div><div class="song-name">山川 穂高</div></div><div class="song-lyrics">鮮烈な一打を<br>放てスタンドの彼方へ<br>一振りで決めるぞ<br>高く遠く飛ばせ</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">6</div><div class="song-name">今宮 健太</div></div><div class="song-lyrics">生まれ持つセンス<br>風を切り走れ<br>空高く飛ばせ<br>柔らかなリストで</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">8</div><div class="song-name">牧原 大成</div></div><div class="song-lyrics">みなぎるそのエナジー<br>轟け地の果てまで<br>縦横無尽に駆け抜け<br>男になれ</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">24</div><div class="song-name">栗原 陵矢</div></div><div class="song-lyrics">輝く時だ<br>後世に語り継がれる<br>伝説を今から<br>作れよ栗原</div></div>
@@ -124,7 +120,7 @@
           <div class="song-card"><div class="song-header"><div class="song-num">23</div><div class="song-name">周東 佑京</div></div><div class="song-lyrics">たゆまぬ努力で<br>さぁ時代を築け<br>志ひとつに<br>行けスピードソルジャー</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">31</div><div class="song-name">正木 智也</div></div><div class="song-lyrics">狙い研ぎ澄まし<br>殊勲の一打を<br>高らかに放て<br>正木の一振りで</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">32</div><div class="song-name">柳町 達</div></div><div class="song-lyrics">熾烈な争いを<br>勝ち上がる為<br>闘う男の一振り<br>華麗に打ち捌け</div></div>
-          <div class="song-card"><div class="song-header"><div class="song-num">57</div><div class="song-name">緒方 理貢</div><span class="new-badge">NEW</span></div><div class="song-lyrics">夢追いかけ<br>打て魂乗せ<br>行（い）けダイヤモンド駆け抜け<br>今緒方魅せろよ</div><div class="song-audio"><audio controls src="../public/audio/57_ogata.m4a"></audio></div></div>
+          <div class="song-card"><div class="song-header"><div class="song-num">57</div><div class="song-name">緒方 理貢</div><span class="new-badge">NEW</span></div><div class="song-lyrics">夢追いかけ<br>打て魂乗せ<br>行（い）けダイヤモンド駆け抜け<br>今緒方魅せろよ</div><div class="song-audio"><audio controls src="./public/audio/57_ogata.m4a"></audio></div></div>
         </div>
       </div>
       <div class="role-section">
@@ -136,14 +132,14 @@
       </div>
     </div>
 
-    <!-- チャンス/マルチタブ -->
+    <!-- Chance Tab -->
     <div class="tab-content" id="tab-chance">
       <div class="role-section">
         <div class="songs-grid">
-          <div class="song-card"><div class="song-header"><div class="generic-badge">アッチャン</div></div><div class="song-lyrics">【導入】<br>熱く燃えろ（選手名）×３<br>ラーララララララー<br>ラーララララララー<br>ここで決めて勝つんだ<br>そうだ俺達が<br>勝利の使者になろう<br>Let’s Go Let’s Go<br><br>【本編】<br>チャンス チャンス 今チャンス<br>拳を挙げて オイオイオイ<br>チャンス チャンス 今チャンス<br>燃やせよ魂 オイオイオイ<br>チャンス チャンス 今チャンス<br>オー オイオイオイオイ<br>チャンス チャンス 今チャンス<br>オー そーれ<br>決めろ 決めろ （選手名）決めろ<br>燃えろ 燃えろ 熱く燃えろ（選手名）</div></div>
+          <div class="song-card"><div class="song-header"><div class="generic-badge">アッチャン</div></div><div class="song-lyrics">【導入】<br>熱く燃えろ（選手名）×３<br><br>ラーララララララー<br>ラーララララララー<br>ここで決めて勝つんだ<br>そうだ俺達が<br>勝利の使者になろう<br>Let’s Go Let’s Go<br><br>【本編】<br>チャンス チャンス 今チャンス<br>拳を挙げて オイオイオイ<br>チャンス チャンス 今チャンス<br>燃やせよ魂 オイオイオイ<br>チャンス チャンス 今チャンス<br>オー オイオイオイオイ<br>チャンス チャンス 今チャンス<br>オー そーれ<br>決めろ 決めろ （選手名）決めろ<br>燃えろ 燃えろ 熱く燃えろ（選手名）</div></div>
           <div class="song-card"><div class="song-header"><div class="generic-badge">押忍！チャンス</div></div><div class="song-lyrics">(お楽しみは) これからだー<br>ワン ツー スリー フォー<br>オー よっしゃ行くぞ！<br><br>行け行け行け行け 押せ押せ押せ押せ<br>撃て撃て撃て撃て 撃て 撃て（選手名）<br>行け行け行け行け 押せ押せ押せ押せ<br>オイオイオイオイ オイ オイ（選手名）<br>行け 行け 押せ 押せ<br>Go Go Let’s Go! Let’s Go （選手名）<br>行～け 押～せ オー よっしゃ行くぞ！</div></div>
           <div class="song-card"><div class="song-header"><div class="generic-badge">関東チャンス</div></div><div class="song-lyrics">【前奏】<br>オイオイオイ<br>オイオイオイ<br>突き放せ<br><br>【本編】<br>かっとばせ（選手名） （選手名） ここで一発<br>かっとばせ（選手名） 狙えスタンドへ<br>かせかせ（選手名） かせかせ（選手名）<br>いざ行け （選手名）</div></div>
-          <div class="song-card"><div class="song-header"><div class="generic-badge">北日本チャンス</div></div><div class="song-lyrics">【前奏】<br>野球場の中から<br>がんばれって言っている<br>激しく熱く<br>今ここで がんばれ！<br><br>【本編】<br>燃える闘志今見せてやれ<br>（選手名）一振りで決めてやれ<br>勝利決まれば お前の夜だ<br>（選手名）（選手名）<br>いまここで がんばれ！</div></div>
+          <div class="song-card"><div class="song-header"><div class="generic-badge">北のチャンス</div></div><div class="song-lyrics">【前奏】<br>野球場の中から<br>がんばれって言っている<br>激しく熱く<br>今ここで がんばれ！<br><br>【本編】<br>燃える闘志今見せてやれ<br>（選手名）一振りで決めてやれ<br>勝利決まれば お前の夜だ<br>（選手名）（選手名）<br>いまここで がんばれ！</div></div>
           <div class="song-card"><div class="song-header"><div class="generic-badge">鷹の道</div></div><div class="song-lyrics">行けよ男たち チャンスだ燃え上がれ<br>俊足巧打で突き進め それが鷹の道</div></div>
           <div class="song-card"><div class="song-header"><div class="generic-badge">アッコちゃん</div></div><div class="song-lyrics">オーオーオー… そ～れ いけいけ<br>オーオーオー… そ～れ いけいけ<br>（選手名）～ 今こそ～ 戦え～<br>さあ行こう 俺らならやれるさ<br>熱くなれ 男なら行こうぜ<br>（選手名）～ 今こそ～ 戦え～</div></div>
           <div class="song-card"><div class="song-header"><div class="generic-badge">オオサカツンデレラ</div></div><div class="song-lyrics">ラララララララララ…<br>（選手名）（選手名）（選手名）<br>（選手名）ラララー</div></div>
@@ -155,11 +151,18 @@
       </div>
     </div>
 
+    <!-- Multi Tab -->
     <div class="tab-content" id="tab-multi">
       <div class="role-section">
         <div class="songs-grid">
-          <div class="song-card"><div class="song-header"><div class="generic-badge">G.F.V (GO FOR VICTORY)</div></div><div class="song-lyrics">【導入】<br>オイ × 2<br><br>【本編】<br>ラララーララーラーラー<br>ラーラーラーラーラーラー<br>熱いそのハートで<br>突き進め<br><br>ラララーララーラーラー<br>ラーラーラーラーラーラー<br>攻めまくれ 掴み取れ<br>今日の勝利を オイ！オイ！オイ！</div></div>
-          <div class="song-card"><div class="song-header"><div class="generic-badge">勝利目指して</div></div><div class="song-lyrics">【導入】<br>オイ × 2<br><br>【本編】<br>勝利目指して<br>オーーオーオオーオオーー<br>勝利目指して<br>オイ！オイ！オイ！オイ！<br>勝利目指して<br>オーーオーオオーオオーー<br>勝利目指して<br>いざゆけ<br>ホークス！ホークス！<br>絶対勝つぞ！ホークス！</div></div>
+          <div class="song-card">
+            <div class="song-header"><div class="generic-badge">G.F.V (GO FOR VICTORY)</div></div>
+            <div class="song-lyrics">【導入】<br>オイ × 2<br><br>【本編】<br>ラララーララーラーラー<br>ラーラーラーラーラーラー<br>熱いそのハートで<br>突き進め<br><br>ラララーララーラーラー<br>ラーラーラーラーラーラー<br>攻めまくれ 掴み取れ<br>今日の勝利を オイ！オイ！オイ！</div>
+          </div>
+          <div class="song-card">
+            <div class="song-header"><div class="generic-badge">勝利目指して</div></div>
+            <div class="song-lyrics">【導入】<br>オイ × 2<br><br>【本編】<br>勝利目指して<br>オーーオーオオーオオーー<br>勝利目指して<br>オイ！オイ！オイ！オイ！<br>勝利目指して<br>オーーオーオオーオオーー<br>勝利目指して<br>いざゆけ<br>ホークス！ホークス！<br>絶対勝つぞ！ホークス！</div>
+          </div>
         </div>
       </div>
     </div>
@@ -178,7 +181,7 @@
         <div class="footer-col">
           <h4>メニュー</h4>
           <ul>
-            <li><a href="../index.html">HOME</a></li>
+            <li><a href="./index.html">HOME</a></li>
             <li><a href="./schedule.html">日程</a></li>
             <li><a href="./songs.html">応援歌</a></li>
           </ul>

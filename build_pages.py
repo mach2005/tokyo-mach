@@ -1,15 +1,10 @@
 import os
 DIR = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.dirname(DIR)
-HP_DIR = os.path.join(ROOT, 'hp')
-if not os.path.exists(HP_DIR): os.makedirs(HP_DIR)
 
-# Read index.html from ROOT as the source template
-with open(os.path.join(ROOT, 'index.html'), 'r', encoding='utf-8') as f:
+with open(os.path.join(DIR, 'index.html'), 'r', encoding='utf-8') as f:
     index = f.read()
 
 header_end = index.find('<!-- Hero Section -->')
-if header_end == -1: header_end = index.find('<section class="hero">')
 header = index[:header_end]
 footer_start = index.find('<footer class="site-footer">')
 footer = index[footer_start:]
@@ -17,23 +12,11 @@ footer = index[footer_start:]
 def make_page(filename, title, content):
     h = header.replace('<title>東京真隼 TOKYO MACH - ホークス私設応援団</title>',
                         f'<title>{title} - 東京真隼 TOKYO MACH</title>')
-    # Adjust paths for nested location (hp/ folder)
-    h = h.replace('href="./public/', 'href="../public/')
-    h = h.replace('src="./public/', 'src="../public/')
-    h = h.replace('href="./index.html"', 'href="../index.html"')
-    h = h.replace('href="./hp/', 'href="./') # Sub-pages are now local to each other
-
-    f_p = footer.replace('href="./public/', 'href="../public/')
-    f_p = f_p.replace('src="./public/', 'src="../public/')
-    f_p = f_p.replace('href="./index.html"', 'href="../index.html"')
-    f_p = f_p.replace('href="./hp/', 'href="./')
-
-    full = h + content + '\n' + f_p
-    # Write output to HP_DIR
-    path = os.path.join(HP_DIR, filename)
+    full = h + content + '\n' + footer
+    path = os.path.join(DIR, filename)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(full)
-    print(f'Created: {filename} in {HP_DIR}')
+    print(f'Created: {filename}')
 
 # ===== SCHEDULE PAGE =====
 schedule_content = '''
