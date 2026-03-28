@@ -239,8 +239,8 @@ a:hover {
   padding: 0 15px;
 }
 .schedule-slider {
-  display: flex;
-  flex-wrap: nowrap;
+  display: flex !important;
+  flex-wrap: nowrap !important;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -251,7 +251,7 @@ a:hover {
 .schedule-slider::-webkit-scrollbar { display: none; }
 
 .schedule-nav {
-  display: flex;
+  display: flex !important;
   justify-content: center;
   gap: 10px;
   margin-bottom: 30px;
@@ -259,15 +259,18 @@ a:hover {
   padding: 10px 5px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  flex-wrap: nowrap; /* Prevents wrapping on mobile */
+  flex-wrap: nowrap !important; /* Prevents wrapping on mobile */
 }
 .schedule-nav::-webkit-scrollbar { display: none; }
-.schedule-month-btn { white-space: nowrap; flex-shrink: 0; }
+.schedule-month-btn { white-space: nowrap !important; flex-shrink: 0 !important; }
 .calendar-wrapper {
-  flex: 0 0 100%;
+  flex: 0 0 100% !important;
+  width: 100% !important;
+  min-width: 100% !important;
   scroll-snap-align: start;
   background: #fff; padding: 25px; border-radius: 12px; border: 1px solid var(--border);
   box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 20px;
+  box-sizing: border-box;
 }
 
 /* Nav Arrows */
