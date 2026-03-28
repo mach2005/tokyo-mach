@@ -76,7 +76,7 @@ def format_song(text, allow_theme=False):
         badge = ""
         if is_new: badge = "<span class='new-badge'>NEW</span>"
         
-        lyrics = lyrics_raw.replace('\\n', '<br>').replace(' ', '<br>').replace('　', '<br>')
+        lyrics = lyrics_raw.replace('\\n', '<br>')
         
         m = re.match(r"^(\d+)\s+(.+)", title_raw)
         if m:
