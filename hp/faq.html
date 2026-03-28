@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Q&amp;A - 東京真隼 TOKYO MACH</title>
+  <meta name="description" content="東京真隼（TOKYO MACH）は、福岡ソフトバンクホークスの私設応援団です。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../public/style.css">
+  <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<nav class="main-nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="nav-logo-main">東京真隼</span>
+      <span class="nav-logo-sub">TOKYO MACH</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="./schedule.html">日程</a></li>
+      <li><a href="./songs.html">応援歌</a></li>
+      <li><a href="./gallery.html">ギャラリー</a></li>
+      <li><a href="./faq.html" class="active">Q&amp;A</a></li>
+      <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener" class="nav-cta">団員募集</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="page-hero-label">FAQ</span>
+    <h1>Q&amp;A</h1>
+    <p>よくあるご質問をまとめました</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3 class="faq-question">東京真隼とはどんな団体ですか？</h3>
+        <div class="faq-answer">
+          <p>東京真隼（TOKYO MACH）は、福岡ソフトバンクホークスの私設応援団です。主に関東圏のビジター球場を中心に、全国で応援活動を行っています。</p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-question">初心者でも入団できますか？</h3>
+        <div class="faq-answer">
+          <p>はい！応援への熱い気持ちがあれば、経験は問いません。トランペットや太鼓なども、入団後に先輩団員が丁寧に指導します。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-bottom">
+      <p>&copy; 2026 東京真隼 TOKYO MACH. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.getElementById('hamburger').addEventListener('click', function() {
+  this.classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('active');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>応援歌 - 東京真隼 TOKYO MACH</title>
+  <meta name="description" content="東京真隼（TOKYO MACH）は、福岡ソフトバンクホークスの私設応援団です。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../public/style.css">
+  <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
+  <style>
+    .songs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
+    .song-tab-btn { background: #fff; border: 2px solid #ddd; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 5px; color: #333; transition: all 0.3s; }
+    .song-tab-btn.active, .song-tab-btn:hover { background: #ffcc00; border-color: #ffcc00; color: #111; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px; }
+    .song-card { background: #fff; border-radius: 12px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; transition: transform 0.3s; }
+    .song-header { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; }
+    .song-num { background: #111; color: #ffcc00; font-weight: 900; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 1.2rem; }
+    .song-name { font-size: 1.3rem; font-weight: 900; color: #111; }
+    .song-lyrics { line-height: 1.6; font-size: 1.1rem; color: #444; }
+    .new-badge { background: #e74c3c; color: #fff; font-size: 0.7rem; font-weight: 900; padding: 2px 6px; border-radius: 4px; margin-left: auto; }
+  </style>
+</head>
+<body>
+
+<nav class="main-nav" id="mainNav">
+  <div class="nav-inner">
+    <a href="../index.html" class="nav-logo">
+      <span class="nav-logo-main">東京真隼</span>
+      <span class="nav-logo-sub">TOKYO MACH</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">HOME</a></li>
+      <li><a href="./schedule.html">日程</a></li>
+      <li><a href="./songs.html" class="active">応援歌</a></li>
+      <li><a href="./gallery.html">ギャラリー</a></li>
+      <li><a href="./faq.html">Q&amp;A</a></li>
+      <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener" class="nav-cta">団員募集</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <span class="page-hero-label">FIGHT SONGS</span>
+    <h1>応援歌</h1>
+    <p>2026シーズン 選手応援歌・チャンステーマ</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="songs-nav">
+      <button class="song-tab-btn active" data-tab="pitcher">投手</button>
+      <button class="song-tab-btn" data-tab="fielder">野手</button>
+      <button class="song-tab-btn" data-tab="chance">チャンステーマ</button>
+    </div>
+
+    <div class="tab-content active" id="tab-pitcher">
+      <div class="songs-grid">
+        <div class="song-card">
+          <div class="song-header">
+            <div class="song-num">16</div>
+            <div class="song-name">東浜 巨</div>
+          </div>
+          <div class="song-lyrics">
+            立ち向かえよ 勝利の為<br>この地に今輝いて<br>高み目指せ
+          </div>
+        </div>
+        <div class="song-card">
+          <div class="song-header">
+            <div class="song-num">47</div>
+            <div class="song-name">大関 友久</div>
+          </div>
+          <div class="song-lyrics">
+            ほとばしる汗の中<br>歓声を胸に秘め<br>男なら今ここで<br>勝つんだ大関
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="text-align:center; padding:20px; color:#666;">（全選手の応援歌は順次更新されます）</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-logo">東京真隼</div>
+        <p class="footer-tagline">TOKYO MACH - 世界最強のホークス私設応援団</p>
+        <p class="footer-desc">世界最強を目指し、<br>ビジターの地でホークスの勝利を叫ぶ。</p>
+      </div>
+      <div class="footer-links-grid">
+        <div class="footer-col">
+          <h4>メニュー</h4>
+          <ul>
+            <li><a href="../index.html">HOME</a></li>
+            <li><a href="./schedule.html">日程</a></li>
+            <li><a href="./songs.html">応援歌</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>コンテンツ</h4>
+          <ul>
+            <li><a href="./gallery.html">ギャラリー</a></li>
+            <li><a href="./faq.html">Q&amp;A</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 東京真隼 TOKYO MACH. All Rights Reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.song-tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.song-tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.tab-content').forEach(w => w.classList.remove('active'));
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+document.getElementById('hamburger').addEventListener('click', function() {
+  this.classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('active');
+});
+</script>
+</body>
+</html>
