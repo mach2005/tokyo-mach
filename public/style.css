@@ -259,10 +259,20 @@ a:hover {
   padding: 10px 5px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
-  flex-wrap: nowrap !important; /* Prevents wrapping on mobile */
+  flex-wrap: nowrap !important;
 }
 .schedule-nav::-webkit-scrollbar { display: none; }
-.schedule-month-btn { white-space: nowrap !important; flex-shrink: 0 !important; }
+
+.schedule-month-btn {
+  background: #fff; border: 2px solid #ddd;
+  color: #333; padding: 8px 20px; font-size: 1rem;
+  font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
+  white-space: nowrap !important; flex-shrink: 0 !important;
+}
+.schedule-month-btn.active, .schedule-month-btn:hover {
+  background: var(--gold); color: #111; border-color: var(--gold);
+}
+
 .calendar-wrapper {
   flex: 0 0 100% !important;
   width: 100% !important;
@@ -272,6 +282,12 @@ a:hover {
   box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 20px;
   box-sizing: border-box;
 }
+
+.schedule-legend { text-align: center; margin-bottom: 20px; color: #555; font-size: 0.9rem; font-weight: bold;}
+.legend-item { display: inline-flex; align-items: center; margin: 0 10px; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 5px; display: inline-block; border: 1px solid #ccc; }
+.legend-dot.visitor { background: #ffebd6; border-color: #ff9900; }
+.legend-dot.home { background: #f4f4f4; border-color: #888; }
 
 /* Nav Arrows */
 .nav-arrow {
@@ -487,18 +503,3 @@ a:hover {
   .team-logo-img { width: 16px; height: 16px; }
 }
 
-.schedule-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; }
-.schedule-month-btn {
-  background: #fff; border: 2px solid #ddd;
-  color: #333; padding: 8px 20px; font-size: 1rem;
-  font-weight: bold; border-radius: 4px; cursor: pointer; transition: 0.3s;
-}
-.schedule-month-btn.active, .schedule-month-btn:hover {
-  background: var(--gold); color: #111; border-color: var(--gold);
-}
-
-.schedule-legend { text-align: center; margin-bottom: 20px; color: #555; font-size: 0.9rem; font-weight: bold;}
-.legend-item { display: inline-flex; align-items: center; margin: 0 10px; }
-.legend-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 5px; display: inline-block; border: 1px solid #ccc; }
-.legend-dot.visitor { background: #ffebd6; border-color: #ff9900; }
-.legend-dot.home { background: #f4f4f4; border-color: #888; }
