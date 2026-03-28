@@ -46,21 +46,10 @@
 </section>
 <section class="section">
   <div class="container">
-    <div class='schedule-nav'>
-      <button class='schedule-month-btn' data-month='3'>3月</button>
-      <button class='schedule-month-btn active' data-month='4'>4月</button>
-      <button class='schedule-month-btn' data-month='5'>5月</button>
-      <button class='schedule-month-btn' data-month='6'>6月</button>
-      <button class='schedule-month-btn' data-month='7'>7月</button>
-      <button class='schedule-month-btn' data-month='8'>8月</button>
-      <button class='schedule-month-btn' data-month='9'>9月</button>
-      <button class='schedule-month-btn' data-month='10'>10-11月</button>
-    </div>
-    <p class='schedule-legend'>
-      <span class='legend-item'><span class='legend-dot visitor'></span>ビジター</span>
-      <span class='legend-item'><span class='legend-dot home'></span>ホーム</span>
-    </p>
-    <div class='calendar-wrapper' id='month-3' style='display:none;'>
+    <div class="schedule-container">
+      <button class="nav-arrow prev" id="prevMonth" aria-label="前の月"><i class="fas fa-chevron-left"></i></button>
+      <div class="schedule-slider" id="scheduleSlider">
+        <div class='calendar-wrapper' id='month-3'>
       <h3 class='calendar-month-title'>2026年3月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -108,7 +97,8 @@
         <div class='cal-day'><span class='day-num sun out-of-month'>5</span></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-4' style='display:block;'>
+        </div>
+        <div class='calendar-wrapper' id='month-4'>
       <h3 class='calendar-month-title'>2026年4月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -149,7 +139,8 @@
         <div class='cal-day'><span class='day-num sun out-of-month'>3</span></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-5' style='display:none;'>
+        </div>
+        <div class='calendar-wrapper' id='month-5'>
       <h3 class='calendar-month-title'>2026年5月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -190,7 +181,8 @@
         <div class='cal-day home-day'><span class='day-num sun'>31</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_c_s.gif' alt='広島' class='team-logo-img'> 広島</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>13:00</span></div></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-6' style='display:none;'>
+        </div>
+        <div class='calendar-wrapper' id='month-6'>
       <h3 class='calendar-month-title'>2026年6月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -231,7 +223,8 @@
         <div class='cal-day'><span class='day-num sun out-of-month'>5</span></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-7' style='display:none;'>
+        </div>
+        <div class='calendar-wrapper' id='month-7'>
       <h3 class='calendar-month-title'>2026年7月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -272,7 +265,8 @@
         <div class='cal-day visitor-day'><span class='day-num sun out-of-month'>2</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>16:00</span></div></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-8' style='display:none;'>
+        </div>
+        <div class='calendar-wrapper' id='month-8'>
       <h3 class='calendar-month-title'>2026年8月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -320,7 +314,8 @@
         <div class='cal-day'><span class='day-num sun out-of-month'>6</span></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-9' style='display:none;'>
+        </div>
+        <div class='calendar-wrapper' id='month-9'>
       <h3 class='calendar-month-title'>2026年9月</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -361,7 +356,8 @@
         <div class='cal-day'><span class='day-num sun out-of-month'>4</span></div>
       </div>
     </div>
-    <div class='calendar-wrapper' id='month-10' style='display:none;'>
+        </div>
+        <div class='calendar-wrapper' id='month-10'>
       <h3 class='calendar-month-title'>2026年10月-11月（ポストシーズン）</h3>
       <div class='calendar-grid'>
         <div class='cal-header'>月</div><div class='cal-header'>火</div><div class='cal-header'>水</div><div class='cal-header'>木</div><div class='cal-header'>金</div><div class='cal-header sat'>土</div><div class='cal-header sun'>日</div>
@@ -400,7 +396,9 @@
         <div class='cal-day'><span class='day-num'>30</span></div>
         <div class='cal-day ns-day'><span class='day-num sat'>31</span><div class='game-info ns-info'><span class='game-opponent'>日本シリーズ 第6戦</span><span class='game-venue'>セ本拠地</span></div></div>
         <div class='cal-day ns-day'><span class='day-num sun'>1</span><div class='game-info ns-info'><span class='game-opponent'>日本シリーズ 第7戦</span><span class='game-venue'>セ本拠地</span></div></div>
+        </div>
       </div>
+      <button class="nav-arrow next" id="nextMonth" aria-label="次の月"><i class="fas fa-chevron-right"></i></button>
     </div>
   </div>
 </section>
@@ -468,12 +466,64 @@ window.addEventListener('scroll', () => {
 });
 document.querySelectorAll('.schedule-month-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.schedule-month-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.calendar-wrapper').forEach(w => w.style.display = 'none');
-    const target = document.getElementById('month-' + btn.dataset.month);
-    if (target) target.style.display = 'block';
+    const month = btn.dataset.month;
+    const slider = document.getElementById('scheduleSlider');
+    const target = document.getElementById('month-' + month);
+    if (target) {
+      const scrollPos = target.offsetLeft - slider.offsetLeft;
+      slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+      document.querySelectorAll('.schedule-month-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
   });
+});
+
+// Arrow Navigation
+document.getElementById('prevMonth').addEventListener('click', () => {
+  const slider = document.getElementById('scheduleSlider');
+  slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
+});
+document.getElementById('nextMonth').addEventListener('click', () => {
+  const slider = document.getElementById('scheduleSlider');
+  slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
+});
+
+// Sync Tab with Scroll
+let isScrolling;
+document.getElementById('scheduleSlider').addEventListener('scroll', () => {
+  window.clearTimeout(isScrolling);
+  isScrolling = setTimeout(() => {
+    const slider = document.getElementById('scheduleSlider');
+    const scrollPos = slider.scrollLeft + (slider.offsetWidth / 2);
+    const wrappers = document.querySelectorAll('.calendar-wrapper');
+    const btns = document.querySelectorAll('.schedule-month-btn');
+    
+    wrappers.forEach(wrapper => {
+      const start = wrapper.offsetLeft - slider.offsetLeft;
+      const end = start + wrapper.offsetWidth;
+      if (scrollPos >= start && scrollPos < end) {
+        const month = wrapper.id.replace('month-', '');
+        btns.forEach(b => {
+          b.classList.toggle('active', b.dataset.month === month);
+        });
+        // Arrow Visibility (optional/subtle)
+        document.getElementById('prevMonth').style.opacity = (month === '3') ? '0.3' : '1';
+        document.getElementById('nextMonth').style.opacity = (month === '10') ? '0.3' : '1';
+      }
+    });
+  }, 100);
+});
+
+// Initial Scroll (Optional: Current Month)
+window.addEventListener('load', () => {
+  const activeBtn = document.querySelector('.schedule-month-btn.active');
+  if (activeBtn) {
+    const slider = document.getElementById('scheduleSlider');
+    const target = document.getElementById('month-' + activeBtn.dataset.month);
+    if (target) {
+      slider.scrollTo({ left: target.offsetLeft - slider.offsetLeft, behavior: 'auto' });
+    }
+  }
 });
 </script>
 </body>
