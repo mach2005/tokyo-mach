@@ -1,8 +1,26 @@
-$idx = Get-Content "$PSScriptRoot\index.html" -Raw -Encoding UTF8
+$root = Split-Path -Parent $PSScriptRoot
+$hp = Join-Path $root "hp"
+if (-not (Test-Path $hp)) { New-Item -ItemType Directory -Path $hp }
+
+# Read index.html from ROOT as the source template
+$idx = Get-Content "$root\index.html" -Raw -Encoding UTF8
 $heroIdx = $idx.IndexOf('<!-- Hero Section -->')
+if ($heroIdx -eq -1) { $heroIdx = $idx.IndexOf('<section class="hero">') }
 $footerIdx = $idx.IndexOf('<footer class="site-footer">')
+
 $header = $idx.Substring(0, $heroIdx).Replace('<title>東京真隼 TOKYO MACH - ホークス私設応援団</title>','<title>試合日程 - 東京真隼 TOKYO MACH</title>')
-$footer = $idx.Substring($footerIdx)
+
+# Adjust paths for nested location (hp/ folder)
+$header = $header.Replace('href="./public/', 'href="../public/')
+$header = $header.Replace('src="./public/', 'src="../public/')
+$header = $header.Replace('href="./index.html"', 'href="../index.html"')
+$header = $header.Replace('href="./hp/', 'href="./')
+
+$footerStr = $idx.Substring($footerIdx)
+$footer = $footerStr.Replace('href="./public/', 'href="../public/')
+$footer = $footer.Replace('src="./public/', 'src="../public/')
+$footer = $footer.Replace('href="./index.html"', 'href="../index.html"')
+$footer = $footer.Replace('href="./hp/', 'href="./')
 
 function CalH { return '<div class="cal-header sun">日</div><div class="cal-header">月</div><div class="cal-header">火</div><div class="cal-header">水</div><div class="cal-header">木</div><div class="cal-header">金</div><div class="cal-header sat">土</div>' }
 function E { return '<div class="cal-day empty"></div>' }
@@ -171,5 +189,5 @@ document.querySelectorAll('.schedule-month-btn').forEach(btn => {
 
 $body = $pageHero + $pre3 + $m3 + $m5 + $m6 + $m7 + $m8 + $m9 + $m10 + '</div></section>' + $script
 $html = $header + $body + "`n" + $footer
-[System.IO.File]::WriteAllText("$PSScriptRoot\schedule.html", $html, [System.Text.Encoding]::UTF8)
-Write-Output "Created: schedule.html"
+[System.IO.File]::WriteAllText("$hp\schedule.html", $html, [System.Text.Encoding]::UTF8)
+Write-Output "Created: schedule.html in $hp"

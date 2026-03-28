@@ -1,4 +1,6 @@
 import os
+DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT = os.path.dirname(DIR)
 
 PITCHERS = """10 上沢 直之;我らが待ち望む　勝利を手にする為　多彩な持ち球を 繰り出せ上沢
 11 津森 宥紀;男勝負の時だ 思い切り投げ込め 気迫あふれる闘志で 勝利へ導け
@@ -90,10 +92,10 @@ def format_song(text, allow_theme=False):
         audio_html = ""
         # Map player numbers to audio files
         audio_map = {
-            "45": "./public/audio/45_tanigawara.aac",
-            "49": "./public/audio/49_matsumoto_hare.m4a",
-            "53": "./public/audio/53_oyama.m4a",
-            "57": "./public/audio/57_ogata.m4a"
+            "45": "../public/audio/45_tanigawara.aac",
+            "49": "../public/audio/49_matsumoto_hare.m4a",
+            "53": "../public/audio/53_oyama.m4a",
+            "57": "../public/audio/57_ogata.m4a"
         }
         if m and m.group(1) in audio_map:
             audio_html = f"<div class='song-audio'><audio controls src='{audio_map[m.group(1)]}'></audio></div>"
@@ -122,8 +124,8 @@ TOP = """<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="./public/style.css">
-  <link rel="icon" href="./public/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../public/style.css">
+  <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
   <style>
     .songs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
     .generic-badge { background: #eee; color: #333; border-radius: 4px; padding: 4px 10px; font-weight: bold; display: inline-block; }
@@ -144,7 +146,7 @@ TOP = """<!DOCTYPE html>
 <body>
 <nav class="main-nav" id="mainNav">
   <div class="nav-inner">
-    <a href="./index.html" class="nav-logo">
+    <a href="../index.html" class="nav-logo">
       <span class="nav-logo-main">東京真隼</span>
       <span class="nav-logo-sub">TOKYO MACH</span>
     </a>
@@ -152,7 +154,7 @@ TOP = """<!DOCTYPE html>
       <span></span><span></span><span></span>
     </button>
     <ul class="nav-links" id="navLinks">
-      <li><a href="./index.html">HOME</a></li>
+      <li><a href="../index.html">HOME</a></li>
       <li><a href="./schedule.html">日程</a></li>
       <li><a href="./songs.html" class="active">応援歌</a></li>
       <li><a href="./gallery.html">ギャラリー</a></li>
@@ -195,7 +197,7 @@ BOT = """  </div>
         <div class="footer-col">
           <h4>メニュー</h4>
           <ul>
-            <li><a href="./index.html">HOME</a></li>
+            <li><a href="../index.html">HOME</a></li>
             <li><a href="./schedule.html">日程</a></li>
             <li><a href="./songs.html">応援歌</a></li>
           </ul>
@@ -284,6 +286,6 @@ mid += format_song(MULTI, True) + "\n"
 mid += "    </div>\n  </div>\n"
 mid += "</div>\n"
 
-with open('songs.html', 'w', encoding='utf-8') as f:
+with open(os.path.join(ROOT, 'hp', 'songs.html'), 'w', encoding='utf-8') as f:
     f.write(TOP + mid + BOT)
-print("Generated songs.html")
+print(f"Generated songs.html in {os.path.join(ROOT, 'hp')}")
