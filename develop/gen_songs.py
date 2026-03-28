@@ -164,28 +164,47 @@ mid = """
   <div class="container">
     <div class="songs-nav">
       <button class="song-tab-btn active" data-tab="pitcher">投手</button>
-      <button class="song-tab-btn" data-tab="fielder">野手</button>
+      <button class="song-tab-btn" data-tab="catcher">捕手</button>
+      <button class="song-tab-btn" data-tab="infielder">内野手</button>
+      <button class="song-tab-btn" data-tab="outfielder">外野手</button>
+      <button class="song-tab-btn" data-tab="fielder-gen">打者汎用</button>
       <button class="song-tab-btn" data-tab="chance">チャンステーマ</button>
       <button class="song-tab-btn" data-tab="multi">マルチテーマ</button>
     </div>
 """
 
 # Tab Sections
+mid += "    <!-- Pitcher Tab -->\n"
 mid += "    <div class='tab-content active' id='tab-pitcher'>\n"
 mid += "      <div class='role-section'><div class='songs-grid'>\n" + format_song(PITCHERS) + format_song(PITCHERS_GEN, True) + "</div></div>\n"
 mid += "    </div>\n"
 
-mid += "    <div class='tab-content' id='tab-fielder'>\n"
-mid += "      <div class='role-section'><h3>捕手</h3><div class='songs-grid'>" + format_song(CATCHERS) + "</div></div>\n"
-mid += "      <div class='role-section'><h3>内野手</h3><div class='songs-grid'>" + format_song(INFIELDERS) + "</div></div>\n"
-mid += "      <div class='role-section'><h3>外野手</h3><div class='songs-grid'>" + format_song(OUTFIELDERS) + "</div></div>\n"
-mid += "      <div class='role-section'><h3>汎用</h3><div class='songs-grid'>" + format_song(FIELDERS_GEN, True) + "</div></div>\n"
+mid += "    <!-- Catcher Tab -->\n"
+mid += "    <div class='tab-content' id='tab-catcher'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(CATCHERS) + "</div></div>\n"
 mid += "    </div>\n"
 
+mid += "    <!-- Infielder Tab -->\n"
+mid += "    <div class='tab-content' id='tab-infielder'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(INFIELDERS) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += "    <!-- Outfielder Tab -->\n"
+mid += "    <div class='tab-content' id='tab-outfielder'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(OUTFIELDERS) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += "    <!-- General Fielder Tab -->\n"
+mid += "    <div class='tab-content' id='tab-fielder-gen'>\n"
+mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(FIELDERS_GEN, True) + "</div></div>\n"
+mid += "    </div>\n"
+
+mid += "    <!-- Chance Tab -->\n"
 mid += "    <div class='tab-content' id='tab-chance'>\n"
 mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(CHANCE, True) + "</div></div>\n"
 mid += "    </div>\n"
 
+mid += "    <!-- Multi Tab -->\n"
 mid += "    <div class='tab-content' id='tab-multi'>\n"
 mid += "      <div class='role-section'><div class='songs-grid'>" + format_song(MULTI, True) + "</div></div>\n"
 mid += "    </div>\n"

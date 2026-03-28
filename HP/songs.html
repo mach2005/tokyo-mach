@@ -12,7 +12,10 @@
   <link rel="stylesheet" href="../public/style.css">
   <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
   <style>
-    .songs-nav { display: flex; justify-content: center; gap: 10px; margin-bottom: 40px; }
+    .songs-nav { display: flex; justify-content: flex-start; gap: 10px; margin-bottom: 40px; overflow-x: auto; padding-bottom: 12px; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+    .songs-nav::-webkit-scrollbar { height: 5px; }
+    .songs-nav::-webkit-scrollbar-thumb { background: #ffcc00; border-radius: 10px; }
+    @media (min-width: 1024px) { .songs-nav { justify-content: center; overflow-x: visible; } }
     .song-tab-btn { background: #fff; border: 2px solid #ddd; padding: 10px 20px; font-size: 1.1rem; font-weight: bold; cursor: pointer; border-radius: 5px; color: #333; transition: all 0.3s; }
     .song-tab-btn.active, .song-tab-btn:hover { background: #ffcc00; border-color: #ffcc00; color: #111; }
     .tab-content { display: none; }
@@ -62,7 +65,10 @@
   <div class="container">
     <div class="songs-nav">
       <button class="song-tab-btn active" data-tab="pitcher">投手</button>
-      <button class="song-tab-btn" data-tab="fielder">野手</button>
+      <button class="song-tab-btn" data-tab="catcher">捕手</button>
+      <button class="song-tab-btn" data-tab="infielder">内野手</button>
+      <button class="song-tab-btn" data-tab="outfielder">外野手</button>
+      <button class="song-tab-btn" data-tab="fielder-gen">打者汎用</button>
       <button class="song-tab-btn" data-tab="chance">チャンステーマ</button>
       <button class="song-tab-btn" data-tab="multi">マルチテーマ</button>
     </div>
@@ -89,18 +95,20 @@
       </div>
     </div>
 
-    <!-- Fielder Tab -->
-    <div class="tab-content" id="tab-fielder">
+    <!-- Catcher Tab -->
+    <div class="tab-content" id="tab-catcher">
       <div class="role-section">
-        <h3>捕手</h3>
         <div class="songs-grid">
           <div class="song-card"><div class="song-header"><div class="song-num">12</div><div class="song-name">嶺井 博希</div></div><div class="song-lyrics">高み目指す男よ　立ち上がれさぁ<br>嶺井博希今こそ　強く闘え</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">45</div><div class="song-name">谷川原 健太</div><span class="new-badge">NEW</span></div><div class="song-lyrics">鋭い打球飛ばし　鋭い肩で魅せろ<br>今こそ本当（マジ）決めろよ　さあ谷川原行（ゆ）け</div><div class="song-audio"><audio controls src="../public/audio/45_tanigawara.aac"></audio></div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">62</div><div class="song-name">海野 隆司</div></div><div class="song-lyrics">歓声背に受け　熱い想い胸に秘め<br>攻守に輝き　勝利へ導け</div></div>
         </div>
       </div>
+    </div>
+
+    <!-- Infielder Tab -->
+    <div class="tab-content" id="tab-infielder">
       <div class="role-section">
-        <h3>内野手</h3>
         <div class="songs-grid">
           <div class="song-card"><div class="song-header"><div class="song-num">0</div><div class="song-name">川瀬 晃</div></div><div class="song-lyrics">風の如く駆け抜け　グラブ捌き魅せるぜ<br>快音を響かせ　バットも魅せるぜ</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">4</div><div class="song-name">ジーター・ダウンズ</div></div><div class="song-lyrics">ラララ～　ジーター　君の出番だ（Let's go!!）<br>オオオ～（オイ！）掴めVictory</div></div>
@@ -111,8 +119,11 @@
           <div class="song-card"><div class="song-header"><div class="song-num">99</div><div class="song-name">野村 勇</div></div><div class="song-lyrics">ここで見せろ力強く　敵を凌駕する一撃<br>全速前進フルスピードで　勇ましく走れ</div></div>
         </div>
       </div>
+    </div>
+
+    <!-- Outfielder Tab -->
+    <div class="tab-content" id="tab-outfielder">
       <div class="role-section">
-        <h3>外野手</h3>
         <div class="songs-grid">
           <div class="song-card"><div class="song-header"><div class="song-num">3</div><div class="song-name">近藤 健介</div></div><div class="song-lyrics">極めた技で　打球が冴え渡る<br>遥か夢追い求めて　頂へと進め</div></div>
           <div class="song-card"><div class="song-header"><div class="song-num">7</div><div class="song-name">中村 晃</div></div><div class="song-lyrics">新たな扉を　今から開け<br>愛する男さ　中村晃</div></div>
@@ -123,13 +134,16 @@
           <div class="song-card"><div class="song-header"><div class="song-num">57</div><div class="song-name">緒方 理貢</div><span class="new-badge">NEW</span></div><div class="song-lyrics">夢追いかけ　打て魂乗せ<br>行（い）けダイヤモンド駆け抜け　今緒方魅せろよ</div><div class="song-audio"><audio controls src="../public/audio/57_ogata.m4a"></audio></div></div>
         </div>
       </div>
-  <div class="role-section">
-    <h3>汎用</h3>
-    <div class="songs-grid">
-      <div class="song-card"><div class="song-header"><div class="generic-badge">右打者汎用</div></div><div class="song-lyrics">待ちわびた場所で　真の力を解け<br>限界超えるその日まで　夢の道繋げろ</div></div>
-      <div class="song-card"><div class="song-header"><div class="generic-badge">左打者汎用</div></div><div class="song-lyrics">今舞台が出来たぞ　お前が輝く<br>最高の瞬間　羽ばたけ</div></div>
     </div>
-  </div>
+
+    <!-- General Fielder Tab -->
+    <div class="tab-content" id="tab-fielder-gen">
+      <div class="role-section">
+        <div class="songs-grid">
+          <div class="song-card"><div class="song-header"><div class="generic-badge">右打者汎用</div></div><div class="song-lyrics">待ちわびた場所で　真の力を解け<br>限界超えるその日まで　夢の道繋げろ</div></div>
+          <div class="song-card"><div class="song-header"><div class="generic-badge">左打者汎用</div></div><div class="song-lyrics">今舞台が出来たぞ　お前が輝く<br>最高の瞬間　羽ばたけ</div></div>
+        </div>
+      </div>
     </div>
 
     <!-- Chance Tab -->
