@@ -259,6 +259,7 @@ a:hover {
   padding: 10px 5px;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
+  flex-wrap: nowrap; /* Prevents wrapping on mobile */
 }
 .schedule-nav::-webkit-scrollbar { display: none; }
 .schedule-month-btn { white-space: nowrap; flex-shrink: 0; }
