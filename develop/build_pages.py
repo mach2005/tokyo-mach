@@ -1,7 +1,7 @@
 import os
 DIR = os.path.dirname(os.path.abspath(__file__))
 
-with open(os.path.join(DIR, 'index.html'), 'r', encoding='utf-8') as f:
+with open(os.path.join(DIR, '../HP/index.html'), 'r', encoding='utf-8') as f:
     index = f.read()
 
 header_end = index.find('<!-- Hero Section -->')
@@ -13,10 +13,10 @@ def make_page(filename, title, content):
     h = header.replace('<title>東京真隼 TOKYO MACH - ホークス私設応援団</title>',
                         f'<title>{title} - 東京真隼 TOKYO MACH</title>')
     full = h + content + '\n' + footer
-    path = os.path.join(DIR, filename)
+    path = os.path.join(DIR, '../HP/', filename)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(full)
-    print(f'Created: {filename}')
+    print(f'Created: ../HP/{filename}')
 
 # ===== SCHEDULE PAGE =====
 schedule_content = '''

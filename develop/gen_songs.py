@@ -284,6 +284,6 @@ mid += format_song(MULTI, True) + "\n"
 mid += "    </div>\n  </div>\n"
 mid += "</div>\n"
 
-with open('songs.html', 'w', encoding='utf-8') as f:
+with open('../HP/songs.html', 'w', encoding='utf-8') as f:
     f.write(TOP + mid + BOT)
-print("Generated songs.html")
+print("Generated ../HP/songs.html")
