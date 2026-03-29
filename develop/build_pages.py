@@ -224,8 +224,8 @@ schedule_content += f'''
     {day(25,'sat','visitor-day',vg('楽天','楽天モバイル','14:00'))}
     {day(26,'sun','visitor-day',vg('楽天','楽天モバイル','13:00'))}
     {day(27)}
-    <div class='cal-day visitor-day'><span class='day-num'>28</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_cl_s.gif' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>東京ドーム</span><span class='game-time'>18:30</span></div></div>
-    <div class='cal-day visitor-day'><span class='day-num'>29</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_cl_s.gif' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>富山市民球場</span><span class='game-time'>18:30</span></div></div>
+    <div class='cal-day visitor-day'><span class='day-num'>28</span><div class='game-info visitor-game'><span class='game-opponent'><img src='../public/images/logo_cl_transparent.png' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>東京ドーム</span><span class='game-time'>18:30</span></div></div>
+    <div class='cal-day visitor-day'><span class='day-num'>29</span><div class='game-info visitor-game'><span class='game-opponent'><img src='../public/images/logo_cl_transparent.png' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>富山市民球場</span><span class='game-time'>18:30</span></div></div>
     {day(30)}{day(31)}{empty()}
   </div>
 </div>
