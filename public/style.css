@@ -503,9 +503,9 @@ a:hover {
   .cal-day { min-height: 55px; padding: 2px; min-width: 0; }
   .day-num { font-weight: bold; font-size: 0.8rem; margin-bottom: 2px; }
   .game-info { font-size: 0.65rem; padding: 3px; border-left-width: 2px; margin-bottom: 1px; }
-  .game-opponent { display: inline-flex !important; align-items: center; vertical-align: middle; }
+  .game-opponent { display: inline-flex !important; align-items: center; vertical-align: middle; font-size: 0 !important; color: transparent !important; }
   .team-name { display: none; }
   .game-venue, .game-time { font-size: 0.6rem; white-space: normal; line-height: 1.1; overflow-wrap: anywhere; }
-  .team-logo-img { width: 16px; height: 16px; margin: 0; flex-shrink: 0; }
+  .team-logo-img { width: 16px; height: 16px; margin: 0; flex-shrink: 0; border-radius: 4px; }
 }
 
