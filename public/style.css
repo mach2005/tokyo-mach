@@ -500,11 +500,11 @@ a:hover {
   .calendar-wrapper { padding: 12px !important; }
   .calendar-grid { width: 100%; }
   .cal-header { padding: 8px 1px; font-size: 0.75rem; }
-  .cal-day { min-height: 60px; padding: 2px; min-width: 0; }
+  .cal-day { min-height: 55px; padding: 2px; min-width: 0; }
   .day-num { font-weight: bold; font-size: 0.8rem; margin-bottom: 2px; }
   .game-info { font-size: 0.65rem; padding: 3px; border-left-width: 2px; margin-bottom: 1px; }
-  .game-opponent { font-size: 0 !important; }
+  .game-opponent { display: inline-flex !important; width: 16px; height: 16px; overflow: hidden; justify-content: center; align-items: center; vertical-align: middle; }
   .game-venue, .game-time { font-size: 0.6rem; white-space: normal; line-height: 1.1; overflow-wrap: anywhere; }
-  .team-logo-img { width: 16px; height: 16px; margin-right: 0; }
+  .team-logo-img { width: 16px; height: 16px; margin: 0; flex-shrink: 0; }
 }
 
