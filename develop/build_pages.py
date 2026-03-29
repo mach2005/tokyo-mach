@@ -218,14 +218,15 @@ schedule_content += f'''
     {day(11,'sat','',hg('日本ハム'))}
     {day(12,'sun','',hg('日本ハム','PayPay','13:00'))}
     {day(13)}{day(14)}{day(15)}{day(16)}{day(17)}{day(18,'sat')}{day(19,'sun')}
-    {day(20)}
-    <div class="cal-day"><span class="day-num allstar">21</span><div class="game-info allstar-info"><span class="game-opponent">オールスター</span></div></div>
-    <div class="cal-day"><span class="day-num allstar">22</span><div class="game-info allstar-info"><span class="game-opponent">オールスター</span></div></div>
+    {day(20)}{day(21)}{day(22)}
     {day(23)}
     {day(24,'','visitor-day',vg('楽天','楽天モバイル'))}
     {day(25,'sat','visitor-day',vg('楽天','楽天モバイル','14:00'))}
     {day(26,'sun','visitor-day',vg('楽天','楽天モバイル','13:00'))}
-    {day(27)}{day(28)}{day(29)}{day(30)}{day(31)}{empty()}
+    {day(27)}
+    <div class='cal-day visitor-day'><span class='day-num'>28</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_cl_s.gif' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>東京ドーム</span><span class='game-time'>18:30</span></div></div>
+    <div class='cal-day visitor-day'><span class='day-num'>29</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_cl_s.gif' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>富山市民球場</span><span class='game-time'>18:30</span></div></div>
+    {day(30)}{day(31)}{empty()}
   </div>
 </div>
 '''
