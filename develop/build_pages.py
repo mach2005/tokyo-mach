@@ -48,13 +48,33 @@ schedule_content = '''
 def cal_headers():
     return '''<div class="cal-header sun">日</div><div class="cal-header">月</div><div class="cal-header">火</div><div class="cal-header">水</div><div class="cal-header">木</div><div class="cal-header">金</div><div class="cal-header sat">土</div>'''
 
+TEAM_LOGOS = {
+    '日本ハム': 'https://npb.jp/img/common/logo/2026/logo_f_s.gif',
+    '楽天': 'https://npb.jp/img/common/logo/2026/logo_e_s.gif',
+    'ロッテ': 'https://npb.jp/img/common/logo/2026/logo_m_s.gif',
+    '西武': 'https://npb.jp/img/common/logo/2026/logo_l_s.gif',
+    'オリックス': 'https://npb.jp/img/common/logo/2026/logo_b_s.gif',
+    '巨人': 'https://npb.jp/img/common/logo/2026/logo_g_s.gif',
+    'ヤクルト': 'https://npb.jp/img/common/logo/2026/logo_s_s.gif',
+    'DeNA': 'https://npb.jp/img/common/logo/2026/logo_db_s.gif',
+    '中日': 'https://npb.jp/img/common/logo/2026/logo_d_s.gif',
+    '阪神': 'https://npb.jp/img/common/logo/2026/logo_t_s.gif',
+    '広島': 'https://npb.jp/img/common/logo/2026/logo_c_s.gif',
+    'セントラル': 'https://npb.jp/img/common/logo/2026/logo_cl_s.gif',
+    'パシフィック': 'https://npb.jp/img/common/logo/2026/logo_pl_s.gif'
+}
+
 def day(num, cls='', day_cls='', game=None):
     dc = f' {day_cls}' if day_cls else ''
     nc = f' {cls}' if cls else ''
     g = ''
     if game:
         gc = game.get('gc','visitor-game')
-        g = f'<div class="game-info {gc}"><span class="game-opponent">{game["opp"]}</span>'
+        # 新旧両方のキーに対応
+        opp_name = game.get('opp_name', game.get('opp', '').replace('vs ', ''))
+        logo_url = TEAM_LOGOS.get(opp_name, '')
+        logo_img = f"<img src='{logo_url}' alt='{opp_name}' class='team-logo-img'> " if logo_url else ""
+        g = f'<div class="game-info {gc}"><span class="game-opponent">{logo_img}{opp_name}</span>'
         if 'venue' in game: g += f'<span class="game-venue">{game["venue"]}</span>'
         if 'time' in game: g += f'<span class="game-time">{game["time"]}</span>'
         g += '</div>'
@@ -63,11 +83,19 @@ def day(num, cls='', day_cls='', game=None):
 def empty():
     return '<div class="cal-day empty"></div>'
 
-def vg(opp, venue, time='18:00'):
-    return {'opp': f'vs {opp}', 'venue': venue, 'time': time, 'gc': 'visitor-game'}
+def vg(opp_name, venue, time='18:00'):
+    return {'opp_name': opp_name, 'opp': f'vs {opp_name}', 'venue': venue, 'time': time, 'gc': 'visitor-game'}
 
-def hg(opp, venue='PayPay', time='14:00'):
-    return {'opp': f'vs {opp}', 'venue': venue, 'time': time, 'gc': 'home-game'}
+def hg(opp_name, venue='みずほPayPay', time='18:00'):
+    # 福岡（PayPay）または北九州以外は「ビジター扱い（黄色）」にする
+    is_fukuoka = any(x in venue for x in ['PayPay', '北九州'])
+    gc = 'home-game' if is_fukuoka else 'visitor-game'
+    return {'opp_name': opp_name, 'opp': f'vs {opp_name}', 'venue': venue, 'time': time, 'gc': gc}
+
+def day_with_cls(num, cls='', game=None):
+    # ゲームがある場合、そのクラスに合わせて day_cls も設定する
+    day_cls = game.get('gc', '').replace('-game', '-day') if game else ''
+    return day(num, cls, day_cls, game)
 
 # 3月 オープン戦
 schedule_content += f'''
@@ -170,30 +198,33 @@ schedule_content += f'''
   <div class="calendar-grid">
     {cal_headers()}
     {day(1)}
-    {day(2,'','visitor-day',vg('日本ハム','エスコン'))}
-    {day(3,'','visitor-day',vg('日本ハム','エスコン'))}
-    {day(4,'','visitor-day',vg('日本ハム','エスコン'))}
-    {day(5)}
-    {day(6,'sat','',hg('西武'))}
-    {day(7,'sun','',hg('西武','PayPay','13:00'))}
+    {day_with_cls(2,'',vg('中日','バンテリン'))}
+    {day_with_cls(3,'',vg('中日','バンテリン'))}
+    {day_with_cls(4,'',vg('中日','バンテリン'))}
+    {day_with_cls(5,'',vg('DeNA','横浜'))}
+    {day_with_cls(6,'sat',vg('DeNA','横浜','14:00'))}
+    {day_with_cls(7,'sun',vg('DeNA','横浜','13:00'))}
     {day(8)}
-    {day(9,'','visitor-day',vg('広島','マツダ'))}
-    {day(10,'','visitor-day',vg('広島','マツダ'))}
-    {day(11,'','visitor-day',vg('広島','マツダ'))}
-    {day(12)}
-    {day(13,'sat','visitor-day',vg('阪神','甲子園','14:00'))}
-    {day(14,'sun','visitor-day',vg('阪神','甲子園','14:00'))}
-    {day(15)}{day(16)}{day(17)}{day(18)}{day(19)}
-    {day(20,'sat','',hg('ロッテ'))}
-    {day(21,'sun','',hg('ロッテ','PayPay','13:00'))}
+    {day_with_cls(9,'',hg('阪神'))}
+    {day_with_cls(10,'',hg('阪神'))}
+    {day_with_cls(11,'',hg('阪神'))}
+    {day_with_cls(12,'',hg('ヤクルト'))}
+    {day_with_cls(13,'sat',hg('ヤクルト','みずほPayPay','14:00'))}
+    {day_with_cls(14,'sun',hg('ヤクルト','みずほPayPay','13:00'))}
+    {day(15)}{day(16)}{day(17)}{day(18)}
+    {day_with_cls(19,'',vg('日本ハム','エスコン'))}
+    {day_with_cls(20,'sat',vg('日本ハム','エスコン','14:00'))}
+    {day_with_cls(21,'sun',vg('日本ハム','エスコン','13:00'))}
     {day(22)}
-    {day(23,'','visitor-day',vg('ロッテ','ZOZOマリン'))}
-    {day(24,'','visitor-day',vg('ロッテ','ZOZOマリン'))}
-    {day(25,'','visitor-day',vg('ロッテ','ZOZOマリン'))}
-    {day(26)}
-    {day(27,'sat','',hg('楽天'))}
-    {day(28,'sun','',hg('楽天','PayPay','13:00'))}
-    {day(29)}{day(30)}{empty()}{empty()}{empty()}{empty()}
+    {day_with_cls(23,'',hg('オリックス'))}
+    {day_with_cls(24,'',hg('オリックス'))}
+    {day_with_cls(25,'',hg('オリックス'))}
+    {day_with_cls(26,'',vg('ロッテ','ZOZOマリン'))}
+    {day_with_cls(27,'sat',vg('ロッテ','ZOZOマリン'))}
+    {day_with_cls(28,'sun',vg('ロッテ','ZOZOマリン','17:00'))}
+    {day(29)}
+    {day_with_cls(30,'',hg('西武','東京ドーム'))}
+    {empty()}{empty()}{empty()}{empty()}{empty()}
   </div>
 </div>
 '''
