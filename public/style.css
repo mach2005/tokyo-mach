@@ -318,9 +318,9 @@ a:hover {
 
 /* Hide arrows on mobile */
 @media (max-width: 1100px) {
-  .nav-arrow { display: flex; top: 10px; width: 36px; height: 36px; font-size: 1rem; }
-  .nav-arrow.prev { left: 10px; }
-  .nav-arrow.next { right: 10px; }
+  .nav-arrow { display: flex !important; top: 10px !important; width: 36px; height: 36px; font-size: 1rem; }
+  .nav-arrow.prev { left: 10px !important; }
+  .nav-arrow.next { right: 10px !important; }
   .schedule-nav { justify-content: flex-start; }
   .schedule-container { margin: 0; padding: 0; }
   .calendar-wrapper { flex: 0 0 100%; }
