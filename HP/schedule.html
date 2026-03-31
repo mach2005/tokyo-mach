@@ -13,6 +13,48 @@
   <link rel="icon" href="../public/favicon.svg" type="image/svg+xml">
   <style>
     .day-num.out-of-month { color: #bbb; }
+    
+    /* Navigation Arrows Enhancements */
+    .nav-arrow {
+      width: auto !important;
+      min-width: 44px;
+      padding: 0 18px !important;
+      border-radius: 30px !important;
+      gap: 10px;
+      font-weight: 900;
+      font-size: 0.95rem !important;
+      background: #fff !important;
+      border: 2px solid var(--gold) !important;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.12) !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    }
+    .nav-arrow:hover {
+      background: var(--gold) !important;
+      color: #111 !important;
+      transform: translateY(-2px) scale(1.05) !important;
+      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.25) !important;
+    }
+    .nav-arrow .nav-arrow-text {
+      white-space: nowrap;
+      margin: 0 2px;
+    }
+    .nav-arrow i {
+      font-size: 0.9rem;
+    }
+    .nav-arrow.prev { left: 15px !important; }
+    .nav-arrow.next { right: 15px !important; }
+    
+    @media (max-width: 768px) {
+      .nav-arrow {
+        padding: 0 12px !important;
+        height: 38px !important;
+        font-size: 0.85rem !important;
+      }
+      .nav-arrow-text { font-size: 0.8rem; }
+    }
   </style>
 </head>
 <body>
@@ -62,7 +104,7 @@
     </p>
 
     <div class="schedule-container">
-      <button class="nav-arrow prev" id="prevMonth" aria-label="前の月"><i class="fas fa-chevron-left"></i></button>
+      <button class="nav-arrow prev" id="prevMonth" aria-label="前の月"><i class="fas fa-chevron-left"></i><span class="nav-arrow-text"></span></button>
       <div class="schedule-slider" id="scheduleSlider">
         <div class='calendar-wrapper' id='month-3'>
       <h3 class='calendar-month-title'>2026年3月</h3>
@@ -406,7 +448,7 @@
         <div class='cal-day ns-day'><span class='day-num sun'>1</span><div class='game-info ns-info'><span class='game-opponent'>日本シリーズ 第7戦</span><span class='game-venue'>セ本拠地</span></div></div>
       </div> <!-- closes month 10 -->
     </div> <!-- closes scheduleSlider -->
-    <button class="nav-arrow next" id="nextMonth" aria-label="次の月"><i class="fas fa-chevron-right"></i></button>
+    <button class="nav-arrow next" id="nextMonth" aria-label="次の月"><span class="nav-arrow-text"></span><i class="fas fa-chevron-right"></i></button>
   </div> <!-- closes schedule-container -->
 </div> <!-- closes container (line 48) -->
 </section>
@@ -482,9 +524,44 @@ document.querySelectorAll('.schedule-month-btn').forEach(btn => {
       slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
       document.querySelectorAll('.schedule-month-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      updateNavArrows(month);
     }
   });
 });
+
+const monthNames = {
+  '3': '3月', '4': '4月', '5': '5月', '6': '6月', 
+  '7': '7月', '8': '8月', '9': '9月', '10': '10-11月'
+};
+
+function updateNavArrows(currentMonth) {
+  const months = ['3', '4', '5', '6', '7', '8', '9', '10'];
+  const idx = months.indexOf(currentMonth);
+  const prevBtn = document.getElementById('prevMonth');
+  const nextBtn = document.getElementById('nextMonth');
+  
+  if (idx > 0) {
+    const prevMonth = months[idx - 1];
+    prevBtn.querySelector('.nav-arrow-text').textContent = monthNames[prevMonth];
+    prevBtn.style.opacity = '1';
+    prevBtn.style.pointerEvents = 'auto';
+  } else {
+    prevBtn.querySelector('.nav-arrow-text').textContent = '';
+    prevBtn.style.opacity = '0.2';
+    prevBtn.style.pointerEvents = 'none';
+  }
+  
+  if (idx < months.length - 1) {
+    const nextMonth = months[idx + 1];
+    nextBtn.querySelector('.nav-arrow-text').textContent = monthNames[nextMonth];
+    nextBtn.style.opacity = '1';
+    nextBtn.style.pointerEvents = 'auto';
+  } else {
+    nextBtn.querySelector('.nav-arrow-text').textContent = '';
+    nextBtn.style.opacity = '0.2';
+    nextBtn.style.pointerEvents = 'none';
+  }
+}
 
 // Arrow Navigation
 document.getElementById('prevMonth').addEventListener('click', () => {
@@ -514,9 +591,7 @@ document.getElementById('scheduleSlider').addEventListener('scroll', () => {
         btns.forEach(b => {
           b.classList.toggle('active', b.dataset.month === month);
         });
-        // Arrow Visibility (optional/subtle)
-        document.getElementById('prevMonth').style.opacity = (month === '3') ? '0.3' : '1';
-        document.getElementById('nextMonth').style.opacity = (month === '10') ? '0.3' : '1';
+        updateNavArrows(month);
       }
     });
   }, 100);
@@ -530,6 +605,7 @@ window.addEventListener('load', () => {
     const target = document.getElementById('month-' + activeBtn.dataset.month);
     if (target) {
       slider.scrollTo({ left: target.offsetLeft - slider.offsetLeft, behavior: 'auto' });
+      updateNavArrows(activeBtn.dataset.month);
     }
   }
 });
