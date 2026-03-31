@@ -1,539 +1,542 @@
-﻿<!DOCTYPE html>
-<html lang="ja">
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
-    <title>譚ｱ莠ｬ逵滄埔 2026 蠢懈抄豁後す繝ｼ繝・/title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --primary-color: #ffcc00; /* 繝帙・繧ｯ繧ｹ繧､繧ｨ繝ｭ繝ｼ */
-            --secondary-color: #111;
-            --accent-color: #000;
-            --bg-white: #fff;
-            --border-width: 1px;
-            --category-bg: #111;
-            --category-text: #ffcc00;
-        }
-
-        @page {
-            size: A3 landscape;
-            margin: 0;
-        }
-
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Noto Sans JP', sans-serif;
-            background-color: #f0f0f0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: auto;
-        }
-
-        .container-wrapper {
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .sheet {
-            width: 420mm;
-            height: 297mm;
-            background-color: var(--bg-white);
-            box-sizing: border-box;
-            padding: 10mm 12mm 3mm; /* Optimized to avoid bottom cutoff */
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 0 20px rgba(0,0,0,0.2);
-            transform-origin: top center;
-        }
-
-        @media print {
-            body { background: none; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
-            .container-wrapper { padding: 0 !important; margin: 0 !important; }
-            .sheet { 
-                box-shadow: none; 
-                margin: 0; 
-                width: 420mm; 
-                height: 297mm; 
-                transform: none !important; 
-                page-break-after: always;
-            }
-            .zoom-controls { display: none !important; }
-        }
-
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 4px solid #000;
-            padding: 1.5mm 5mm;
-            margin-bottom: 2mm;
-            z-index: 10;
-            background-color: var(--primary-color);
-            border-radius: 1mm;
-        }
-
-        header .team-name {
-            font-size: 21pt; /* Scaled up to fit bar */
-            font-weight: 900;
-            color: #000;
-        }
-
-        header .header-right {
-            display: flex;
-            align-items: center;
-            gap: 6mm;
-        }
-
-        .group-name {
-            font-size: 22pt;
-            font-weight: 900;
-            color: #000;
-        }
-
-        .header-sns {
-            display: flex;
-            gap: 3mm;
-            align-items: center;
-        }
-
-        .header-sns a {
-            font-size: 22pt;
-            text-decoration: none;
-            color: #000;
-        }
-
-        .ig-link i {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .x-link i {
-            color: #000;
-        }
-
-        .header-apply-btn {
-            background: #000;
-            color: var(--primary-color);
-            padding: 2mm 6mm;
-            border-radius: 2mm;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 13pt;
-        }
-
-        .song-list {
-            display: flex;
-            flex-direction: column;
-            gap: 0; 
-        }
-
-        .category-header {
-            background-color: var(--category-bg);
-            color: var(--category-text);
-            padding: 0.8mm 3mm;
-            font-weight: 900;
-            font-size: 10.5pt;
-            margin-top: 1mm;
-            margin-bottom: 1mm;
-            border-radius: 1mm;
-            display: inline-block;
-        }
-
-        .song-item {
-            display: grid;
-            grid-template-columns: 20mm 24mm 1fr;
-            align-items: baseline;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.15mm;
-            gap: 1.5mm;
-        }
-
-        .song-num {
-            background-color: var(--primary-color);
-            color: #000;
-            width: fit-content;
-            min-width: 7mm;
-            padding: 0 1mm;
-            height: 5.5mm;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: 900;
-            font-size: 9.5pt;
-            border-radius: 0.8mm;
-        }
-        
-        .song-num.generic {
-            background-color: #444;
-            color: #fff;
-            font-size: 7.2pt;
-            min-width: 18mm;
-        }
-
-        .song-info {
-            display: contents; 
-        }
-
-        .song-name {
-            font-size: 10.5pt;
-            font-weight: 900;
-            white-space: nowrap;
-        }
-
-        .song-lyrics {
-            font-size: 9.3pt;
-            line-height: 1.2;
-            color: #000;
-        }
-
-        .chance-theme-container {
-            margin-top: 2.5mm;
-            position: relative;
-        }
-
-        .chance-header-wrapper {
-            display: flex;
-            align-items: center;
-            margin-bottom: -1px;
-            z-index: 10;
-        }
-
-        .chance-header {
-            background-color: #fff;
-            border: 2px solid var(--primary-color);
-            border-bottom: none;
-            padding: 0.8mm 3.5mm;
-            font-size: 11pt;
-            font-weight: 900;
-            border-radius: 1.5mm 1.5mm 0 0;
-        }
-
-        .chance-layout-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0;
-        }
-
-        .chance-col {
-            border: 2px solid var(--primary-color);
-            padding: 1.8mm;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5mm;
-            margin-right: -2px; 
-            background-color: #fff;
-        }
-
-        .chance-col:last-child {
-            margin-right: 0;
-        }
-
-        .chance-col.full-col {
-            grid-row: span 2;
-        }
-
-        .chance-col.short-col {
-            grid-row: span 1;
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .chance-item {
-            font-size: 7.8pt;
-            border: 1px solid #eee;
-            padding: 1.2mm;
-            border-radius: 1.2mm;
-            line-height: 1.25;
-        }
-
-        .chance-name {
-            font-weight: 900;
-            color: #000;
-            border-bottom: 2px solid var(--primary-color);
-            margin-bottom: 1.2mm;
-            display: block;
-            font-size: 8.5pt;
-        }
-
-        .chance-lyrics-full {
-            white-space: pre-wrap;
-        }
-
-        /* 蜍滄寔繝懊ャ繧ｯ繧ｹ (讓ｪ蝙九・鮟・牡閭梧勹) */
-        .recruitment-box {
-            grid-column: 4;
-            grid-row: 2;
-            background-color: var(--primary-color);
-            border: 2px solid #000;
-            border-radius: 2mm;
-            padding: 2.5mm 4mm;
-            display: flex;
-            flex-direction: row; 
-            justify-content: space-between;
-            align-items: center;
-            gap: 3mm;
-            margin-top: 4px; 
-            box-sizing: border-box;
-            box-shadow: 0 1mm 3mm rgba(0,0,0,0.1);
-        }
-
-        .recruit-left {
-            flex: 1;
-            text-align: left;
-        }
-
-        .recruit-title {
-            font-size: 11pt;
-            font-weight: 900;
-            color: #000;
-            border-bottom: 2px solid #000;
-            display: inline-block;
-            margin-bottom: 1.5mm;
-        }
-
-        .recruit-msg {
-            font-size: 7.2pt;
-            line-height: 1.25;
-            color: #000;
-            font-weight: 700;
-        }
-
-        .recruit-right {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-        }
-
-        /* Square Button */
-        .recruit-link {
-            background-color: #000;
-            color: var(--primary-color);
-            width: 20mm;
-            height: 20mm;
-            border-radius: 2mm;
-            text-decoration: none;
-            font-weight: 900;
-            font-size: 10pt;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2mm;
-            box-sizing: border-box;
-            box-shadow: 0 1mm 2mm rgba(0,0,0,0.3);
-            line-height: 1.2;
-        }
-
-        .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
-        .zoom-btn { background-color: #000; color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 2px solid var(--primary-color); }
-    </style>
-</head>
-<body>
-
-<div class="container-wrapper">
-    <div class="sheet" id="ouenkaSheet">
-        <header>
-            <div class="header-left">
-                <span class="team-name">遖丞ｲ｡繧ｽ繝輔ヨ繝舌Φ繧ｯ繝帙・繧ｯ繧ｹ 驕ｸ謇句挨蠢懈抄豁・2026</span>
-            </div>
-            <div class="header-right">
-                <span class="group-name">譚ｱ莠ｬ逵滄埔</span>
-                <div class="header-sns">
-                    <a href="https://x.com/tokyo_mach" target="_blank" class="x-link"><i class="fa-brands fa-square-x-twitter"></i></a>
-                    <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="ig-link"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-                <a href="https://t.co/NuiNCqluh0" target="_blank" class="header-apply-btn">蠢懷供</a>
-            </div>
-        </header>
-
-        <main style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm;">
-            <div class="song-list">
-                <div class="category-header">謚墓焔</div>
-                <div class="song-item"><div class="song-num">10</div><div class="song-info"><span class="song-name">荳頑ｲ｢ 逶ｴ荵・/span><span class="song-lyrics">笙ｪ 謌代ｉ縺悟ｾ・■譛帙・ 蜍晏茜繧呈焔縺ｫ縺吶ｋ轤ｺ 螟壼ｽｩ縺ｪ謖√■逅・ｒ 郢ｰ繧雁・縺帑ｸ頑ｲ｢</span></div></div>
-                <div class="song-item"><div class="song-num">11</div><div class="song-info"><span class="song-name">豢･譽ｮ 螳･邏</span><span class="song-lyrics">笙ｪ 逕ｷ蜍晁ｲ縺ｮ譎ゅ□ 諤昴＞蛻・ｊ謚輔￡霎ｼ繧・豌苓ｿｫ縺ゅ・繧後ｋ髣伜ｿ励〒 蜍晏茜縺ｸ蟆弱￠</span></div></div>
-                <div class="song-item"><div class="song-num">16</div><div class="song-info"><span class="song-name">譚ｱ豬・蟾ｨ</span><span class="song-lyrics">笙ｪ 遶九■蜷代°縺医ｈ 蜍晏茜縺ｮ轤ｺ 縺薙・蝨ｰ縺ｫ莉願ｼ昴＞縺ｦ 鬮倥∩逶ｮ謖・○</span></div></div>
-                <div class="song-item"><div class="song-num">19</div><div class="song-info"><span class="song-name">螟ｧ豢･ 莠ｮ莉・/span><span class="song-lyrics">笙ｪ 蛻ｶ逅・ｹｱ繧後↑縺・邱ｩ諤･謇狗ｹｰ繧玖・ 髱偵″鄙ｼ繧貞ｺ・￡鄒ｽ縺ｰ縺溘￠ 鬲・○繧榊､壼ｽｩ縺ｪ鬲皮帥</span></div></div>
-                <div class="song-item"><div class="song-num">39</div><div class="song-info"><span class="song-name">蟆ｾ蠖｢ 蟠・沫</span><span class="song-lyrics">笙ｪ 螟｢繧定ｳｭ縺代◆ 繝槭え繝ｳ繝峨〒 蟆ｾ蠖｢蟠・沫繧・莉願ｦ九○縺ｦ繧・ｌ</span></div></div>
-                <div class="song-item"><div class="song-num">40</div><div class="song-info"><span class="song-name">譚牙ｱｱ 荳讓ｹ</span><span class="song-lyrics">笙ｪ 鬮倥＞菴咲ｽｮ縺九ｉ 騾溘＞繝懊・繝ｫ縺ｧ 謨ｵ繧定ｿｽ縺・ｾｼ縺ｿ 蜍晏茜繧呈雫繧・/span></div></div>
-                <div class="song-item"><div class="song-num">47</div><div class="song-info"><span class="song-name">螟ｧ髢｢ 蜿倶ｹ・/span><span class="song-lyrics">笙ｪ 縺ｻ縺ｨ縺ｰ縺励ｋ豎励・荳ｭ 豁灘｣ｰ繧定・縺ｫ遘倥ａ 逕ｷ縺ｪ繧我ｻ翫％縺薙〒 蜍昴▽繧薙□螟ｧ髢｢</span></div></div>
-                <div class="song-item"><div class="song-num">48</div><div class="song-info"><span class="song-name">阯､莠・逧灘悼</span><span class="song-lyrics">笙ｪ 霎帙＞譎ゅｒ荵励ｊ雜・∴縺ｦ 譚･縺溘◇螟｢縺ｮ闊槫床 蠢・・縺ｨ縺､縺ｫ閻輔ｒ謖ｯ繧頑栢縺・蜍晏茜縺ｸ蟆弱￠繧・/span></div></div>
-                <div class="song-item"><div class="song-num">49</div><div class="song-info"><span class="song-name">譚ｾ譛ｬ 譎ｴ</span><span class="song-lyrics">笙ｪ 骰帙∴縺溘◎縺ｮ閻輔ｒ 閾ｪ菫｡謖√▲縺ｦ謖ｯ繧頑栢縺・謠ｺ繧九′縺ｬ隕壽ぁ閭ｸ縺ｫ 譚ｾ譛ｬ譎ｴ霈昴￠</span></div></div>
-                <div class="song-item"><div class="song-num">53</div><div class="song-info"><span class="song-name">螟ｧ螻ｱ 蜃・/span><span class="song-lyrics">笙ｪ 鬲りｾｼ繧√※ 繝懊・繝ｫ繧呈兜縺定ｾｼ繧・譫懈覆縺ｫ謾ｻ繧√※ 蜍晏茜縺ｸ蟆弱￠</span></div></div>
-                <div class="song-item"><div class="song-num">66</div><div class="song-info"><span class="song-name">譚ｾ譛ｬ 陬墓ｨｹ</span><span class="song-lyrics">笙ｪ 閭ｸ蜈・ｪ√″蛻ｺ縺・騾溘＞逅・∩縺・豎ｺ繧√ｍ縺昴・逅・〒 謨ｵ繧定ｨ弱■蜿悶ｌ</span></div></div>
-                <div class="song-item"><div class="song-num">120</div><div class="song-info"><span class="song-name">髟ｷ隹ｷ蟾・螽∝ｱ・/span><span class="song-lyrics">笙ｪ 豌苓ｿｫ貅｢繧後ｋ 縺昴・逅・〒 陦鯉ｼ医ｆ・峨￠繧亥ｨ∝ｱ・縺ｲ縺溘・縺阪↓</span></div></div>
-                
-                <div class="category-header">謚墓焔豎守畑</div>
-                <div class="song-item"><div class="song-num generic">蜿ｳ謚墓焔豎守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 諱舌ｌ繧九↑ 遶九■蜷代°縺・豌玲戟縺｡隕九○繧・莉ｲ髢薙ｒ菫｡縺倥※</span></div></div>
-                <div class="song-item"><div class="song-num generic">蟾ｦ謚墓焔豎守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 謚代∴繧九メ繝｣繝ｳ繧ｹ 迚ｩ縺ｫ縺吶ｋ縺・縺薙・閻輔〒 蠢・★謗ｴ繧縺・/span></div></div>
-                
-                <div class="category-header">謐墓焔</div>
-                <div class="song-item"><div class="song-num">12</div><div class="song-info"><span class="song-name">蠍ｺ莠・蜊壼ｸ・/span><span class="song-lyrics">笙ｪ 鬮倥∩逶ｮ謖・☆逕ｷ繧・遶九■荳翫′繧後＆縺・蠍ｺ莠募忽蟶御ｻ翫％縺・蠑ｷ縺城利縺・/span></div></div>
-                <div class="song-item"><div class="song-num">45</div><div class="song-info"><span class="song-name">隹ｷ蟾晏次 蛛･螟ｪ</span><span class="song-lyrics">笙ｪ 驪ｭ縺・遠逅・｣帙・縺・驪ｭ縺・か縺ｧ鬲・○繧・莉翫％縺晄悽蠖難ｼ医・繧ｸ・画ｱｺ繧√ｍ繧・/span></div></div>
-                <div class="song-item"><div class="song-num">62</div><div class="song-info"><span class="song-name">豬ｷ驥・髫・昇</span><span class="song-lyrics">笙ｪ 豁灘｣ｰ閭後↓蜿励￠ 辭ｱ縺・Φ縺・・縺ｫ遘倥ａ 謾ｻ螳医↓霈昴″ 蜍晏茜縺ｸ蟆弱￠</span></div></div>
-            </div>
-
-            <div class="song-list">
-                <div class="category-header">蜀・㍽謇・/div>
-                <div class="song-item"><div class="song-num">0</div><div class="song-info"><span class="song-name">蟾晉ｬ 譎・/span><span class="song-lyrics">笙ｪ 鬚ｨ縺ｮ螯ゅ￥鬧・￠謚懊￠ 繧ｰ繝ｩ繝匁轟縺埼ｭ・○繧九● 蠢ｫ髻ｳ繧帝涸縺九○</span></div></div>
-                <div class="song-item"><div class="song-num">4</div><div class="song-info"><span class="song-name">繧ｸ繝ｼ繧ｿ繝ｼ</span><span class="song-lyrics">笙ｪ 繝ｩ繝ｩ繝ｩ・・繧ｸ繝ｼ繧ｿ繝ｼ 蜷帙・蜃ｺ逡ｪ縺 繧ｪ繧ｪ繧ｪ・橸ｼ医が繧､・・ｼ画雫繧〃ictory</span></div></div>
-                <div class="song-item"><div class="song-num">6</div><div class="song-info"><span class="song-name">莉雁ｮｮ 蛛･螟ｪ</span><span class="song-lyrics">笙ｪ 逕溘∪繧梧戟縺､繧ｻ繝ｳ繧ｹ 鬚ｨ繧貞・繧願ｵｰ繧・遨ｺ鬮倥￥鬟帙・縺・譟斐ｉ縺九↑繝ｪ繧ｹ繝医〒</span></div></div>
-                <div class="song-item"><div class="song-num">8</div><div class="song-info"><span class="song-name">迚ｧ蜴・螟ｧ謌・/span><span class="song-lyrics">笙ｪ 縺ｿ縺ｪ縺弱ｋ縺昴・繧ｨ繝翫ず繝ｼ 霓溘￠蝨ｰ縺ｮ譫懊※縺ｾ縺ｧ 邵ｦ讓ｪ辟｡蟆ｽ縺ｫ鬧・￠謚懊￠</span></div></div>
-                <div class="song-item"><div class="song-num">24</div><div class="song-info"><span class="song-name">譬怜次 髯ｵ遏｢</span><span class="song-lyrics">笙ｪ 霈昴￥譎ゅ□ 蠕御ｸ悶↓隱槭ｊ邯吶′繧後ｋ 莨晁ｪｬ繧剃ｻ翫°繧・菴懊ｌ繧域怜次</span></div></div>
-                <div class="song-item"><div class="song-num">33</div><div class="song-info"><span class="song-name">螻ｱ蟾・遨るｫ・/span><span class="song-lyrics">笙ｪ 魄ｮ辜医↑荳謇薙ｒ 謾ｾ縺ｦ繧ｹ繧ｿ繝ｳ繝峨・蠖ｼ譁ｹ縺ｸ 荳謖ｯ繧翫〒豎ｺ繧√ｋ縺・/span></div></div>
-                <div class="song-item"><div class="song-num">99</div><div class="song-info"><span class="song-name">驥取搗 蜍・/span><span class="song-lyrics">笙ｪ 縺薙％縺ｧ隕九○繧榊鴨蠑ｷ縺・蜃碁ｧ輔☆繧倶ｸ謦・蜈ｨ騾溷燕騾ｲ繝輔Ν繧ｹ繝斐・繝峨〒</span></div></div>
-
-                <div class="category-header">螟夜㍽謇・/div>
-                <div class="song-item"><div class="song-num">3</div><div class="song-info"><span class="song-name">霑題陸 蛛･莉・/span><span class="song-lyrics">笙ｪ 讌ｵ繧√◆謚縺ｧ 謇鍋帥縺悟・縺域ｸ｡繧・驕･縺句､｢霑ｽ縺・ｱゅａ縺ｦ 鬆ゅ∈縺ｨ騾ｲ繧・/span></div></div>
-                <div class="song-item"><div class="song-num">7</div><div class="song-info"><span class="song-name">荳ｭ譚・譎・/span><span class="song-lyrics">笙ｪ 譁ｰ縺溘↑謇峨ｒ 莉翫°繧蛾幕縺・諢帙☆繧狗塙縺・荳ｭ譚第刄</span></div></div>
-                <div class="song-item"><div class="song-num">9</div><div class="song-info"><span class="song-name">譟ｳ逕ｰ 謔蟯・/span><span class="song-lyrics">笙ｪ 蜈峨・繧医≧縺ｪ雜ｳ縺ｨ 遯√″蛻ｺ縺吶ｈ縺・↑繧ｹ繝ｭ繝ｼ 縺・＊荳謖ｯ繧頑ｱｺ繧√※</span></div></div>
-                <div class="song-item"><div class="song-num">23</div><div class="song-info"><span class="song-name">蜻ｨ譚ｱ 菴台ｺｬ</span><span class="song-lyrics">笙ｪ 縺溘ｆ縺ｾ縺ｬ蜉ｪ蜉帙〒 譎ゆｻ｣繧堤ｯ峨￠ 蠢励・縺ｨ縺､縺ｫ 陦後￠繧ｹ繝斐・繝峨た繝ｫ繧ｸ繝｣繝ｼ</span></div></div>
-                <div class="song-item"><div class="song-num">31</div><div class="song-info"><span class="song-name">豁｣譛ｨ 譎ｺ荵・/span><span class="song-lyrics">笙ｪ 迢吶＞遐斐℃貔・∪縺・谿雁挟縺ｮ荳謇薙ｒ 鬮倥ｉ縺九↓謾ｾ縺ｦ 豁｣譛ｨ縺ｮ荳謖ｯ繧翫〒</span></div></div>
-                <div class="song-item"><div class="song-num">32</div><div class="song-info"><span class="song-name">譟ｳ逕ｺ 驕・/span><span class="song-lyrics">笙ｪ 辭ｾ辜医↑莠峨＞繧・蜍昴■荳翫′繧狗ぜ 髣倥≧逕ｷ縺ｮ荳謖ｯ繧・闖ｯ鮗励↓謇薙■謐後￠</span></div></div>
-                <div class="song-item"><div class="song-num">57</div><div class="song-info"><span class="song-name">邱呈婿 逅・ｲ｢</span><span class="song-lyrics">笙ｪ 螟｢霑ｽ縺・°縺・謇薙※鬲ゆｹ励○ 陦鯉ｼ医＞・峨￠繝繧､繝､繝｢繝ｳ繝蛾ｧ・￠謚懊￠</span></div></div>
-
-                <div class="category-header">謇楢・ｱ守畑</div>
-                <div class="song-item"><div class="song-num generic">蜿ｳ謇楢・ｱ守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 蠕・■繧上・縺溷ｴ謇縺ｧ 逵溘・蜉帙ｒ隗｣縺・髯千阜雜・∴繧・縺昴・譌･縺ｾ縺ｧ</span></div></div>
-                <div class="song-item"><div class="song-num generic">蟾ｦ謇楢・ｱ守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 莉願・蜿ｰ縺悟・譚･縺溘◇ 縺雁燕縺瑚ｼ昴￥ 譛鬮倥・迸ｬ髢・鄒ｽ縺ｰ縺溘￠</span></div></div>
-            </div>
-        </main>
-
-        <div class="chance-theme-container">
-            <div class="chance-header-wrapper">
-                <div class="chance-header">繝√Ε繝ｳ繧ｹ繝・・繝槭・繝槭Ν繝√ユ繝ｼ繝・/div>
-            </div>
-            <div class="chance-layout-grid">
-                <!-- 蛻・ -->
-                <div class="chance-col full-col">
-                    <div class="chance-item">
-                        <span class="chance-name">繧｢繝・メ繝｣繝ｳ</span>
-                        <div class="chance-lyrics-full"><br>縲仙ｰ主・縲醍・縺冗㏍縺医ｍ・磯∈謇句錐・嘉暦ｼ・繝ｩ繝ｼ繝ｩ繝ｩ... 縺薙％縺ｧ豎ｺ繧√※蜍昴▽繧薙□ 菫ｺ縺溘■縺悟享蛻ｩ縺ｮ菴ｿ閠・↓
-Let窶冱 Go Let窶冱 Go
-<br>縲先悽邱ｨ縲代メ繝｣繝ｳ繧ｹ莉翫メ繝｣繝ｳ繧ｹ 諡ｳ繧呈嫌縺・繧ｪ繧､繧ｪ繧､繧ｪ繧､
-・磯∈謇句錐・画ｱｺ繧√ｍ 辭ｱ縺冗㏍縺医ｍ・磯∈謇句錐・・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">謚ｼ蠢搾ｼ√メ繝｣繝ｳ繧ｹ</span>
-                        <div class="chance-lyrics-full"><br>縲仙ｰ主・縲代％繧後°繧峨□繝ｼ 1-2-3-4 繧医▲縺励ｃ陦後￥縺橸ｼ・<br>縲先悽邱ｨ縲第茶縺ｦ謦・※...・磯∈謇句錐・峨が繧､繧ｪ繧､繧ｪ繧､
-Go Go Let窶冱 Go! Let窶冱 Go・磯∈謇句錐・・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">髢｢譚ｱ繝√Ε繝ｳ繧ｹ</span>
-                        <div class="chance-lyrics-full"><br>縲仙燕螂上代が繧､繧ｪ繧､繧ｪ繧､...・育ｪ√″謾ｾ縺孃r蜍昴■雜翫＠or騾・ｻ｢・・<br>縲先悽邱ｨ縲代°縺｣縺ｨ縺ｰ縺幢ｼ磯∈謇句錐・会ｼ磯∈謇句錐・・荳逋ｺ迢吶∴
-縺九○縺九○・磯∈謇句錐・・縺九○縺九○・磯∈謇句錐・・縺・＊陦後￠</div>
-                    </div>
-                </div>
-
-                <!-- 蛻・ -->
-                <div class="chance-col full-col">
-                    <div class="chance-item">
-                        <span class="chance-name">蛹励・繝√Ε繝ｳ繧ｹ</span>
-                        <div class="chance-lyrics-full">驥守帥蝣ｴ縺ｮ荳ｭ縺九ｉ 縺後ｓ縺ｰ繧後→險縺｣縺ｦ縺・ｋ 莉翫％縺薙〒縺後ｓ縺ｰ繧鯉ｼ・辯・∴繧矩利蠢嶺ｻ願ｦ九○縺ｦ繧・ｌ ・磯∈謇句錐・我ｸ謖ｯ繧翫〒豎ｺ繧√※繧・ｌ
-・磯∈謇句錐・会ｼ磯∈謇句錐・峨＞縺ｾ縺後ｓ縺ｰ繧鯉ｼ・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">鮃ｹ縺ｮ驕・/span>
-                        <div class="chance-lyrics-full">陦後￠繧育塙縺溘■ 繝√Ε繝ｳ繧ｹ縺辯・∴荳翫′繧・菫願ｶｳ蟾ｧ謇薙〒遯√″騾ｲ繧・縺昴ｌ縺碁ｷｹ縺ｮ驕・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">繧｢繝・さ縺｡繧・ｓ</span>
-                        <div class="chance-lyrics-full">繧ｪ繝ｼ繧ｪ繝ｼ繧ｪ繝ｼ 縺晢ｽ槭ｌ 縺・￠縺・￠ ﾃ・
-・磯∈謇句錐・会ｽ・莉翫％縺晢ｽ・謌ｦ縺茨ｽ・逕ｷ縺ｪ繧芽｡後％縺・● ・磯∈謇句錐・画姶縺・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">繧ｪ繧ｪ繧ｵ繧ｫ繝・Φ繝・Ξ繝ｩ</span>
-                        <div class="chance-lyrics-full">繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｼ
-・磯∈謇句錐・会ｼ磯∈謇句錐・会ｼ磯∈謇句錐・会ｼ磯∈謇句錐・峨Λ繝ｩ繝ｩ繝ｼ</div>
-                    </div>
-                </div>
-
-                <!-- 蛻・ -->
-                <div class="chance-col full-col">
-                    <div class="chance-item">
-                        <span class="chance-name">莉､蜥・/span>
-                        <div class="chance-lyrics-full">繧ｦ繧ｩ繧､・√え繧ｩ繧､・√え繧ｩ繧､・・ｼ磯∈謇句錐・・莉雁ｮｵ蜍晏茜縺ｮ轤ｺ縺ｫ 菫ｺ繧牙将縺ｳ邯壹￠繧・莉ｲ髢薙→蜈ｱ縺ｫ 繧ｦ繧ｩ繧､・√え繧ｩ繧､・√え繧ｩ繧､・・ｼ磯∈謇句錐・・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">阯､譛ｬ</span>
-                        <div class="chance-lyrics-full">繧上▲縺励ｇ縺・ｏ縺｣縺励ｇ縺・(驕ｸ謇句錐) ﾃ・
-陦後￠・∵遠縺ｦ・・・磯∈謇句錐・・辭ｱ縺上↑繧鯉ｼ・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">闍･莠・/span>
-                        <div class="chance-lyrics-full">・磯∈謇句錐・・・磯∈謇句錐・・・磯∈謇句錐・・辯・∴繧咲㏍縺医ｍ ・磯∈謇句錐・・縺九▲鬟帙・縺・・磯∈謇句錐・・謌代ｉ縺ｮ ・磯∈謇句錐・峨°縺｣鬟帙・縺・・磯∈謇句錐・・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">鮃ｹ縺ｮ辷ｪ</span>
-                        <div class="chance-lyrics-full"><br>縲仙燕螂上大享蛻ｩ縺ｫ蜷代°縺｣縺ｦ遯√″騾ｲ繧・謇薙■縺ｾ縺上ｌ
-縺雁燕縺ｮ蜉帙ｒ隕九○縺ｦ縺上ｌ 縺昴ｌ陦後￠ ・磯∈謇句錐・・<br>縲千塙諤ｧ縲代％縺薙〒豎ｺ繧√ｍ・・<br>縲仙･ｳ諤ｧ縲代％縺薙〒豎ｺ繧√ｍ・・/div>
-                    </div>
-                </div>
-
-                <!-- 蛻・ (L蟄・ -->
-                <div class="chance-col short-col">
-                    <div class="chance-item">
-                        <span class="chance-name">G.F.V</span>
-                        <div class="chance-lyrics-full"><br>縲仙ｰ主・縲代が繧､ ﾃ・2
-<br>縲先悽邱ｨ縲醍・縺・ワ繝ｼ繝医〒遯√″騾ｲ繧・謾ｻ繧√∪縺上ｌ 謗ｴ縺ｿ蜿悶ｌ 莉頑律縺ｮ蜍晏茜繧・繧ｪ繧､・√が繧､・√が繧､・・/div>
-                    </div>
-                    <div class="chance-item">
-                        <span class="chance-name">蜍晏茜逶ｮ謖・＠縺ｦ</span>
-                        <div class="chance-lyrics-full">繧ｪ繝ｼ繝ｼ繧ｪ繝ｼ繧ｪ繧ｪ繝ｼ繧ｪ繧ｪ繝ｼ繝ｼ
-蜍晏茜逶ｮ謖・＠縺ｦ 繧ｪ繧､・√が繧､・√が繧､・√が繧､・・縺・＊繧・￠ 繝帙・繧ｯ繧ｹ・・邨ｶ蟇ｾ蜍昴▽縺橸ｼ・/div>
-                    </div>
-                </div>
-
-                <!-- 蜍滄寔繝懊ャ繧ｯ繧ｹ -->
-                <div class="recruitment-box">
-                    <div class="recruit-left">
-                        <div class="recruit-title">譚ｱ莠ｬ逵滄埔蠢懈抄蝗｣蜩｡螟ｧ蜍滄寔・・/div>
-                        <div class="recruit-msg">
-                            繝薙ず繧ｿ繝ｼ逅・ｴ縺ｧ繧ゆｸ邱偵↓蠢懈抄豢ｻ蜍輔＠縺ｦ縺上ｌ繧倶ｻｲ髢薙ｒ蜍滄寔荳ｭ・・br>
-                            髻ｳ讌ｽ譛ｪ邨碁ｨ楢・∬∬凶逕ｷ螂ｳ蝠上ｏ縺壼､ｧ豁楢ｿ趣ｼ・br>
-                            荳邱偵↓繧ｹ繧ｿ繝ｳ繝峨ｒ逶帙ｊ荳翫￡縺ｾ縺励ｇ縺・・                        </div>
-                    </div>
-                    <div class="recruit-right">
-                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">蠢懷供繝ｻ隧ｳ邏ｰ<br>縺ｯ縺薙■繧・/a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="zoom-controls">
-    <div class="zoom-btn" onclick="toggleZoom()" id="zoomBtn">博</div>
-</div>
-
-<script>
-let isZoomed = false;
-function scaleSheet() {
-    const sheet = document.getElementById('ouenkaSheet');
-    if (!sheet) return;
-    if (window.matchMedia('print').matches) { sheet.style.transform = 'none'; return; }
-    const baseWidthMm = 420; const baseHeightMm = 297;
-    const padding = 20; const availableW = window.innerWidth - padding; const availableH = window.innerHeight - padding;
-    const mmToPx = 3.78; const sheetW = baseWidthMm * mmToPx; const sheetH = baseHeightMm * mmToPx;
-    let scale;
-    if (isZoomed) { scale = Math.max(0.6, (window.innerWidth - 10) / sheetW); if (scale > 1.2) scale = 1.2;
-    } else { const scaleW = availableW / sheetW; const scaleH = availableH / sheetH; scale = Math.min(scaleW, scaleH); if (scale > 1) scale = 1; }
-    sheet.style.transform = `scale(${scale})`;
-    document.body.style.justifyContent = (isZoomed && window.innerWidth < sheetW * scale) ? 'flex-start' : 'center';
-}
-function toggleZoom() { isZoomed = !isZoomed; const btn = document.querySelector('.zoom-btn'); btn.innerText = isZoomed ? "蜈ｨ" : "博"; scaleSheet(); if (isZoomed) window.scrollTo(0, 0); }
-window.addEventListener('resize', scaleSheet);
-window.addEventListener('load', scaleSheet);
-</script>
-
-</body>
-</html>
+    <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
+    <link rel="shortcut icon" href="../public/favicon.png?v=2">
+    <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
+    <title>譚ｱ莠ｬ逵滄埔 2026 蠢懈抄豁後す繝ｼ繝・/title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #ffcc00; /* 繝帙・繧ｯ繧ｹ繧､繧ｨ繝ｭ繝ｼ */
+            --secondary-color: #111;
+            --accent-color: #000;
+            --bg-white: #fff;
+            --border-width: 1px;
+            --category-bg: #111;
+            --category-text: #ffcc00;
+        }
+
+        @page {
+            size: A3 landscape;
+            margin: 0;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: auto;
+        }
+
+        .container-wrapper {
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .sheet {
+            width: 420mm;
+            height: 297mm;
+            background-color: var(--bg-white);
+            box-sizing: border-box;
+            padding: 10mm 12mm 3mm; /* Optimized to avoid bottom cutoff */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            transform-origin: top center;
+        }
+
+        @media print {
+            body { background: none; margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+            .container-wrapper { padding: 0 !important; margin: 0 !important; }
+            .sheet { 
+                box-shadow: none; 
+                margin: 0; 
+                width: 420mm; 
+                height: 297mm; 
+                transform: none !important; 
+                page-break-after: always;
+            }
+            .zoom-controls { display: none !important; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 4px solid #000;
+            padding: 1.5mm 5mm;
+            margin-bottom: 2mm;
+            z-index: 10;
+            background-color: var(--primary-color);
+            border-radius: 1mm;
+        }
+
+        header .team-name {
+            font-size: 21pt; /* Scaled up to fit bar */
+            font-weight: 900;
+            color: #000;
+        }
+
+        header .header-right {
+            display: flex;
+            align-items: center;
+            gap: 6mm;
+        }
+
+        .group-name {
+            font-size: 22pt;
+            font-weight: 900;
+            color: #000;
+        }
+
+        .header-sns {
+            display: flex;
+            gap: 3mm;
+            align-items: center;
+        }
+
+        .header-sns a {
+            font-size: 22pt;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .ig-link i {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .x-link i {
+            color: #000;
+        }
+
+        .header-apply-btn {
+            background: #000;
+            color: var(--primary-color);
+            padding: 2mm 6mm;
+            border-radius: 2mm;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 13pt;
+        }
+
+        .song-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0; 
+        }
+
+        .category-header {
+            background-color: var(--category-bg);
+            color: var(--category-text);
+            padding: 0.8mm 3mm;
+            font-weight: 900;
+            font-size: 10.5pt;
+            margin-top: 1mm;
+            margin-bottom: 1mm;
+            border-radius: 1mm;
+            display: inline-block;
+        }
+
+        .song-item {
+            display: grid;
+            grid-template-columns: 20mm 24mm 1fr;
+            align-items: baseline;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.15mm;
+            gap: 1.5mm;
+        }
+
+        .song-num {
+            background-color: var(--primary-color);
+            color: #000;
+            width: fit-content;
+            min-width: 7mm;
+            padding: 0 1mm;
+            height: 5.5mm;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: 900;
+            font-size: 9.5pt;
+            border-radius: 0.8mm;
+        }
+        
+        .song-num.generic {
+            background-color: #444;
+            color: #fff;
+            font-size: 7.2pt;
+            min-width: 18mm;
+        }
+
+        .song-info {
+            display: contents; 
+        }
+
+        .song-name {
+            font-size: 10.5pt;
+            font-weight: 900;
+            white-space: nowrap;
+        }
+
+        .song-lyrics {
+            font-size: 9.3pt;
+            line-height: 1.2;
+            color: #000;
+        }
+
+        .chance-theme-container {
+            margin-top: 2.5mm;
+            position: relative;
+        }
+
+        .chance-header-wrapper {
+            display: flex;
+            align-items: center;
+            margin-bottom: -1px;
+            z-index: 10;
+        }
+
+        .chance-header {
+            background-color: #fff;
+            border: 2px solid var(--primary-color);
+            border-bottom: none;
+            padding: 0.8mm 3.5mm;
+            font-size: 11pt;
+            font-weight: 900;
+            border-radius: 1.5mm 1.5mm 0 0;
+        }
+
+        .chance-layout-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0;
+        }
+
+        .chance-col {
+            border: 2px solid var(--primary-color);
+            padding: 1.8mm;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5mm;
+            margin-right: -2px; 
+            background-color: #fff;
+        }
+
+        .chance-col:last-child {
+            margin-right: 0;
+        }
+
+        .chance-col.full-col {
+            grid-row: span 2;
+        }
+
+        .chance-col.short-col {
+            grid-row: span 1;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .chance-item {
+            font-size: 7.8pt;
+            border: 1px solid #eee;
+            padding: 1.2mm;
+            border-radius: 1.2mm;
+            line-height: 1.25;
+        }
+
+        .chance-name {
+            font-weight: 900;
+            color: #000;
+            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 1.2mm;
+            display: block;
+            font-size: 8.5pt;
+        }
+
+        .chance-lyrics-full {
+            white-space: pre-wrap;
+        }
+
+        /* 蜍滄寔繝懊ャ繧ｯ繧ｹ (讓ｪ蝙九・鮟・牡閭梧勹) */
+        .recruitment-box {
+            grid-column: 4;
+            grid-row: 2;
+            background-color: var(--primary-color);
+            border: 2px solid #000;
+            border-radius: 2mm;
+            padding: 2.5mm 4mm;
+            display: flex;
+            flex-direction: row; 
+            justify-content: space-between;
+            align-items: center;
+            gap: 3mm;
+            margin-top: 4px; 
+            box-sizing: border-box;
+            box-shadow: 0 1mm 3mm rgba(0,0,0,0.1);
+        }
+
+        .recruit-left {
+            flex: 1;
+            text-align: left;
+        }
+
+        .recruit-title {
+            font-size: 11pt;
+            font-weight: 900;
+            color: #000;
+            border-bottom: 2px solid #000;
+            display: inline-block;
+            margin-bottom: 1.5mm;
+        }
+
+        .recruit-msg {
+            font-size: 7.2pt;
+            line-height: 1.25;
+            color: #000;
+            font-weight: 700;
+        }
+
+        .recruit-right {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        /* Square Button */
+        .recruit-link {
+            background-color: #000;
+            color: var(--primary-color);
+            width: 20mm;
+            height: 20mm;
+            border-radius: 2mm;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 10pt;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2mm;
+            box-sizing: border-box;
+            box-shadow: 0 1mm 2mm rgba(0,0,0,0.3);
+            line-height: 1.2;
+        }
+
+        .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+        .zoom-btn { background-color: #000; color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 2px solid var(--primary-color); }
+    </style>
+</head>
+<body>
+
+<div class="container-wrapper">
+    <div class="sheet" id="ouenkaSheet">
+        <header>
+            <div class="header-left">
+                <span class="team-name">遖丞ｲ｡繧ｽ繝輔ヨ繝舌Φ繧ｯ繝帙・繧ｯ繧ｹ 驕ｸ謇句挨蠢懈抄豁・2026</span>
+            </div>
+            <div class="header-right">
+                <span class="group-name">譚ｱ莠ｬ逵滄埔</span>
+                <div class="header-sns">
+                    <a href="https://x.com/tokyo_mach" target="_blank" class="x-link"><i class="fa-brands fa-square-x-twitter"></i></a>
+                    <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="ig-link"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <a href="https://t.co/NuiNCqluh0" target="_blank" class="header-apply-btn">蠢懷供</a>
+            </div>
+        </header>
+
+        <main style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 8mm;">
+            <div class="song-list">
+                <div class="category-header">謚墓焔</div>
+                <div class="song-item"><div class="song-num">10</div><div class="song-info"><span class="song-name">荳頑ｲ｢ 逶ｴ荵・/span><span class="song-lyrics">笙ｪ 謌代ｉ縺悟ｾ・■譛帙・ 蜍晏茜繧呈焔縺ｫ縺吶ｋ轤ｺ 螟壼ｽｩ縺ｪ謖√■逅・ｒ 郢ｰ繧雁・縺帑ｸ頑ｲ｢</span></div></div>
+                <div class="song-item"><div class="song-num">11</div><div class="song-info"><span class="song-name">豢･譽ｮ 螳･邏</span><span class="song-lyrics">笙ｪ 逕ｷ蜍晁ｲ縺ｮ譎ゅ□ 諤昴＞蛻・ｊ謚輔￡霎ｼ繧・豌苓ｿｫ縺ゅ・繧後ｋ髣伜ｿ励〒 蜍晏茜縺ｸ蟆弱￠</span></div></div>
+                <div class="song-item"><div class="song-num">16</div><div class="song-info"><span class="song-name">譚ｱ豬・蟾ｨ</span><span class="song-lyrics">笙ｪ 遶九■蜷代°縺医ｈ 蜍晏茜縺ｮ轤ｺ 縺薙・蝨ｰ縺ｫ莉願ｼ昴＞縺ｦ 鬮倥∩逶ｮ謖・○</span></div></div>
+                <div class="song-item"><div class="song-num">19</div><div class="song-info"><span class="song-name">螟ｧ豢･ 莠ｮ莉・/span><span class="song-lyrics">笙ｪ 蛻ｶ逅・ｹｱ繧後↑縺・邱ｩ諤･謇狗ｹｰ繧玖・ 髱偵″鄙ｼ繧貞ｺ・￡鄒ｽ縺ｰ縺溘￠ 鬲・○繧榊､壼ｽｩ縺ｪ鬲皮帥</span></div></div>
+                <div class="song-item"><div class="song-num">39</div><div class="song-info"><span class="song-name">蟆ｾ蠖｢ 蟠・沫</span><span class="song-lyrics">笙ｪ 螟｢繧定ｳｭ縺代◆ 繝槭え繝ｳ繝峨〒 蟆ｾ蠖｢蟠・沫繧・莉願ｦ九○縺ｦ繧・ｌ</span></div></div>
+                <div class="song-item"><div class="song-num">40</div><div class="song-info"><span class="song-name">譚牙ｱｱ 荳讓ｹ</span><span class="song-lyrics">笙ｪ 鬮倥＞菴咲ｽｮ縺九ｉ 騾溘＞繝懊・繝ｫ縺ｧ 謨ｵ繧定ｿｽ縺・ｾｼ縺ｿ 蜍晏茜繧呈雫繧・/span></div></div>
+                <div class="song-item"><div class="song-num">47</div><div class="song-info"><span class="song-name">螟ｧ髢｢ 蜿倶ｹ・/span><span class="song-lyrics">笙ｪ 縺ｻ縺ｨ縺ｰ縺励ｋ豎励・荳ｭ 豁灘｣ｰ繧定・縺ｫ遘倥ａ 逕ｷ縺ｪ繧我ｻ翫％縺薙〒 蜍昴▽繧薙□螟ｧ髢｢</span></div></div>
+                <div class="song-item"><div class="song-num">48</div><div class="song-info"><span class="song-name">阯､莠・逧灘悼</span><span class="song-lyrics">笙ｪ 霎帙＞譎ゅｒ荵励ｊ雜・∴縺ｦ 譚･縺溘◇螟｢縺ｮ闊槫床 蠢・・縺ｨ縺､縺ｫ閻輔ｒ謖ｯ繧頑栢縺・蜍晏茜縺ｸ蟆弱￠繧・/span></div></div>
+                <div class="song-item"><div class="song-num">49</div><div class="song-info"><span class="song-name">譚ｾ譛ｬ 譎ｴ</span><span class="song-lyrics">笙ｪ 骰帙∴縺溘◎縺ｮ閻輔ｒ 閾ｪ菫｡謖√▲縺ｦ謖ｯ繧頑栢縺・謠ｺ繧九′縺ｬ隕壽ぁ閭ｸ縺ｫ 譚ｾ譛ｬ譎ｴ霈昴￠</span></div></div>
+                <div class="song-item"><div class="song-num">53</div><div class="song-info"><span class="song-name">螟ｧ螻ｱ 蜃・/span><span class="song-lyrics">笙ｪ 鬲りｾｼ繧√※ 繝懊・繝ｫ繧呈兜縺定ｾｼ繧・譫懈覆縺ｫ謾ｻ繧√※ 蜍晏茜縺ｸ蟆弱￠</span></div></div>
+                <div class="song-item"><div class="song-num">66</div><div class="song-info"><span class="song-name">譚ｾ譛ｬ 陬墓ｨｹ</span><span class="song-lyrics">笙ｪ 閭ｸ蜈・ｪ√″蛻ｺ縺・騾溘＞逅・∩縺・豎ｺ繧√ｍ縺昴・逅・〒 謨ｵ繧定ｨ弱■蜿悶ｌ</span></div></div>
+                <div class="song-item"><div class="song-num">120</div><div class="song-info"><span class="song-name">髟ｷ隹ｷ蟾・螽∝ｱ・/span><span class="song-lyrics">笙ｪ 豌苓ｿｫ貅｢繧後ｋ 縺昴・逅・〒 陦鯉ｼ医ｆ・峨￠繧亥ｨ∝ｱ・縺ｲ縺溘・縺阪↓</span></div></div>
+                
+                <div class="category-header">謚墓焔豎守畑</div>
+                <div class="song-item"><div class="song-num generic">蜿ｳ謚墓焔豎守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 諱舌ｌ繧九↑ 遶九■蜷代°縺・豌玲戟縺｡隕九○繧・莉ｲ髢薙ｒ菫｡縺倥※</span></div></div>
+                <div class="song-item"><div class="song-num generic">蟾ｦ謚墓焔豎守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 謚代∴繧九メ繝｣繝ｳ繧ｹ 迚ｩ縺ｫ縺吶ｋ縺・縺薙・閻輔〒 蠢・★謗ｴ繧縺・/span></div></div>
+                
+                <div class="category-header">謐墓焔</div>
+                <div class="song-item"><div class="song-num">12</div><div class="song-info"><span class="song-name">蠍ｺ莠・蜊壼ｸ・/span><span class="song-lyrics">笙ｪ 鬮倥∩逶ｮ謖・☆逕ｷ繧・遶九■荳翫′繧後＆縺・蠍ｺ莠募忽蟶御ｻ翫％縺・蠑ｷ縺城利縺・/span></div></div>
+                <div class="song-item"><div class="song-num">45</div><div class="song-info"><span class="song-name">隹ｷ蟾晏次 蛛･螟ｪ</span><span class="song-lyrics">笙ｪ 驪ｭ縺・遠逅・｣帙・縺・驪ｭ縺・か縺ｧ鬲・○繧・莉翫％縺晄悽蠖難ｼ医・繧ｸ・画ｱｺ繧√ｍ繧・/span></div></div>
+                <div class="song-item"><div class="song-num">62</div><div class="song-info"><span class="song-name">豬ｷ驥・髫・昇</span><span class="song-lyrics">笙ｪ 豁灘｣ｰ閭後↓蜿励￠ 辭ｱ縺・Φ縺・・縺ｫ遘倥ａ 謾ｻ螳医↓霈昴″ 蜍晏茜縺ｸ蟆弱￠</span></div></div>
+            </div>
+
+            <div class="song-list">
+                <div class="category-header">蜀・㍽謇・/div>
+                <div class="song-item"><div class="song-num">0</div><div class="song-info"><span class="song-name">蟾晉ｬ 譎・/span><span class="song-lyrics">笙ｪ 鬚ｨ縺ｮ螯ゅ￥鬧・￠謚懊￠ 繧ｰ繝ｩ繝匁轟縺埼ｭ・○繧九● 蠢ｫ髻ｳ繧帝涸縺九○</span></div></div>
+                <div class="song-item"><div class="song-num">4</div><div class="song-info"><span class="song-name">繧ｸ繝ｼ繧ｿ繝ｼ</span><span class="song-lyrics">笙ｪ 繝ｩ繝ｩ繝ｩ・・繧ｸ繝ｼ繧ｿ繝ｼ 蜷帙・蜃ｺ逡ｪ縺 繧ｪ繧ｪ繧ｪ・橸ｼ医が繧､・・ｼ画雫繧〃ictory</span></div></div>
+                <div class="song-item"><div class="song-num">6</div><div class="song-info"><span class="song-name">莉雁ｮｮ 蛛･螟ｪ</span><span class="song-lyrics">笙ｪ 逕溘∪繧梧戟縺､繧ｻ繝ｳ繧ｹ 鬚ｨ繧貞・繧願ｵｰ繧・遨ｺ鬮倥￥鬟帙・縺・譟斐ｉ縺九↑繝ｪ繧ｹ繝医〒</span></div></div>
+                <div class="song-item"><div class="song-num">8</div><div class="song-info"><span class="song-name">迚ｧ蜴・螟ｧ謌・/span><span class="song-lyrics">笙ｪ 縺ｿ縺ｪ縺弱ｋ縺昴・繧ｨ繝翫ず繝ｼ 霓溘￠蝨ｰ縺ｮ譫懊※縺ｾ縺ｧ 邵ｦ讓ｪ辟｡蟆ｽ縺ｫ鬧・￠謚懊￠</span></div></div>
+                <div class="song-item"><div class="song-num">24</div><div class="song-info"><span class="song-name">譬怜次 髯ｵ遏｢</span><span class="song-lyrics">笙ｪ 霈昴￥譎ゅ□ 蠕御ｸ悶↓隱槭ｊ邯吶′繧後ｋ 莨晁ｪｬ繧剃ｻ翫°繧・菴懊ｌ繧域怜次</span></div></div>
+                <div class="song-item"><div class="song-num">33</div><div class="song-info"><span class="song-name">螻ｱ蟾・遨るｫ・/span><span class="song-lyrics">笙ｪ 魄ｮ辜医↑荳謇薙ｒ 謾ｾ縺ｦ繧ｹ繧ｿ繝ｳ繝峨・蠖ｼ譁ｹ縺ｸ 荳謖ｯ繧翫〒豎ｺ繧√ｋ縺・/span></div></div>
+                <div class="song-item"><div class="song-num">99</div><div class="song-info"><span class="song-name">驥取搗 蜍・/span><span class="song-lyrics">笙ｪ 縺薙％縺ｧ隕九○繧榊鴨蠑ｷ縺・蜃碁ｧ輔☆繧倶ｸ謦・蜈ｨ騾溷燕騾ｲ繝輔Ν繧ｹ繝斐・繝峨〒</span></div></div>
+
+                <div class="category-header">螟夜㍽謇・/div>
+                <div class="song-item"><div class="song-num">3</div><div class="song-info"><span class="song-name">霑題陸 蛛･莉・/span><span class="song-lyrics">笙ｪ 讌ｵ繧√◆謚縺ｧ 謇鍋帥縺悟・縺域ｸ｡繧・驕･縺句､｢霑ｽ縺・ｱゅａ縺ｦ 鬆ゅ∈縺ｨ騾ｲ繧・/span></div></div>
+                <div class="song-item"><div class="song-num">7</div><div class="song-info"><span class="song-name">荳ｭ譚・譎・/span><span class="song-lyrics">笙ｪ 譁ｰ縺溘↑謇峨ｒ 莉翫°繧蛾幕縺・諢帙☆繧狗塙縺・荳ｭ譚第刄</span></div></div>
+                <div class="song-item"><div class="song-num">9</div><div class="song-info"><span class="song-name">譟ｳ逕ｰ 謔蟯・/span><span class="song-lyrics">笙ｪ 蜈峨・繧医≧縺ｪ雜ｳ縺ｨ 遯√″蛻ｺ縺吶ｈ縺・↑繧ｹ繝ｭ繝ｼ 縺・＊荳謖ｯ繧頑ｱｺ繧√※</span></div></div>
+                <div class="song-item"><div class="song-num">23</div><div class="song-info"><span class="song-name">蜻ｨ譚ｱ 菴台ｺｬ</span><span class="song-lyrics">笙ｪ 縺溘ｆ縺ｾ縺ｬ蜉ｪ蜉帙〒 譎ゆｻ｣繧堤ｯ峨￠ 蠢励・縺ｨ縺､縺ｫ 陦後￠繧ｹ繝斐・繝峨た繝ｫ繧ｸ繝｣繝ｼ</span></div></div>
+                <div class="song-item"><div class="song-num">31</div><div class="song-info"><span class="song-name">豁｣譛ｨ 譎ｺ荵・/span><span class="song-lyrics">笙ｪ 迢吶＞遐斐℃貔・∪縺・谿雁挟縺ｮ荳謇薙ｒ 鬮倥ｉ縺九↓謾ｾ縺ｦ 豁｣譛ｨ縺ｮ荳謖ｯ繧翫〒</span></div></div>
+                <div class="song-item"><div class="song-num">32</div><div class="song-info"><span class="song-name">譟ｳ逕ｺ 驕・/span><span class="song-lyrics">笙ｪ 辭ｾ辜医↑莠峨＞繧・蜍昴■荳翫′繧狗ぜ 髣倥≧逕ｷ縺ｮ荳謖ｯ繧・闖ｯ鮗励↓謇薙■謐後￠</span></div></div>
+                <div class="song-item"><div class="song-num">57</div><div class="song-info"><span class="song-name">邱呈婿 逅・ｲ｢</span><span class="song-lyrics">笙ｪ 螟｢霑ｽ縺・°縺・謇薙※鬲ゆｹ励○ 陦鯉ｼ医＞・峨￠繝繧､繝､繝｢繝ｳ繝蛾ｧ・￠謚懊￠</span></div></div>
+
+                <div class="category-header">謇楢・ｱ守畑</div>
+                <div class="song-item"><div class="song-num generic">蜿ｳ謇楢・ｱ守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 蠕・■繧上・縺溷ｴ謇縺ｧ 逵溘・蜉帙ｒ隗｣縺・髯千阜雜・∴繧・縺昴・譌･縺ｾ縺ｧ</span></div></div>
+                <div class="song-item"><div class="song-num generic">蟾ｦ謇楢・ｱ守畑</div><div class="song-info"><span class="song-name"></span><span class="song-lyrics">笙ｪ 莉願・蜿ｰ縺悟・譚･縺溘◇ 縺雁燕縺瑚ｼ昴￥ 譛鬮倥・迸ｬ髢・鄒ｽ縺ｰ縺溘￠</span></div></div>
+            </div>
+        </main>
+
+        <div class="chance-theme-container">
+            <div class="chance-header-wrapper">
+                <div class="chance-header">繝√Ε繝ｳ繧ｹ繝・・繝槭・繝槭Ν繝√ユ繝ｼ繝・/div>
+            </div>
+            <div class="chance-layout-grid">
+                <!-- 蛻・ -->
+                <div class="chance-col full-col">
+                    <div class="chance-item">
+                        <span class="chance-name">繧｢繝・メ繝｣繝ｳ</span>
+                        <div class="chance-lyrics-full"><br>縲仙ｰ主・縲醍・縺冗㏍縺医ｍ・磯∈謇句錐・嘉暦ｼ・繝ｩ繝ｼ繝ｩ繝ｩ... 縺薙％縺ｧ豎ｺ繧√※蜍昴▽繧薙□ 菫ｺ縺溘■縺悟享蛻ｩ縺ｮ菴ｿ閠・↓
+Let窶冱 Go Let窶冱 Go
+<br>縲先悽邱ｨ縲代メ繝｣繝ｳ繧ｹ莉翫メ繝｣繝ｳ繧ｹ 諡ｳ繧呈嫌縺・繧ｪ繧､繧ｪ繧､繧ｪ繧､
+・磯∈謇句錐・画ｱｺ繧√ｍ 辭ｱ縺冗㏍縺医ｍ・磯∈謇句錐・・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">謚ｼ蠢搾ｼ√メ繝｣繝ｳ繧ｹ</span>
+                        <div class="chance-lyrics-full"><br>縲仙ｰ主・縲代％繧後°繧峨□繝ｼ 1-2-3-4 繧医▲縺励ｃ陦後￥縺橸ｼ・<br>縲先悽邱ｨ縲第茶縺ｦ謦・※...・磯∈謇句錐・峨が繧､繧ｪ繧､繧ｪ繧､
+Go Go Let窶冱 Go! Let窶冱 Go・磯∈謇句錐・・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">髢｢譚ｱ繝√Ε繝ｳ繧ｹ</span>
+                        <div class="chance-lyrics-full"><br>縲仙燕螂上代が繧､繧ｪ繧､繧ｪ繧､...・育ｪ√″謾ｾ縺孃r蜍昴■雜翫＠or騾・ｻ｢・・<br>縲先悽邱ｨ縲代°縺｣縺ｨ縺ｰ縺幢ｼ磯∈謇句錐・会ｼ磯∈謇句錐・・荳逋ｺ迢吶∴
+縺九○縺九○・磯∈謇句錐・・縺九○縺九○・磯∈謇句錐・・縺・＊陦後￠</div>
+                    </div>
+                </div>
+
+                <!-- 蛻・ -->
+                <div class="chance-col full-col">
+                    <div class="chance-item">
+                        <span class="chance-name">蛹励・繝√Ε繝ｳ繧ｹ</span>
+                        <div class="chance-lyrics-full">驥守帥蝣ｴ縺ｮ荳ｭ縺九ｉ 縺後ｓ縺ｰ繧後→險縺｣縺ｦ縺・ｋ 莉翫％縺薙〒縺後ｓ縺ｰ繧鯉ｼ・辯・∴繧矩利蠢嶺ｻ願ｦ九○縺ｦ繧・ｌ ・磯∈謇句錐・我ｸ謖ｯ繧翫〒豎ｺ繧√※繧・ｌ
+・磯∈謇句錐・会ｼ磯∈謇句錐・峨＞縺ｾ縺後ｓ縺ｰ繧鯉ｼ・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">鮃ｹ縺ｮ驕・/span>
+                        <div class="chance-lyrics-full">陦後￠繧育塙縺溘■ 繝√Ε繝ｳ繧ｹ縺辯・∴荳翫′繧・菫願ｶｳ蟾ｧ謇薙〒遯√″騾ｲ繧・縺昴ｌ縺碁ｷｹ縺ｮ驕・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">繧｢繝・さ縺｡繧・ｓ</span>
+                        <div class="chance-lyrics-full">繧ｪ繝ｼ繧ｪ繝ｼ繧ｪ繝ｼ 縺晢ｽ槭ｌ 縺・￠縺・￠ ﾃ・
+・磯∈謇句錐・会ｽ・莉翫％縺晢ｽ・謌ｦ縺茨ｽ・逕ｷ縺ｪ繧芽｡後％縺・● ・磯∈謇句錐・画姶縺・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">繧ｪ繧ｪ繧ｵ繧ｫ繝・Φ繝・Ξ繝ｩ</span>
+                        <div class="chance-lyrics-full">繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｩ繝ｼ
+・磯∈謇句錐・会ｼ磯∈謇句錐・会ｼ磯∈謇句錐・会ｼ磯∈謇句錐・峨Λ繝ｩ繝ｩ繝ｼ</div>
+                    </div>
+                </div>
+
+                <!-- 蛻・ -->
+                <div class="chance-col full-col">
+                    <div class="chance-item">
+                        <span class="chance-name">莉､蜥・/span>
+                        <div class="chance-lyrics-full">繧ｦ繧ｩ繧､・√え繧ｩ繧､・√え繧ｩ繧､・・ｼ磯∈謇句錐・・莉雁ｮｵ蜍晏茜縺ｮ轤ｺ縺ｫ 菫ｺ繧牙将縺ｳ邯壹￠繧・莉ｲ髢薙→蜈ｱ縺ｫ 繧ｦ繧ｩ繧､・√え繧ｩ繧､・√え繧ｩ繧､・・ｼ磯∈謇句錐・・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">阯､譛ｬ</span>
+                        <div class="chance-lyrics-full">繧上▲縺励ｇ縺・ｏ縺｣縺励ｇ縺・(驕ｸ謇句錐) ﾃ・
+陦後￠・∵遠縺ｦ・・・磯∈謇句錐・・辭ｱ縺上↑繧鯉ｼ・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">闍･莠・/span>
+                        <div class="chance-lyrics-full">・磯∈謇句錐・・・磯∈謇句錐・・・磯∈謇句錐・・辯・∴繧咲㏍縺医ｍ ・磯∈謇句錐・・縺九▲鬟帙・縺・・磯∈謇句錐・・謌代ｉ縺ｮ ・磯∈謇句錐・峨°縺｣鬟帙・縺・・磯∈謇句錐・・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">鮃ｹ縺ｮ辷ｪ</span>
+                        <div class="chance-lyrics-full"><br>縲仙燕螂上大享蛻ｩ縺ｫ蜷代°縺｣縺ｦ遯√″騾ｲ繧・謇薙■縺ｾ縺上ｌ
+縺雁燕縺ｮ蜉帙ｒ隕九○縺ｦ縺上ｌ 縺昴ｌ陦後￠ ・磯∈謇句錐・・<br>縲千塙諤ｧ縲代％縺薙〒豎ｺ繧√ｍ・・<br>縲仙･ｳ諤ｧ縲代％縺薙〒豎ｺ繧√ｍ・・/div>
+                    </div>
+                </div>
+
+                <!-- 蛻・ (L蟄・ -->
+                <div class="chance-col short-col">
+                    <div class="chance-item">
+                        <span class="chance-name">G.F.V</span>
+                        <div class="chance-lyrics-full"><br>縲仙ｰ主・縲代が繧､ ﾃ・2
+<br>縲先悽邱ｨ縲醍・縺・ワ繝ｼ繝医〒遯√″騾ｲ繧・謾ｻ繧√∪縺上ｌ 謗ｴ縺ｿ蜿悶ｌ 莉頑律縺ｮ蜍晏茜繧・繧ｪ繧､・√が繧､・√が繧､・・/div>
+                    </div>
+                    <div class="chance-item">
+                        <span class="chance-name">蜍晏茜逶ｮ謖・＠縺ｦ</span>
+                        <div class="chance-lyrics-full">繧ｪ繝ｼ繝ｼ繧ｪ繝ｼ繧ｪ繧ｪ繝ｼ繧ｪ繧ｪ繝ｼ繝ｼ
+蜍晏茜逶ｮ謖・＠縺ｦ 繧ｪ繧､・√が繧､・√が繧､・√が繧､・・縺・＊繧・￠ 繝帙・繧ｯ繧ｹ・・邨ｶ蟇ｾ蜍昴▽縺橸ｼ・/div>
+                    </div>
+                </div>
+
+                <!-- 蜍滄寔繝懊ャ繧ｯ繧ｹ -->
+                <div class="recruitment-box">
+                    <div class="recruit-left">
+                        <div class="recruit-title">譚ｱ莠ｬ逵滄埔蠢懈抄蝗｣蜩｡螟ｧ蜍滄寔・・/div>
+                        <div class="recruit-msg">
+                            繝薙ず繧ｿ繝ｼ逅・ｴ縺ｧ繧ゆｸ邱偵↓蠢懈抄豢ｻ蜍輔＠縺ｦ縺上ｌ繧倶ｻｲ髢薙ｒ蜍滄寔荳ｭ・・br>
+                            髻ｳ讌ｽ譛ｪ邨碁ｨ楢・∬∬凶逕ｷ螂ｳ蝠上ｏ縺壼､ｧ豁楢ｿ趣ｼ・br>
+                            荳邱偵↓繧ｹ繧ｿ繝ｳ繝峨ｒ逶帙ｊ荳翫￡縺ｾ縺励ｇ縺・・                        </div>
+                    </div>
+                    <div class="recruit-right">
+                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">蠢懷供繝ｻ隧ｳ邏ｰ<br>縺ｯ縺薙■繧・/a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="zoom-controls">
+    <div class="zoom-btn" onclick="toggleZoom()" id="zoomBtn">博</div>
+</div>
+
+<script>
+let isZoomed = false;
+function scaleSheet() {
+    const sheet = document.getElementById('ouenkaSheet');
+    if (!sheet) return;
+    if (window.matchMedia('print').matches) { sheet.style.transform = 'none'; return; }
+    const baseWidthMm = 420; const baseHeightMm = 297;
+    const padding = 20; const availableW = window.innerWidth - padding; const availableH = window.innerHeight - padding;
+    const mmToPx = 3.78; const sheetW = baseWidthMm * mmToPx; const sheetH = baseHeightMm * mmToPx;
+    let scale;
+    if (isZoomed) { scale = Math.max(0.6, (window.innerWidth - 10) / sheetW); if (scale > 1.2) scale = 1.2;
+    } else { const scaleW = availableW / sheetW; const scaleH = availableH / sheetH; scale = Math.min(scaleW, scaleH); if (scale > 1) scale = 1; }
+    sheet.style.transform = `scale(${scale})`;
+    document.body.style.justifyContent = (isZoomed && window.innerWidth < sheetW * scale) ? 'flex-start' : 'center';
+}
+function toggleZoom() { isZoomed = !isZoomed; const btn = document.querySelector('.zoom-btn'); btn.innerText = isZoomed ? "蜈ｨ" : "博"; scaleSheet(); if (isZoomed) window.scrollTo(0, 0); }
+window.addEventListener('resize', scaleSheet);
+window.addEventListener('load', scaleSheet);
+</script>
+
+</body>
+</html>
