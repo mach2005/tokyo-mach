@@ -68,79 +68,49 @@
       <div class="section-divider"></div>
     </div>
     
-    <div class="news-scroll-container">
-      <div class="news-scroll-inner">
-        <!-- New Announcement: 2026年度 新応援歌完成 -->
-        <div class="news-scroll-item">
-          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column;">
-            <div style="padding: 30px; flex-grow: 1;">
+    <div class="news-slider-wrapper" style="position: relative; max-width: 1000px; margin: 0 auto;">
+      <button class="news-scroll-prev" id="newsPrev" style="position: absolute; left:-20px; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.95); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; color:#333; transition:0.3s;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#111'; this.style.color='#111'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.borderColor='#ddd';"><i class="fas fa-chevron-left" style="font-weight:900;"></i></button>
+      
+      <div class="news-scroll-container" id="newsScroll" style="overflow-x: hidden; scroll-behavior: smooth; padding: 20px 0;">
+        <div class="news-scroll-inner" id="newsInner" style="display: flex; gap: 20px; width: max-content;">
+          
+          <!-- Unified Article 1: New Songs -->
+          <a href="./news/20260401-new-songs.html" class="news-scroll-item news-card" style="text-decoration:none; display:block; width: 320px; flex-shrink: 0; outline:none;">
+            <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
               <div style="margin-bottom: 15px;">
                 <span style="display: inline-block; background: #ffcc00; color: #111; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
                 <span style="color: #666; font-size: 0.9rem; margin-left: 10px;">2026.04.01</span>
               </div>
               <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">2026年度 新応援歌完成のお知らせ</h3>
               <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                2026年度の新しい応援歌が完成しました。以下のリンクより詳細をご確認ください。
+                松本晴選手、大山凌選手、谷川原健太選手、緒方理貢選手の新応援歌、周東佑京選手の前奏が追加されました。以下のリンクより詳細をご確認ください。
               </p>
-              <div style="margin-top: 15px; display: flex; flex-wrap: wrap; gap: 10px;">
-                <a href="https://www.google.com/search?q=../FightSong/ouenka_2026.pdf" target="_blank" style="color: #d4a700; font-weight: bold; text-decoration: none; font-size: 0.9rem; border: 1px solid #d4a700; padding: 4px 10px; border-radius: 4px;">新応援歌（PDF）</a>
-                <a href="https://www.google.com/search?q=../FightSong/digital-sheet.html" target="_blank" style="color: #d4a700; font-weight: bold; text-decoration: none; font-size: 0.9rem; border: 1px solid #d4a700; padding: 4px 10px; border-radius: 4px;">デジタル楽譜</a>
-                <a href="https://www.google.com/search?q=../FightSong/cheer-guide.html" target="_blank" style="color: #d4a700; font-weight: bold; text-decoration: none; font-size: 0.9rem; border: 1px solid #d4a700; padding: 4px 10px; border-radius: 4px;">応援ガイド</a>
-              </div>
+              <div style="margin-top: 15px; font-weight: bold; color: #d4a700;">記事で詳しく見る <i class="fas fa-chevron-right"></i></div>
             </div>
-          </div>
-        </div>
-        
-        <!-- Article 1: Shuto -->
-        <div class="news-scroll-item">
-          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column;">
-            <div style="padding: 30px; flex-grow: 1;">
-              <div style="margin-bottom: 15px;">
-                <span style="display: inline-block; background: #ffcc00; color: #111; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
-              </div>
-              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">周東選手の前奏ができました</h3>
-              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                2026年より周東選手の新応援歌（前奏付き）を使用します。<br>
-                <a href="./news/20260401-shuto.html" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
-              </p>
-            </div>
-          </div>
-        </div>
-        
-        <!-- Article 2: Downs -->
-        <div class="news-scroll-item">
-          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; display: flex; flex-direction: column;">
-            <div style="padding: 30px; flex-grow: 1;">
+          </a>
+          
+          <!-- Article 2: Downs -->
+          <a href="./news/20260401-downs.html" class="news-scroll-item news-card" style="text-decoration:none; display:block; width: 320px; flex-shrink: 0; outline:none;">
+            <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
               <div style="margin-bottom: 15px;">
                 <span style="display: inline-block; background: #111; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">応援のお願い</span>
+                <span style="color: #666; font-size: 0.9rem; margin-left: 10px;">2026.04.01</span>
               </div>
               <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">ジーター・ダウンズ選手のコール紹介</h3>
               <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                皆様の熱いご声援をよろしくお願いいたします。<br>
-                <a href="./news/20260401-downs.html" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
+                皆様の熱いご声援をよろしくお願いいたします。
               </p>
+              <div style="margin-top: auto; padding-top: 15px; font-weight: bold; color: #d4a700;">記事で詳しく見る <i class="fas fa-chevron-right"></i></div>
             </div>
-          </div>
-        </div>
-        
-        <!-- Article 3: New Songs -->
-        <div class="news-scroll-item">
-          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #0055ff; display: flex; flex-direction: column;">
-            <div style="padding: 30px; flex-grow: 1;">
-              <div style="margin-bottom: 15px;">
-                <span style="display: inline-block; background: #0055ff; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
-              </div>
-              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">2026年 新応援歌が登場！</h3>
-              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                松本晴選手、大山凌選手、谷川原健太選手、緒方理貢選手の新応援歌が追加されました。<br>
-                <a href="#new-songs" style="color: #0055ff; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">下部のセクションで試聴する <i class="fas fa-arrow-down"></i></a>
-              </p>
-            </div>
-          </div>
+          </a>
+
         </div>
       </div>
+      
+      <button class="news-scroll-next" id="newsNext" style="position: absolute; right:-20px; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.95); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; color:#333; transition:0.3s;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#111'; this.style.color='#111'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.borderColor='#ddd';"><i class="fas fa-chevron-right" style="font-weight:900;"></i></button>
     </div>
   </div>
+</div>
 </section>
 
 <!-- New Songs Section -->
@@ -451,5 +421,72 @@ window.addEventListener('scroll', () => {
 
 </script>
 
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.news-card > div').forEach(card => {
+      card.addEventListener('mouseover', () => card.style.transform = 'translateY(-5px)');
+      card.addEventListener('mouseout', () => card.style.transform = 'none');
+    });
+
+    const inner = document.getElementById('newsInner');
+    const scroll = document.getElementById('newsScroll');
+    const prevBtn = document.getElementById('newsPrev');
+    const nextBtn = document.getElementById('newsNext');
+    
+    if(!inner) return;
+
+    // Clone elements for loop
+    const itemsList = Array.from(inner.children);
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+
+    const getScrollAmount = () => itemsList.length > 0 ? itemsList[0].offsetWidth + 20 : 340;
+
+    let isScrolling = false;
+    const handleLoop = () => {
+      const itemW = getScrollAmount();
+      const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+      
+      if (scroll.scrollLeft >= maxScroll - itemW / 2) {
+        scroll.style.scrollBehavior = 'auto';
+        scroll.scrollLeft = (itemsList.length * itemW);
+        // Force reflow
+        void scroll.offsetWidth;
+      } else if (scroll.scrollLeft <= itemW / 2) {
+        scroll.style.scrollBehavior = 'auto';
+        scroll.scrollLeft = maxScroll - ((itemsList.length+1) * itemW);
+        void scroll.offsetWidth;
+      }
+      isScrolling = false;
+    };
+
+    nextBtn.addEventListener('click', () => {
+      if(isScrolling) return;
+      isScrolling = true;
+      scroll.style.scrollBehavior = 'smooth';
+      scroll.scrollLeft += getScrollAmount();
+      setTimeout(handleLoop, 400);
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if(isScrolling) return;
+      isScrolling = true;
+      scroll.style.scrollBehavior = 'smooth';
+      scroll.scrollLeft -= getScrollAmount();
+      setTimeout(handleLoop, 400);
+    });
+
+    // Initial position
+    setTimeout(() => {
+      if(itemsList.length > 0) {
+          scroll.style.scrollBehavior = 'auto';
+          scroll.scrollLeft = (itemsList.length * getScrollAmount());
+      }
+    }, 100);
+  });
+</script>
 </body>
 </html>
