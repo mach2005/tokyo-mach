@@ -160,5 +160,72 @@ window.addEventListener('scroll', () => {
 
 </script>
 
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.news-card > div').forEach(card => {
+      card.addEventListener('mouseover', () => card.style.transform = 'translateY(-5px)');
+      card.addEventListener('mouseout', () => card.style.transform = 'none');
+    });
+
+    const inner = document.getElementById('newsInner');
+    const scroll = document.getElementById('newsScroll');
+    const prevBtn = document.getElementById('newsPrev');
+    const nextBtn = document.getElementById('newsNext');
+    
+    if(!inner) return;
+
+    // Clone elements for loop
+    const itemsList = Array.from(inner.children);
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+
+    const getScrollAmount = () => itemsList.length > 0 ? itemsList[0].offsetWidth + 20 : 340;
+
+    let isScrolling = false;
+    const handleLoop = () => {
+      const itemW = getScrollAmount();
+      const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+      
+      if (scroll.scrollLeft >= maxScroll - itemW / 2) {
+        scroll.style.scrollBehavior = 'auto';
+        scroll.scrollLeft = (itemsList.length * itemW);
+        // Force reflow
+        void scroll.offsetWidth;
+      } else if (scroll.scrollLeft <= itemW / 2) {
+        scroll.style.scrollBehavior = 'auto';
+        scroll.scrollLeft = maxScroll - ((itemsList.length+1) * itemW);
+        void scroll.offsetWidth;
+      }
+      isScrolling = false;
+    };
+
+    nextBtn.addEventListener('click', () => {
+      if(isScrolling) return;
+      isScrolling = true;
+      scroll.style.scrollBehavior = 'smooth';
+      scroll.scrollLeft += getScrollAmount();
+      setTimeout(handleLoop, 400);
+    });
+
+    prevBtn.addEventListener('click', () => {
+      if(isScrolling) return;
+      isScrolling = true;
+      scroll.style.scrollBehavior = 'smooth';
+      scroll.scrollLeft -= getScrollAmount();
+      setTimeout(handleLoop, 400);
+    });
+
+    // Initial position
+    setTimeout(() => {
+      if(itemsList.length > 0) {
+          scroll.style.scrollBehavior = 'auto';
+          scroll.scrollLeft = (itemsList.length * getScrollAmount());
+      }
+    }, 100);
+  });
+</script>
 </body>
 </html>
