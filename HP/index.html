@@ -9,31 +9,11 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="../public/style.css?v=4">
+  <link rel="stylesheet" href="../public/style.css?v=5">
   <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
   <link rel="shortcut icon" href="../public/favicon.png?v=2">
   <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <style>
-    .articles-swiper { width: 100%; position: relative; padding: 20px 10px 40px 10px; }
-    .articles-swiper .swiper-slide { height: auto; }
-    .articles-swiper .swiper-button-next,
-    .articles-swiper .swiper-button-prev {
-      background: rgba(255, 255, 255, 0.95);
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      color: #333;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      border: 1px solid #eee;
-    }
-    .articles-swiper .swiper-button-next:after,
-    .articles-swiper .swiper-button-prev:after {
-      font-size: 16px;
-      font-weight: 900;
-    }
-  </style>
-</head>
+  </head>
 <body>
 
 <nav class="main-nav" id="mainNav">
@@ -52,7 +32,7 @@
       <li><a href="./gallery.html">ギャラリー</a></li>
       <li><a href="./articles.html">お知らせ</a></li>
       <li><a href="./faq.html">Q&amp;A</a></li>
-      <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener" class="nav-cta">団員募集</a></li>
+      <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener" class="nav-cta">団員募集中！</a></li>
     </ul>
   </div>
 </nav>
@@ -79,19 +59,19 @@
   </div>
 </section>
 
-<!-- Articles Section (Carousel) -->
+<!-- News Section (Horizontal Scroll) -->
 <section class="section" id="articles" style="padding: 60px 0; background: #fafafa;">
   <div class="container">
     <div class="section-header">
       <span class="section-label">NEWS</span>
-      <h2 class="section-title">お知らせ</h2>
+      <h2 class="section-title">新着情報</h2>
       <div class="section-divider"></div>
     </div>
     
-    <div class="swiper articles-swiper">
-      <div class="swiper-wrapper">
+    <div class="news-scroll-container">
+      <div class="news-scroll-inner">
         <!-- New Announcement: 2026年度 新応援歌完成 -->
-        <div class="swiper-slide">
+        <div class="news-scroll-item">
           <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column;">
             <div style="padding: 30px; flex-grow: 1;">
               <div style="margin-bottom: 15px;">
@@ -111,8 +91,8 @@
           </div>
         </div>
         
-        <!-- Article 1 -->
-        <div class="swiper-slide">
+        <!-- Article 1: Shuto -->
+        <div class="news-scroll-item">
           <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column;">
             <div style="padding: 30px; flex-grow: 1;">
               <div style="margin-bottom: 15px;">
@@ -127,14 +107,14 @@
           </div>
         </div>
         
-        <!-- Article 2 -->
-        <div class="swiper-slide">
+        <!-- Article 2: Downs -->
+        <div class="news-scroll-item">
           <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; display: flex; flex-direction: column;">
             <div style="padding: 30px; flex-grow: 1;">
               <div style="margin-bottom: 15px;">
                 <span style="display: inline-block; background: #111; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">応援のお願い</span>
               </div>
-              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">ジーター・ダウンズ選手のコールは「ゴーゴーレッツゴー　ジーター」でお願いします</h3>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">ジーター・ダウンズ選手のコール紹介</h3>
               <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
                 皆様の熱いご声援をよろしくお願いいたします。<br>
                 <a href="./news/20260401-downs.html" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
@@ -143,8 +123,8 @@
           </div>
         </div>
         
-        <!-- Article 3 -->
-        <div class="swiper-slide">
+        <!-- Article 3: New Songs -->
+        <div class="news-scroll-item">
           <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #0055ff; display: flex; flex-direction: column;">
             <div style="padding: 30px; flex-grow: 1;">
               <div style="margin-bottom: 15px;">
@@ -159,9 +139,6 @@
           </div>
         </div>
       </div>
-      <!-- Swiper Navigation -->
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
     </div>
   </div>
 </section>
@@ -475,30 +452,6 @@ window.addEventListener('scroll', () => {
 });
 
 </script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-  const swiper = new Swiper('.articles-swiper', {
-    loop: true,
-    slidesPerView: 1.1,
-    centeredSlides: true,
-    spaceBetween: 20,
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2.2,
-        centeredSlides: false,
-        spaceBetween: 30,
-      },
-      1024: {
-        slidesPerView: 3,
-        centeredSlides: false,
-        spaceBetween: 30,
-      }
-    }
-  });
-</script>
+
 </body>
 </html>
