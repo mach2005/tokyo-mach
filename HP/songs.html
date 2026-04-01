@@ -13,6 +13,33 @@
   <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
   <link rel="shortcut icon" href="../public/favicon.png?v=2">
   <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
+  <style>
+    /* Scoped Styles for Songs Page */
+    .page-songs-content .songs-nav { display: flex; justify-content: flex-start; gap: 10px; margin-bottom: 40px; overflow-x: auto; padding-bottom: 12px; -webkit-overflow-scrolling: touch; white-space: nowrap; }
+    .page-songs-content .songs-nav::-webkit-scrollbar { height: 5px; }
+    .page-songs-content .songs-nav::-webkit-scrollbar-track { background: #f1f1f1; }
+    .page-songs-content .songs-nav::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+    .page-songs-content .songs-tab { padding: 12px 28px; border: 1px solid #ddd; background: #fff; border-radius: 30px; cursor: pointer; transition: 0.3s; font-weight: bold; font-size: 1rem; flex-shrink: 0; color: #555; }
+    .page-songs-content .songs-tab:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+    .page-songs-content .songs-tab.active { background: var(--gold); border-color: var(--gold); color: #111; box-shadow: 0 4px 15px rgba(255, 204, 0, 0.4); }
+    .page-songs-content .songs-section { display: none; }
+    .page-songs-content .songs-section.active { display: block; animation: songsFadeIn 0.5s ease both; }
+    .page-songs-content .songs-category-title { font-size: 1.6rem; font-weight: 900; margin-bottom: 30px; padding-bottom: 15px; border-bottom: 3px solid #f0f0f0; display: flex; align-items: center; gap: 12px; color: #111; }
+    .page-songs-content .songs-category-title i { color: var(--gold); }
+    
+    @keyframes songsFadeIn { 
+      from { opacity: 0; transform: translateY(20px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    /* Layout fix for grid */
+    .page-songs-content .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 25px; margin-bottom: 50px; }
+    
+    @media (max-width: 768px) {
+      .page-songs-content .songs-grid { grid-template-columns: 1fr; gap: 20px; }
+      .page-songs-content .songs-category-title { font-size: 1.3rem; }
+    }
+  </style>
   </head>
 <body>
 
@@ -38,6 +65,7 @@
 </nav>
 
 
+<main class="page-songs-content">
 <section class="page-hero">
   <div class="page-hero-content">
     <span class="page-hero-label">CHEER SONGS</span>
@@ -54,118 +82,118 @@
     </div>
     <div class="songs-section active" id="pitchers">
       <h3 class="songs-category-title"><i class="fas fa-baseball-ball"></i> 投手応援歌</h3>
-      <div class="songs-grid songs-grid-3col">
+      <div class="songs-grid">
 
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">11</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">11</span>
             <span class="song-name">有原 航平</span>
           </div>
-          <div class="song-lyrics-compact">風を切り裂け 有原<br>唸る剛腕 打ち砕け<br>勝利を掴め 有原航平</div>
+          <div class="song-lyrics">風を切り裂け 有原<br>唸る剛腕 打ち砕け<br>勝利を掴め 有原航平</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">13</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">13</span>
             <span class="song-name">東浜 巨</span>
           </div>
-          <div class="song-lyrics-compact">闘志を燃やせ 東浜<br>気迫の投球 見せつけろ<br>勝利をもぎ取れ 東浜巨</div>
+          <div class="song-lyrics">闘志を燃やせ 東浜<br>気迫の投球 見せつけろ<br>勝利をもぎ取れ 東浜巨</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">15</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">15</span>
             <span class="song-name">スチュワート</span>
           </div>
-          <div class="song-lyrics-compact">力で抑えろ スチュワート<br>唸る速球 打者を斬れ<br>勝利へ導け スチュワート</div>
+          <div class="song-lyrics">力で抑えろ スチュワート<br>唸る速球 打者を斬れ<br>勝利へ導け スチュワート</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">16</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">16</span>
             <span class="song-name">モイネロ</span>
           </div>
-          <div class="song-lyrics-compact">稲妻の如く モイネロ<br>鋭く攻めろ 三振奪え<br>守護神の誇り モイネロ</div>
+          <div class="song-lyrics">稲妻の如く モイネロ<br>鋭く攻めろ 三振奪え<br>守護神の誇り モイネロ</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">18</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">18</span>
             <span class="song-name">大津 亮介</span>
           </div>
-          <div class="song-lyrics-compact">腕を振れ 大津<br>魂の一球 投げ込め<br>勝利を呼べ 大津亮介</div>
+          <div class="song-lyrics">腕を振れ 大津<br>魂の一球 投げ込め<br>勝利を呼べ 大津亮介</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">29</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">29</span>
             <span class="song-name">石川 柊太</span>
           </div>
-          <div class="song-lyrics-compact">気高く投げろ 石川<br>誇りを胸に マウンドへ<br>勝利を掴め 石川柊太</div>
+          <div class="song-lyrics">気高く投げろ 石川<br>誇りを胸に マウンドへ<br>勝利を掴め 石川柊太</div>
         </div>
       </div>
     </div>
     <div class="songs-section" id="batters">
       <h3 class="songs-category-title"><i class="fas fa-baseball-ball"></i> 野手応援歌</h3>
-      <div class="songs-grid songs-grid-3col">
+      <div class="songs-grid">
 
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">1</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">1</span>
             <span class="song-name">近藤 健介</span>
           </div>
-          <div class="song-lyrics-compact">打て打て 近藤<br>飛ばせ 遥か彼方<br>歓喜を呼べ 近藤健介</div>
+          <div class="song-lyrics">打て打て 近藤<br>飛ばせ 遥か彼方<br>歓喜を呼べ 近藤健介</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">2</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">2</span>
             <span class="song-name">今宮 健太</span>
           </div>
-          <div class="song-lyrics-compact">華麗に決めろ 今宮<br>守備の名手 ここにあり<br>走れ 打て 今宮健太</div>
+          <div class="song-lyrics">華麗に決めろ 今宮<br>守備の名手 ここにあり<br>走れ 打て 今宮健太</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">3</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">3</span>
             <span class="song-name">柳田 悠岐</span>
           </div>
-          <div class="song-lyrics-compact">豪快に振り抜け ギータ<br>弾丸ライナー スタンドへ<br>轟け 柳田悠岐</div>
+          <div class="song-lyrics">豪快に振り抜け ギータ<br>弾丸ライナー スタンドへ<br>轟け 柳田悠岐</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">7</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">7</span>
             <span class="song-name">中村 晃</span>
           </div>
-          <div class="song-lyrics-compact">巧みに打て 中村<br>鮮やかなバッティング<br>輝け 中村晃</div>
+          <div class="song-lyrics">巧みに打て 中村<br>鮮やかなバッティング<br>輝け 中村晃</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">9</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">9</span>
             <span class="song-name">甲斐 拓也</span>
           </div>
-          <div class="song-lyrics-compact">砲丸送球 甲斐<br>強肩で刺せ ランナー<br>打って守れ 甲斐拓也</div>
+          <div class="song-lyrics">砲丸送球 甲斐<br>強肩で刺せ ランナー<br>打って守れ 甲斐拓也</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">24</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">24</span>
             <span class="song-name">栗原 陵矢</span>
           </div>
-          <div class="song-lyrics-compact">勝負強く打て 栗原<br>ここ一番で 頼れる男<br>決めろ 栗原陵矢</div>
+          <div class="song-lyrics">勝負強く打て 栗原<br>ここ一番で 頼れる男<br>決めろ 栗原陵矢</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">32</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">32</span>
             <span class="song-name">周東 佑京</span>
           </div>
-          <div class="song-lyrics-compact">電光石火 周東<br>誰にも止められない<br>走れ走れ 周東佑京</div>
+          <div class="song-lyrics">電光石火 周東<br>誰にも止められない<br>走れ走れ 周東佑京</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">51</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">51</span>
             <span class="song-name">上林 誠知</span>
           </div>
-          <div class="song-lyrics-compact">空高く打ち上げろ 上林<br>外野を越えろ 大きく<br>見せろ 上林誠知</div>
+          <div class="song-lyrics">空高く打ち上げろ 上林<br>外野を越えろ 大きく<br>見せろ 上林誠知</div>
         </div>
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">65</span>
+        <div class="song-card">
+          <div class="song-header">
+            <span class="song-num">65</span>
             <span class="song-name">山川 穂高</span>
           </div>
-          <div class="song-lyrics-compact">どかんと一発 山川<br>アーチを架けろ スタンドへ<br>轟け 山川穂高</div>
+          <div class="song-lyrics">どかんと一発 山川<br>アーチを架けろ スタンドへ<br>轟け 山川穂高</div>
         </div>
       </div>
     </div>
@@ -186,7 +214,10 @@
       </div>
     </div>
   </div>
+    </div>
+  </div>
 </section>
+</main>
 <script>
 document.querySelectorAll('.songs-tab').forEach(tab => {
   tab.addEventListener('click', () => {
