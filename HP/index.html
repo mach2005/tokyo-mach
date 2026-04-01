@@ -13,6 +13,26 @@
   <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
   <link rel="shortcut icon" href="../public/favicon.png?v=2">
   <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    .articles-swiper { width: 100%; position: relative; padding: 20px 10px 40px 10px; }
+    .articles-swiper .swiper-slide { height: auto; }
+    .articles-swiper .swiper-button-next,
+    .articles-swiper .swiper-button-prev {
+      background: rgba(255, 255, 255, 0.95);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      color: #333;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      border: 1px solid #eee;
+    }
+    .articles-swiper .swiper-button-next:after,
+    .articles-swiper .swiper-button-prev:after {
+      font-size: 16px;
+      font-weight: 900;
+    }
+  </style>
 </head>
 <body>
 
@@ -68,48 +88,59 @@
       <div class="section-divider"></div>
     </div>
     
-    <div id="articles-carousel" style="display: flex; overflow-x: auto; gap: 20px; padding: 10px 5px 30px 5px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
-      <!-- Article 1 -->
-      <div style="flex: 0 0 85%; max-width: 450px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; scroll-snap-align: center;">
-        <div style="padding: 30px;">
-          <div style="margin-bottom: 15px;">
-            <span style="display: inline-block; background: #ffcc00; color: #111; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
+    <div class="swiper articles-swiper">
+      <div class="swiper-wrapper">
+        <!-- Article 1 -->
+        <div class="swiper-slide">
+          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column;">
+            <div style="padding: 30px; flex-grow: 1;">
+              <div style="margin-bottom: 15px;">
+                <span style="display: inline-block; background: #ffcc00; color: #111; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
+              </div>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">周東選手の前奏ができました</h3>
+              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
+                2026年より周東選手の新応援歌（前奏付き）を使用します。<br>
+                <a href="./articles.html#shuto" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
+              </p>
+            </div>
           </div>
-          <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">周東選手の前奏ができました</h3>
-          <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-            2026年より周東選手の新応援歌（前奏付き）を使用します。<br>
-            <a href="./articles.html#shuto" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
-          </p>
+        </div>
+        
+        <!-- Article 2 -->
+        <div class="swiper-slide">
+          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; display: flex; flex-direction: column;">
+            <div style="padding: 30px; flex-grow: 1;">
+              <div style="margin-bottom: 15px;">
+                <span style="display: inline-block; background: #111; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">応援のお願い</span>
+              </div>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">ジーター・ダウンズ選手のコールは「ゴーゴーレッツゴー　ジーター」でお願いします</h3>
+              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
+                皆様の熱いご声援をよろしくお願いいたします。<br>
+                <a href="./articles.html#downs" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Article 3 -->
+        <div class="swiper-slide">
+          <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #0055ff; display: flex; flex-direction: column;">
+            <div style="padding: 30px; flex-grow: 1;">
+              <div style="margin-bottom: 15px;">
+                <span style="display: inline-block; background: #0055ff; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
+              </div>
+              <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">2026年 新応援歌が登場！</h3>
+              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
+                松本晴選手、大山凌選手、谷川原健太選手、緒方理貢選手の新応援歌が追加されました。<br>
+                <a href="#new-songs" style="color: #0055ff; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">下部のセクションで試聴する <i class="fas fa-arrow-down"></i></a>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
-      
-      <!-- Article 2 -->
-      <div style="flex: 0 0 85%; max-width: 450px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; scroll-snap-align: center;">
-        <div style="padding: 30px;">
-          <div style="margin-bottom: 15px;">
-            <span style="display: inline-block; background: #111; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">応援のお願い</span>
-          </div>
-          <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">ジーター・ダウンズ選手のコールは「ゴーゴーレッツゴー　ジーター」でお願いします</h3>
-          <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-            皆様の熱いご声援をよろしくお願いいたします。<br>
-            <a href="./articles.html#downs" style="color: #d4a700; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">記事で詳しく見る <i class="fas fa-chevron-right"></i></a>
-          </p>
-        </div>
-      </div>
-      
-      <!-- Article 3 -->
-      <div style="flex: 0 0 85%; max-width: 450px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #0055ff; scroll-snap-align: center;">
-        <div style="padding: 30px;">
-          <div style="margin-bottom: 15px;">
-            <span style="display: inline-block; background: #0055ff; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
-          </div>
-          <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">2026年 新応援歌が登場！</h3>
-          <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-            松本晴選手、大山凌選手、谷川原健太選手、緒方理貢選手の新応援歌が追加されました。<br>
-            <a href="#new-songs" style="color: #0055ff; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 10px;">下部のセクションで試聴する <i class="fas fa-arrow-down"></i></a>
-          </p>
-        </div>
-      </div>
+      <!-- Swiper Navigation -->
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
     </div>
   </div>
 </section>
@@ -422,18 +453,31 @@ window.addEventListener('scroll', () => {
   else nav.classList.remove('scrolled');
 });
 
-const articlesCarousel = document.getElementById('articles-carousel');
-if (articlesCarousel) {
-  let scrollTimeout;
-  articlesCarousel.addEventListener('scroll', () => {
-    clearTimeout(scrollTimeout);
-    if (articlesCarousel.scrollLeft + articlesCarousel.clientWidth >= articlesCarousel.scrollWidth - 2) {
-      scrollTimeout = setTimeout(() => {
-        articlesCarousel.scrollTo({ left: 0, behavior: 'smooth' });
-      }, 1000);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+  const swiper = new Swiper('.articles-swiper', {
+    loop: true,
+    slidesPerView: 1.1,
+    centeredSlides: true,
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2.2,
+        centeredSlides: false,
+        spaceBetween: 30,
+      },
+      1024: {
+        slidesPerView: 3,
+        centeredSlides: false,
+        spaceBetween: 30,
+      }
     }
   });
-}
 </script>
 </body>
 </html>
