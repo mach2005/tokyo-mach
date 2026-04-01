@@ -63,12 +63,12 @@
 <section class="section" id="articles" style="padding: 60px 0; background: #fafafa;">
   <div class="container">
     <div class="section-header">
-      <span class="section-label">ARTICLES</span>
-      <h2 class="section-title">記事</h2>
+      <span class="section-label">INFORMATION</span>
+      <h2 class="section-title">新着情報</h2>
       <div class="section-divider"></div>
     </div>
     
-    <div style="display: flex; overflow-x: auto; gap: 20px; padding: 10px 5px 30px 5px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+    <div id="articles-carousel" style="display: flex; overflow-x: auto; gap: 20px; padding: 10px 5px 30px 5px; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
       <!-- Article 1 -->
       <div style="flex: 0 0 85%; max-width: 450px; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; scroll-snap-align: center;">
         <div style="padding: 30px;">
@@ -421,6 +421,19 @@ window.addEventListener('scroll', () => {
   if (window.scrollY > 50) nav.classList.add('scrolled');
   else nav.classList.remove('scrolled');
 });
+
+const articlesCarousel = document.getElementById('articles-carousel');
+if (articlesCarousel) {
+  let scrollTimeout;
+  articlesCarousel.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    if (articlesCarousel.scrollLeft + articlesCarousel.clientWidth >= articlesCarousel.scrollWidth - 2) {
+      scrollTimeout = setTimeout(() => {
+        articlesCarousel.scrollTo({ left: 0, behavior: 'smooth' });
+      }, 1000);
+    }
+  });
+}
 </script>
 </body>
 </html>
