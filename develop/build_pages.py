@@ -18,7 +18,7 @@ def make_page(filename, title, content):
         f.write(full)
     print(f'Created: ../HP/{filename}')
 
-# ===== SCHEDULE PAGE (Restored from Build #113) =====
+# ===== SCHEDULE PAGE (Full Restoration Build #113) =====
 schedule_content = r'''
 <section class="page-hero">
   <div class="page-hero-content">
@@ -394,9 +394,125 @@ schedule_content = r'''
   </div> <!-- closes schedule-container -->
 </div> <!-- closes container (line 48) -->
 </section>
+
+<script>
+(function() {
+
+document.getElementById('hamburger').addEventListener('click', function() {
+  this.classList.toggle('active');
+  document.getElementById('navLinks').classList.toggle('active');
+});
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    document.getElementById('hamburger').classList.remove('active');
+    document.getElementById('navLinks').classList.remove('active');
+  });
+});
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('mainNav');
+  if (window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+document.querySelectorAll('.schedule-month-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const month = btn.dataset.month;
+    const slider = document.getElementById('scheduleSlider');
+    const target = document.getElementById('month-' + month);
+    if (target) {
+      const scrollPos = target.offsetLeft - slider.offsetLeft;
+      slider.scrollTo({ left: scrollPos, behavior: 'smooth' });
+      document.querySelectorAll('.schedule-month-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateNavArrows(month);
+    }
+  });
+});
+
+const monthNames = {
+  '3': '3月', '4': '4月', '5': '5月', '6': '6月', 
+  '7': '7月', '8': '8月', '9': '9月', '10': '10-11月'
+};
+
+function updateNavArrows(currentMonth) {
+  const months = ['3', '4', '5', '6', '7', '8', '9', '10'];
+  const idx = months.indexOf(currentMonth);
+  const prevBtn = document.getElementById('prevMonth');
+  const nextBtn = document.getElementById('nextMonth');
+  
+  if (idx > 0) {
+    const prevMonth = months[idx - 1];
+    prevBtn.querySelector('.nav-arrow-text').textContent = monthNames[prevMonth];
+    prevBtn.style.opacity = '1';
+    prevBtn.style.pointerEvents = 'auto';
+  } else {
+    prevBtn.querySelector('.nav-arrow-text').textContent = '';
+    prevBtn.style.opacity = '0.2';
+    prevBtn.style.pointerEvents = 'none';
+  }
+  
+  if (idx < months.length - 1) {
+    const nextMonth = months[idx + 1];
+    nextBtn.querySelector('.nav-arrow-text').textContent = monthNames[nextMonth];
+    nextBtn.style.opacity = '1';
+    nextBtn.style.pointerEvents = 'auto';
+  } else {
+    nextBtn.querySelector('.nav-arrow-text').textContent = '';
+    nextBtn.style.opacity = '0.2';
+    nextBtn.style.pointerEvents = 'none';
+  }
+}
+
+// Arrow Navigation
+document.getElementById('prevMonth').addEventListener('click', () => {
+  const slider = document.getElementById('scheduleSlider');
+  slider.scrollBy({ left: -slider.offsetWidth, behavior: 'smooth' });
+});
+document.getElementById('nextMonth').addEventListener('click', () => {
+  const slider = document.getElementById('scheduleSlider');
+  slider.scrollBy({ left: slider.offsetWidth, behavior: 'smooth' });
+});
+
+// Sync Tab with Scroll
+let isScrolling;
+document.getElementById('scheduleSlider').addEventListener('scroll', () => {
+  window.clearTimeout(isScrolling);
+  isScrolling = setTimeout(() => {
+    const slider = document.getElementById('scheduleSlider');
+    const scrollPos = slider.scrollLeft + (slider.offsetWidth / 2);
+    const wrappers = document.querySelectorAll('.calendar-wrapper');
+    const btns = document.querySelectorAll('.schedule-month-btn');
+    
+    wrappers.forEach(wrapper => {
+      const start = wrapper.offsetLeft - slider.offsetLeft;
+      const end = start + wrapper.offsetWidth;
+      if (scrollPos >= start && scrollPos < end) {
+        const month = wrapper.id.replace('month-', '');
+        btns.forEach(b => {
+          b.classList.toggle('active', b.dataset.month === month);
+        });
+        updateNavArrows(month);
+      }
+    });
+  }, 100);
+});
+
+// Initial Scroll (Optional: Current Month)
+window.addEventListener('load', () => {
+  const activeBtn = document.querySelector('.schedule-month-btn.active');
+  if (activeBtn) {
+    const slider = document.getElementById('scheduleSlider');
+    const target = document.getElementById('month-' + activeBtn.dataset.month);
+    if (target) {
+      slider.scrollTo({ left: target.offsetLeft - slider.offsetLeft, behavior: 'auto' });
+      updateNavArrows(activeBtn.dataset.month);
+    }
+  }
+});
+
+})();
+</script>
 '''
 make_page('schedule.html', '試合日程', schedule_content)
-
 
 # ===== SONGS PAGE =====
 songs_content = '''
