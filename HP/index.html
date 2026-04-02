@@ -293,8 +293,21 @@
       <div class="sns-side">
         <h2 class="section-title x-title">X</h2>
         <div class="x-timeline-container" style="width: 100%; max-width: 400px; background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;">
-          <a class="twitter-timeline" data-height="520" data-theme="light" href="https://twitter.com/tokyo_mach?ref_src=twsrc%5Etfw">Tweets by tokyo_mach</a> 
-          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+          <a class="twitter-timeline" data-height="520" data-theme="light" href="https://twitter.com/tokyo_mach?ref_src=twsrc%5Etfw">Tweets by tokyo_mach</a>
+          <script>window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+              t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            t._e = [];
+            t.ready = function(f) {
+              t._e.push(f);
+            };
+            return t;
+          }(document, "script", "twitter-wjs"));</script>
         </div>
         <div style="text-align: center; margin-top: 30px;">
           <a href="https://x.com/tokyo_mach" target="_blank" rel="noopener" class="btn sns-btn btn-x">
