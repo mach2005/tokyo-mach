@@ -1,5 +1,9 @@
 import os
+import sys
 DIR = os.path.dirname(os.path.abspath(__file__))
+# 自作バックアップユーティリティを追加
+sys.path.append(DIR)
+import backup_util
 
 with open(os.path.join(DIR, '../HP/index.html'), 'r', encoding='utf-8') as f:
     index = f.read()
@@ -16,6 +20,7 @@ def make_page(filename, title, content):
     path = os.path.join(DIR, '../HP/', filename)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(full)
+    backup_util.backup_file(path)
     print(f'Created: ../HP/{filename}')
 
 # ===== SCHEDULE PAGE (Full Restoration Build #113) =====
@@ -29,15 +34,17 @@ schedule_content = r'''
 </section>
 <section class="section">
   <div class="container">
-    <div class='schedule-nav'>
-      <button class='schedule-month-btn active' data-month='3'>3月</button>
-      <button class='schedule-month-btn' data-month='4'>4月</button>
-      <button class='schedule-month-btn' data-month='5'>5月</button>
-      <button class='schedule-month-btn' data-month='6'>6月</button>
-      <button class='schedule-month-btn' data-month='7'>7月</button>
-      <button class='schedule-month-btn' data-month='8'>8月</button>
-      <button class='schedule-month-btn' data-month='9'>9月</button>
-      <button class='schedule-month-btn' data-month='10'>10-11月</button>
+    <div class='schedule-nav-outer'>
+      <div class='schedule-nav'>
+        <button class='schedule-month-btn active' data-month='3'><span>03</span>MAR</button>
+        <button class='schedule-month-btn' data-month='4'><span>04</span>APR</button>
+        <button class='schedule-month-btn' data-month='5'><span>05</span>MAY</button>
+        <button class='schedule-month-btn' data-month='6'><span>06</span>JUN</button>
+        <button class='schedule-month-btn' data-month='7'><span>07</span>JUL</button>
+        <button class='schedule-month-btn' data-month='8'><span>08</span>AUG</button>
+        <button class='schedule-month-btn' data-month='9'><span>09</span>SEP</button>
+        <button class='schedule-month-btn' data-month='10'><span>10</span>OCT</button>
+      </div>
     </div>
     <p class='schedule-legend'>
       <span class='legend-item'><span class='legend-dot visitor'></span>ビジター</span>
@@ -429,8 +436,8 @@ document.querySelectorAll('.schedule-month-btn').forEach(btn => {
 });
 
 const monthNames = {
-  '3': '3月', '4': '4月', '5': '5月', '6': '6月', 
-  '7': '7月', '8': '8月', '9': '9月', '10': '10-11月'
+  '3': 'MAR', '4': 'APR', '5': 'MAY', '6': 'JUN', 
+  '7': 'JUL', '8': 'AUG', '9': 'SEP', '10': 'OCT'
 };
 
 function updateNavArrows(currentMonth) {
@@ -442,23 +449,19 @@ function updateNavArrows(currentMonth) {
   if (idx > 0) {
     const prevMonth = months[idx - 1];
     prevBtn.querySelector('.nav-arrow-text').textContent = monthNames[prevMonth];
-    prevBtn.style.opacity = '1';
-    prevBtn.style.pointerEvents = 'auto';
+    prevBtn.classList.remove('disabled');
   } else {
     prevBtn.querySelector('.nav-arrow-text').textContent = '';
-    prevBtn.style.opacity = '0.2';
-    prevBtn.style.pointerEvents = 'none';
+    prevBtn.classList.add('disabled');
   }
   
   if (idx < months.length - 1) {
     const nextMonth = months[idx + 1];
     nextBtn.querySelector('.nav-arrow-text').textContent = monthNames[nextMonth];
-    nextBtn.style.opacity = '1';
-    nextBtn.style.pointerEvents = 'auto';
+    nextBtn.classList.remove('disabled');
   } else {
     nextBtn.querySelector('.nav-arrow-text').textContent = '';
-    nextBtn.style.opacity = '0.2';
-    nextBtn.style.pointerEvents = 'none';
+    nextBtn.classList.add('disabled');
   }
 }
 

@@ -1,5 +1,10 @@
 import os
+import sys
 import re
+
+DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(DIR)
+import backup_util
 
 # 2026 Season Player Data (Source of Truth)
 PITCHERS = """10 上沢 直之;我らが待ち望む　勝利を手にする為\\n多彩な持ち球を　繰り出せ上沢
@@ -226,7 +231,9 @@ document.querySelectorAll('.song-tab-btn').forEach(btn => {
 """
 
 # Write Output
-with open(os.path.join(DIR, '../HP/songs.html'), 'w', encoding='utf-8') as f:
+output_path = os.path.join(DIR, '../HP/songs.html')
+with open(output_path, 'w', encoding='utf-8') as f:
     f.write(head_with_style + hero_html + mid + footer)
 
+backup_util.backup_file(output_path)
 print("Generated ../HP/songs.html")
