@@ -92,7 +92,7 @@
             </div>
           </a>
 
-          <!-- Unified Article 1: New Songs (NOT A WRAPPED LINK ANYMORE) -->
+          <!-- Unified Article 1: New Songs -->
           <div class="news-scroll-item news-card-static" style="width: 340px; flex-shrink: 0;">
             <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
               <div style="margin-bottom: 15px;">
@@ -116,7 +116,7 @@
             </div>
           </div>
           
-          <!-- Article 2: Downs (Stays as full-card link) -->
+          <!-- Article 2: Downs -->
           <a href="./news/20260401-downs.html" class="news-scroll-item news-card" style="text-decoration:none; display:block; width: 340px; flex-shrink: 0; outline:none;">
             <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
               <div style="margin-bottom: 15px;">
@@ -137,7 +137,6 @@
       <button class="news-scroll-next" id="newsNext" style="position: absolute; right:0; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.95); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; color:#333; transition:0.3s;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#111'; this.style.color='#111'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.borderColor='#ddd';"><i class="fas fa-chevron-right" style="font-weight:900;"></i></button>
     </div>
   </div>
-</div>
 </section>
 
 <!-- New Songs Section -->
@@ -229,8 +228,6 @@
   </div>
 </section>
 
-
-
 <!-- About Section -->
 <section class="section section-about" id="about">
   <div class="container">
@@ -259,32 +256,49 @@
   </div>
 </section>
 
-<!-- Instagram Section -->
-<section class="section section-instagram" id="instagram">
+<!-- SNS Section (Instagram & X) -->
+<section class="section section-sns" id="sns-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-label">OFFICIAL INSTAGRAM</span>
-      <h2 class="section-title">Instagram</h2>
+      <span class="section-label">SNS</span>
+      <div class="sns-header-split">
+        <h2 class="section-title insta-title">Instagram</h2>
+        <h2 class="section-title x-title">X (Twitter)</h2>
+      </div>
       <div class="section-divider"></div>
     </div>
-    <div class="instagram-grid">
-      <a href="https://www.instagram.com/tokyo_mach/p/DWOpajwiYNO/" target="_blank" rel="noopener" class="instagram-post">
-        <img src="../public/images/ig_post_1.png" alt="Instagram Post 1">
-        <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/tokyo_mach/p/DWOJZyfibsR/" target="_blank" rel="noopener" class="instagram-post">
-        <img src="../public/images/ig_post_2.png" alt="Instagram Post 2">
-        <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
-      </a>
-      <a href="https://www.instagram.com/tokyo_mach/p/DV8adi_iWYS/" target="_blank" rel="noopener" class="instagram-post">
-        <img src="../public/images/ig_post_3.png" alt="Instagram Post 3">
-        <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
-      </a>
-    </div>
-    <div style="text-align: center; margin-top: 30px;">
-      <a href="https://www.instagram.com/tokyo_mach/" target="_blank" rel="noopener" class="btn btn-outline">
-        <i class="fab fa-instagram"></i> フォローする
-      </a>
+    
+    <div class="sns-row">
+      <!-- Left 75%: Instagram -->
+      <div class="sns-main">
+        <div class="instagram-grid">
+          <a href="https://www.instagram.com/tokyo_mach/p/DWOpajwiYNO/" target="_blank" rel="noopener" class="instagram-post">
+            <img src="../public/images/ig_post_1.png" alt="Instagram Post 1">
+            <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
+          </a>
+          <a href="https://www.instagram.com/tokyo_mach/p/DWOJZyfibsR/" target="_blank" rel="noopener" class="instagram-post">
+            <img src="../public/images/ig_post_2.png" alt="Instagram Post 2">
+            <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
+          </a>
+          <a href="https://www.instagram.com/tokyo_mach/p/DV8adi_iWYS/" target="_blank" rel="noopener" class="instagram-post">
+            <img src="../public/images/ig_post_3.png" alt="Instagram Post 3">
+            <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
+          </a>
+        </div>
+        <div style="text-align: center; margin-top: 30px;">
+          <a href="https://www.instagram.com/tokyo_mach/" target="_blank" rel="noopener" class="btn btn-outline">
+            <i class="fab fa-instagram"></i> フォローする
+          </a>
+        </div>
+      </div>
+      
+      <!-- Right 25%: X Timeline -->
+      <div class="sns-side">
+        <div class="x-timeline-container" style="background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee;">
+          <a class="twitter-timeline" data-height="520" data-theme="light" href="https://twitter.com/tokyo_mach?ref_src=twsrc%5Etfw">Tweets by tokyo_mach</a> 
+          <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -363,29 +377,6 @@
   </div>
 </section>
 
-<!-- SNS Section -->
-<section class="section section-sns">
-  <div class="container">
-    <div class="section-header">
-      <span class="section-label">FOLLOW US</span>
-      <h2 class="section-title">SNS</h2>
-      <div class="section-divider"></div>
-    </div>
-    <div class="sns-grid">
-      <a href="https://x.com/tokyo_mach" target="_blank" rel="noopener" class="sns-card sns-x">
-        <i class="fab fa-x-twitter"></i>
-        <span>X (Twitter)</span>
-        <span class="sns-handle">@tokyo_mach</span>
-      </a>
-      <a href="https://www.instagram.com/tokyo_mach/" target="_blank" rel="noopener" class="sns-card sns-ig">
-        <i class="fab fa-instagram"></i>
-        <span>Instagram</span>
-        <span class="sns-handle">@tokyo_mach</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-top">
@@ -408,7 +399,7 @@
           <ul>
             <li><a href="./gallery.html">ギャラリー</a></li>
             <li><a href="./faq.html">Q&amp;A</a></li>
-            <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener">団員応募</a></li>
+            <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener">団員募集中</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -449,7 +440,6 @@ window.addEventListener('scroll', () => {
 });
 
 </script>
-
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {

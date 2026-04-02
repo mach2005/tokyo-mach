@@ -623,6 +623,63 @@ a:hover {
 @media (max-width: 480px) {
   .instagram-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* New SNS Layout */
+.sns-row {
+  display: flex;
+  gap: 40px;
+  margin-top: 30px;
+}
+.sns-main {
+  flex: 0 0 75%;
+}
+.sns-side {
+  flex: 0 0 25%;
+}
+.sns-header-split {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+.sns-header-split .section-title {
+  margin-bottom: 0;
+  text-align: left;
+}
+.sns-header-split .insta-title {
+  width: 75%;
+}
+.sns-header-split .x-title {
+  width: 25%;
+  padding-left: 40px;
+}
+
+@media (max-width: 992px) {
+  .sns-row {
+    flex-direction: column;
+  }
+  .sns-main, .sns-side {
+    flex: 0 0 100%;
+  }
+  .sns-header-split {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sns-header-split .insta-title, .sns-header-split .x-title {
+    width: 100%;
+    text-align: center;
+    padding-left: 0;
+  }
+  .sns-header-split .x-title {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-grid {
+    grid-template-columns: 1fr;
     max-width: 320px;
     margin-left: auto;
     margin-right: auto;
