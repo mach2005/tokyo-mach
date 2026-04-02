@@ -20,7 +20,7 @@ def make_page(filename, title, content):
     path = os.path.join(DIR, '../HP/', filename)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(full)
-    backup_util.backup_file(path)
+    # backup_util.backup_file(path) # 自動バックアップを停止（セッション最終版のみ対応）
     print(f'Created: ../HP/{filename}')
 
 # ===== SCHEDULE PAGE (Full Restoration Build #113) =====

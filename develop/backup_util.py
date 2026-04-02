@@ -3,6 +3,9 @@ import shutil
 import datetime
 import glob
 
+# 自身のディレクトリを取得
+DIR = os.path.dirname(os.path.abspath(__file__))
+
 # 設定
 BACKUP_DIR = r'C:\Users\user\Antigravity\backup'
 ARCHIVE_DIR = r'C:\Users\user\Antigravity\archive'
@@ -33,15 +36,50 @@ def backup_file(file_path):
     backup_filename = f"{name}_{timestamp}{ext}"
     backup_path = os.path.join(BACKUP_DIR, backup_filename)
 
-    # 同一分内に複数回バックアップする場合の重複回避
-    counter = 1
-    while os.path.exists(backup_path):
-        backup_filename = f"{name}_{timestamp}_{counter}{ext}"
-        backup_path = os.path.join(BACKUP_DIR, backup_filename)
-        counter += 1
+    # バックアップの実作成
+    _, file_ext = os.path.splitext(file_path)
+    
+    try:
+        if file_ext.lower() == ".html":
+            # HTMLの場合: CSSのインライン化とパス補正
+            with open(file_path, 'r', encoding='utf-8') as f:
+                content = f.read()
+            
+            # 外部CSSの読み込み (style.css)
+            css_path = os.path.join(DIR, '../public/style.css')
+            css_content = ""
+            if os.path.exists(css_path):
+                with open(css_path, 'r', encoding='utf-8') as f:
+                    css_content = f.read()
+                
+                # CSS内のパス補正 (url("../images/...") -> url("../東京真隼/images/..."))
+                css_content = css_content.replace('url("../', 'url("../東京真隼/')
+                
+                # <link rel="stylesheet" href="../public/style.css..."> を <style> に置換
+                import re
+                # <link rel="stylesheet" href="../public/style.css[^"]*"> のようなタグを置換
+                link_pattern = r'<link\s+[^>]*rel=["\']stylesheet["\'][^>]*href=["\']\.\./public/style\.css[^"\']*["\'][^>]*>'
+                if re.search(link_pattern, content):
+                    content = re.sub(link_pattern, f'<style>\n{css_content}\n</style>', content)
+                else:
+                    # 見つからない場合は head の最後に挿入
+                    content = content.replace('</head>', f'<style>\n{css_content}\n</style>\n</head>')
 
-    shutil.copy2(file_path, backup_path)
-    print(f"Backup created: {backup_filename}")
+            # 全体的なパス置換 (href="../, src="../)
+            content = content.replace('href="../', 'href="../東京真隼/')
+            content = content.replace('src="../', 'src="../東京真隼/')
+            content = content.replace('url("../', 'url("../東京真隼/')
+            
+            with open(backup_path, 'w', encoding='utf-8') as f:
+                f.write(content)
+        else:
+            # HTML以外はそのままコピー
+            shutil.copy2(file_path, backup_path)
+            
+        print(f"Backup created: {backup_filename}")
+    except Exception as e:
+        print(f"Error creating backup for {file_path}: {e}")
+        return
 
     # 世代管理 (20個を超えたらアーカイブへ)
     manage_rotation(name, ext)

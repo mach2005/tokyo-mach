@@ -235,5 +235,5 @@ output_path = os.path.join(DIR, '../HP/songs.html')
 with open(output_path, 'w', encoding='utf-8') as f:
     f.write(head_with_style + hero_html + mid + footer)
 
-backup_util.backup_file(output_path)
+# backup_util.backup_file(output_path) # 自動バックアップを停止（セッション最終版のみ対応）
 print("Generated ../HP/songs.html")
