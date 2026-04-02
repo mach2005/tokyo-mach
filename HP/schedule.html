@@ -13,6 +13,66 @@
   <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
   <link rel="shortcut icon" href="../public/favicon.png?v=2">
   <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
+  <style>
+    /* Restore commit 51c45dd: Enhanced pill-shaped nav arrows for schedule */
+    .nav-arrow {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: absolute !important;
+      top: 50% !important;
+      transform: translateY(-50%) !important;
+      width: auto !important;
+      height: 52px !important;
+      padding: 0 24px !important;
+      background: #111 !important;
+      color: #ffcc00 !important; /* var(--gold) */
+      border: none !important;
+      border-radius: 50px !important;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+      z-index: 100 !important;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+      cursor: pointer;
+    }
+    .nav-arrow:hover {
+      background: #ffcc00 !important;
+      color: #111 !important;
+      transform: translateY(-50%) scale(1.05) !important;
+      box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4) !important;
+    }
+    .nav-arrow .nav-arrow-text {
+      white-space: nowrap;
+      margin: 0 8px;
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .nav-arrow i {
+      font-size: 1.1rem;
+    }
+    .nav-arrow.prev { left: 15px !important; }
+    .nav-arrow.next { right: 15px !important; }
+    
+    @media (max-width: 1100px) {
+      .nav-arrow {
+        top: 8px !important;
+        transform: none !important;
+        height: 38px !important;
+        padding: 0 16px !important;
+        font-size: 0.9rem !important;
+      }
+      .nav-arrow .nav-arrow-text { font-size: 0.85rem; margin: 0 4px; }
+      .nav-arrow.prev { left: 8px !important; }
+      .nav-arrow.next { right: 8px !important; }
+      .schedule-container { padding-top: 54px !important; } /* Clearance for top-aligned arrows on mobile */
+    }
+    .nav-arrow.disabled {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      visibility: hidden !important;
+    }
+  </style>
   </head>
 <body>
 
@@ -449,8 +509,8 @@ document.querySelectorAll('.schedule-month-btn').forEach(btn => {
 });
 
 const monthNames = {
-  '3': 'MAR', '4': 'APR', '5': 'MAY', '6': 'JUN', 
-  '7': 'JUL', '8': 'AUG', '9': 'SEP', '10': 'OCT'
+  '3': '3月', '4': '4月', '5': '5月', '6': '6月', 
+  '7': '7月', '8': '8月', '9': '9月', '10': '10-11月'
 };
 
 function updateNavArrows(currentMonth) {
