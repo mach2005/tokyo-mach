@@ -631,6 +631,7 @@ a:hover {
   display: flex;
   gap: 40px;
   margin-top: 30px;
+  align-items: flex-start;
 }
 .sns-main {
   flex: 0 0 75%;
@@ -638,22 +639,66 @@ a:hover {
 .sns-side {
   flex: 0 0 25%;
 }
+.section-sns .sns-label {
+  font-size: 1.4rem;
+  letter-spacing: 0.4em;
+  font-weight: 900;
+  display: block;
+  margin-bottom: 10px;
+}
 .sns-header-split {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 20px;
+  align-items: center;
+  margin-bottom: 30px;
 }
 .sns-header-split .section-title {
   margin-bottom: 0;
-  text-align: left;
+  font-size: 2.2rem;
 }
 .sns-header-split .insta-title {
   width: 75%;
+  text-align: center;
 }
 .sns-header-split .x-title {
   width: 25%;
-  padding-left: 40px;
+  text-align: center;
+}
+
+
+/* SNS Follow Buttons */
+.sns-btn {
+  width: 100%;
+  max-width: 400px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 700;
+  padding: 16px 20px;
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid transparent;
+}
+.btn-instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(220, 39, 67, 0.3);
+}
+.btn-instagram:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(220, 39, 67, 0.4);
+  color: #fff;
+}
+.btn-x {
+  background: #000;
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.btn-x:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  color: #fff;
 }
 
 @media (max-width: 992px) {
