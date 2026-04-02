@@ -640,30 +640,20 @@ a:hover {
   flex: 0 0 25%;
 }
 .section-sns .sns-label {
-  font-size: 1.4rem;
-  letter-spacing: 0.4em;
+  font-size: 2rem;
+  letter-spacing: 0.5em;
   font-weight: 900;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  color: #ffcc00;
 }
-.sns-header-split {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.section-sns .section-title {
+  text-align: center;
   margin-bottom: 30px;
+  font-size: 2.5rem;
 }
-.sns-header-split .section-title {
-  margin-bottom: 0;
-  font-size: 2.2rem;
-}
-.sns-header-split .insta-title {
-  width: 75%;
-  text-align: center;
-}
-.sns-header-split .x-title {
-  width: 25%;
-  text-align: center;
-}
+
+/* SNS Follow Buttons */
 
 
 /* SNS Follow Buttons */
