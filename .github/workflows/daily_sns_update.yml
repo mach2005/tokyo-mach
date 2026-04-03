@@ -21,16 +21,17 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run SNS update script
+      - name: Run SNS update scripts
         run: |
           python develop/update_x_feed.py
+          python develop/update_ig_feed.py
           
       - name: Check for changes
         id: git-check
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add HP/index.html
+          git add HP/index.html public/images/latest_ig.jpg
           git status
           git diff --staged --quiet || echo "changed=true" >> $GITHUB_OUTPUT
 

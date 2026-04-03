@@ -31,7 +31,7 @@ def parse_rss(xml_content):
     # 簡単な正規表現によるパース（外部ライブラリ不要）
     items = re.findall(r'<item>(.*?)</item>', xml_content, re.DOTALL)
     posts = []
-    for item in items[:3]: # 最新3件
+    for item in items[:1]: # 最新1件
         title = re.search(r'<title>(.*?)</title>', item, re.DOTALL)
         link = re.search(r'<link>(.*?)</link>', item, re.DOTALL)
         pub_date = re.search(r'<pubDate>(.*?)</pubDate>', item, re.DOTALL)
