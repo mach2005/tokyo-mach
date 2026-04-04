@@ -96,13 +96,11 @@ if __name__ == "__main__":
             post['local_path'] = download_image(post['img_url'], i+1)
         update_index(ig_posts)
     else:
-        # フォールバック
-        print("Automatic fetching failed. Using recent manual values (fallback).")
+        # フォールバック: ローカルに保存済みの画像を使用（CDN URLは使わない）
+        print("Automatic fetching failed. Using saved local images (fallback).")
         manual_data = [
-            {"link": "https://www.instagram.com/tokyo_mach/p/DWOpajwiYNO/", "img_url": "https://scontent-nrt1-1.cdninstagram.com/v/t51.82787-15/656063955_18105975256848405_3022366776073415298_n.jpg"},
-            {"link": "https://www.instagram.com/tokyo_mach/p/DWoX0PICR-v/", "img_url": "https://scontent-nrt1-1.cdninstagram.com/v/t51.82787-15/658175740_18106957390848405_4542364041086217553_n.jpg"},
-            {"link": "https://www.instagram.com/tokyo_mach/p/DWOJZyfibsR/", "img_url": "https://scontent-nrt1-1.cdninstagram.com/v/t51.82787-15/658555795_18105951826848405_4020037548141739809_n.jpg"}
+            {"link": "https://www.instagram.com/tokyo_mach/p/DWOpajwiYNO/", "local_path": "public/images/ig_post_1.jpg", "img_url": None},
+            {"link": "https://www.instagram.com/tokyo_mach/p/DWoX0PICR-v/", "local_path": "public/images/ig_post_2.jpg", "img_url": None},
+            {"link": "https://www.instagram.com/tokyo_mach/p/DWOJZyfibsR/", "local_path": "public/images/ig_post_3.jpg", "img_url": None}
         ]
-        for i, post in enumerate(manual_data):
-            post['local_path'] = download_image(post['img_url'], i+1)
         update_index(manual_data)

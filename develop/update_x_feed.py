@@ -1,7 +1,7 @@
 import os
 import re
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 # 設定
 X_ACCOUNT = "tokyo_mach"
@@ -41,9 +41,11 @@ def parse_rss(xml_content):
             # リンクをnitterからx.comに変換
             x_link = link.group(1).replace("nitter.net", "x.com").replace("nitter.poast.org", "x.com")
             
-            # 日時パース (例: Fri, 03 Apr 2026 10:24:00 GMT)
+            # 日時パース (RSS は GMT/UTC: 例: Fri, 03 Apr 2026 05:24:00 GMT) → JST (+9)
             try:
-                date_obj = datetime.strptime(pub_date.group(1), '%a, %d %b %Y %H:%M:%S %Z')
+                JST = timezone(timedelta(hours=9))
+                date_obj = datetime.strptime(pub_date.group(1).strip(), '%a, %d %b %Y %H:%M:%S %Z')
+                date_obj = date_obj.replace(tzinfo=timezone.utc).astimezone(JST)
                 formatted_date = date_obj.strftime('%Y/%m/%d %H:%M')
             except:
                 formatted_date = pub_date.group(1)
