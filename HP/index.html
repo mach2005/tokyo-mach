@@ -490,10 +490,9 @@ window.addEventListener('scroll', () => {
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const inner = document.getElementById('newsInner');
-    const scrollContainer = document.getElementById('newsScroll');
     const prevBtn = document.getElementById('newsPrev');
     const nextBtn = document.getElementById('newsNext');
-    if(!inner || !scrollContainer) return;
+    if(!inner) return;
 
     const originalItems = Array.from(inner.children);
     const itemCount = originalItems.length;
@@ -506,13 +505,11 @@ window.addEventListener('scroll', () => {
     let isMoving = false;
 
     const updateSlider = (smooth = true) => {
-      // Use getBoundingClientRect for precise pixel values
       const firstItem = inner.querySelector('.news-scroll-item');
       if(!firstItem) return;
       
-      const itemWidth = firstItem.getBoundingClientRect().width;
-      const gap = 20; // Matches CSS gap
-      const step = itemWidth + gap;
+      // Calculate step precisely: Item width + Gap (20px)
+      const step = firstItem.offsetWidth + 20;
       
       const offset = -(currentIndex * step);
       inner.style.transition = smooth ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
@@ -522,7 +519,7 @@ window.addEventListener('scroll', () => {
     const handleNext = () => {
       if (isMoving) return;
       isMoving = true;
-      currentIndex += 3; 
+      currentIndex += 3; // Shift by 3 items
       updateSlider();
 
       setTimeout(() => {
@@ -552,11 +549,10 @@ window.addEventListener('scroll', () => {
     nextBtn.addEventListener('click', handleNext);
     prevBtn.addEventListener('click', handlePrev);
 
-    // Initial positioning and resize handling
     window.addEventListener('resize', () => updateSlider(false));
     
-    // Initial jump to the middle set (wait for layout)
-    setTimeout(() => updateSlider(false), 100);
+    // Delay slightly to ensure initial layout is ready
+    setTimeout(() => updateSlider(false), 200);
   });
 </script>
 </body>
