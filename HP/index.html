@@ -516,10 +516,13 @@ window.addEventListener('scroll', () => {
       inner.style.transform = `translateX(${offset}px)`;
     };
 
+    const getJumpSize = () => window.innerWidth > 900 ? 3 : 1;
+
     const handleNext = () => {
       if (isMoving) return;
+      const jump = getJumpSize();
       isMoving = true;
-      currentIndex += 3; // Shift by 3 items
+      currentIndex += jump; 
       updateSlider();
 
       setTimeout(() => {
@@ -533,8 +536,9 @@ window.addEventListener('scroll', () => {
 
     const handlePrev = () => {
       if (isMoving) return;
+      const jump = getJumpSize();
       isMoving = true;
-      currentIndex -= 3;
+      currentIndex -= jump;
       updateSlider();
 
       setTimeout(() => {
