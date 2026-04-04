@@ -490,23 +490,31 @@ window.addEventListener('scroll', () => {
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const inner = document.getElementById('newsInner');
+    const scrollContainer = document.getElementById('newsScroll');
     const prevBtn = document.getElementById('newsPrev');
     const nextBtn = document.getElementById('newsNext');
-    if(!inner) return;
+    if(!inner || !scrollContainer) return;
 
     const originalItems = Array.from(inner.children);
     const itemCount = originalItems.length;
     
-    // Triple the items to create a seamless loop (Original, Clone1, Clone2)
+    // Triple the items to create a seamless loop
     originalItems.forEach(item => inner.appendChild(item.cloneNode(true)));
     originalItems.forEach(item => inner.appendChild(item.cloneNode(true)));
 
-    let currentIndex = itemCount; // Start at the beginning of the middle set
+    let currentIndex = itemCount; 
     let isMoving = false;
 
     const updateSlider = (smooth = true) => {
-      const itemWidth = originalItems[0].offsetWidth + 20; // width + gap
-      const offset = -(currentIndex * itemWidth);
+      // Use getBoundingClientRect for precise pixel values
+      const firstItem = inner.querySelector('.news-scroll-item');
+      if(!firstItem) return;
+      
+      const itemWidth = firstItem.getBoundingClientRect().width;
+      const gap = 20; // Matches CSS gap
+      const step = itemWidth + gap;
+      
+      const offset = -(currentIndex * step);
       inner.style.transition = smooth ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
       inner.style.transform = `translateX(${offset}px)`;
     };
@@ -514,7 +522,7 @@ window.addEventListener('scroll', () => {
     const handleNext = () => {
       if (isMoving) return;
       isMoving = true;
-      currentIndex += 3; // Shift 3 items at a time
+      currentIndex += 3; 
       updateSlider();
 
       setTimeout(() => {
@@ -544,9 +552,11 @@ window.addEventListener('scroll', () => {
     nextBtn.addEventListener('click', handleNext);
     prevBtn.addEventListener('click', handlePrev);
 
-    // Initial positioning
+    // Initial positioning and resize handling
     window.addEventListener('resize', () => updateSlider(false));
-    updateSlider(false);
+    
+    // Initial jump to the middle set (wait for layout)
+    setTimeout(() => updateSlider(false), 100);
   });
 </script>
 </body>
