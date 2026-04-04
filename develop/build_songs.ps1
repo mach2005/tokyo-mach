@@ -21,7 +21,7 @@ $catchers = "12 嶺井 博希;高み目指す男よ 立ち上がれさぁ 嶺井
 "62 海野 隆司;歓声背に受け 熱い想い胸に秘め 攻守に輝き 勝利へ導け"
 
 $infielders = "0 川瀬 晃;風の如く駆け抜け グラブ捌き魅せるぜ 快音を響かせ バットも魅せるぜ`n" +
-"4 ジーター・ダウンズ;ラララ～ ジーター 君の出番だ（Let's go!!） オオオ～（オイ！）掴めVictory`n" +
+"4 ジーター ダウンズ;ラララ～ ジーター 君の出番だ（Let's go!!） オオオ～（オイ！）掴めVictory`n" +
 "32 山川 穂高;どかんと一発 山川 ホットに飛ばせ スタンドへ 勝利の一撃 期待を込めて 放て山川`n" +
 "6 今宮 健太;生まれ持つセンス 風を切り走れ 空高く飛ばせ 柔らかなリストで`n" +
 "8 牧原 大成;みなぎるそのエナジー 轟け地の果てまで 縦横無尽に駆け抜け 男になれ`n" +
@@ -81,6 +81,12 @@ function Format-Song {
         # Map player numbers to audio files
         if ($m.Success) {
             $num = $m.Groups[1].Value
+            $name = $m.Groups[2].Value
+            if ($name -eq "ジーター ダウンズ") {
+                $headerHtml = "<div class='song-num'>$num</div><div class='song-name' style='display: inline-block; transform: scaleX(0.85); transform-origin: left; white-space: nowrap;'>$name</div>"
+            } else {
+                $headerHtml = "<div class='song-num'>$num</div><div class='song-name'>$name</div>"
+            }
             switch ($num) {
                 "45" { $audioHtml = "<div class='song-audio'><audio controls src='./public/audio/45_tanigawara.aac'></audio></div>" }
                 "49" { $audioHtml = "<div class='song-audio'><audio controls src='./public/audio/49_matsumoto_hare.m4a'></audio></div>" }
