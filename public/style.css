@@ -790,23 +790,27 @@ a:hover {
   top: 50%;
   transform: translateY(-50%) !important;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(2px);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 204, 0, 0.3);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #333;
-  opacity: 0.1;
+  color: #ffcc00; /* Yellow arrows */
+  font-size: 1.2rem;
+  opacity: 0.7; /* Increased opacity as requested */
   transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 .news-scroll-prev:hover, .news-scroll-next:hover {
-  opacity: 0.8;
-  background: rgba(255, 204, 0, 0.2);
+  opacity: 1;
+  background: #ffcc00;
+  color: #111;
+  transform: translateY(-50%) scale(1.1);
 }
 .news-scroll-prev { left: -10px; }
 .news-scroll-next { right: -10px; }

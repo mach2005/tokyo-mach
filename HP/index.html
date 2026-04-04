@@ -490,9 +490,10 @@ window.addEventListener('scroll', () => {
 <script>
   window.addEventListener('DOMContentLoaded', () => {
     const inner = document.getElementById('newsInner');
+    const scrollContainer = document.getElementById('newsScroll');
     const prevBtn = document.getElementById('newsPrev');
     const nextBtn = document.getElementById('newsNext');
-    if(!inner) return;
+    if(!inner || !scrollContainer) return;
 
     const originalItems = Array.from(inner.children);
     const itemCount = originalItems.length;
@@ -552,6 +553,36 @@ window.addEventListener('scroll', () => {
 
     nextBtn.addEventListener('click', handleNext);
     prevBtn.addEventListener('click', handlePrev);
+
+    // Swipe Support
+    let touchStartX = 0;
+    inner.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    inner.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) handleNext();
+        else handlePrev();
+      }
+    }, {passive: true});
+
+    // Horizontal Scroll (Wheel) Support
+    let lastWheelTime = 0;
+    scrollContainer.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheelTime < 1000) return; // Prevent rapid-fire scrolls
+      
+      // Focus on horizontal scroll intent
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 20) {
+        lastWheelTime = now;
+        if (e.deltaX > 0) handleNext();
+        else handlePrev();
+        e.preventDefault();
+      }
+    }, {passive: false});
 
     window.addEventListener('resize', () => updateSlider(false));
     
