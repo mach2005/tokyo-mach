@@ -893,10 +893,11 @@ a:hover {
 }
 .sns-btn {
   width: 100%; 
-  max-width: 380px; 
+  max-width: 480px; 
   padding: 15px 25px;
   font-size: 1rem;
   border-radius: 50px;
+  white-space: nowrap;
 }
 .btn-instagram { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); color: #fff; }
 .btn-x { background: #000; color: #fff; }
