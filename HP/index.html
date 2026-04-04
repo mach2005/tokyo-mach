@@ -68,64 +68,63 @@
       <div class="section-divider"></div>
     </div>
     
-    <div class="news-slider-wrapper" style="position: relative; max-width: 1400px; margin: 0 auto; padding: 0 40px;">
-      <button class="news-scroll-prev" id="newsPrev" style="position: absolute; left:0; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.95); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; color:#333; transition:0.3s;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#111'; this.style.color='#111'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.borderColor='#ddd';"><i class="fas fa-chevron-left" style="font-weight:900;"></i></button>
+    <div class="news-slider-wrapper">
+      <button class="news-scroll-prev" id="newsPrev"><i class="fas fa-chevron-left" style="font-weight:900;"></i></button>
       
-      <div class="news-scroll-container" id="newsScroll" style="overflow-x: auto; scroll-behavior: smooth; padding: 20px 0; -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;">
-        <style>
-          .news-scroll-container::-webkit-scrollbar { display: none; }
-        </style>
-        <div class="news-scroll-inner" id="newsInner" style="display: flex; gap: 20px; width: max-content;">
+      <div class="news-scroll-container" id="newsScroll">
+        <div class="news-scroll-inner" id="newsInner">
           
           <!-- Article 0: Shuto Intro -->
-          <a href="./news/20260402-shuto-intro.html" class="news-scroll-item news-card" style="text-decoration:none; display:block; width: 340px; flex-shrink: 0; outline:none;">
-            <div style="height: 100%; background: #fffdf0; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; border-left: 10px solid #ff3b30; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
+          <a href="./news/20260402-shuto-intro.html" class="news-scroll-item">
+            <div class="news-card" style="border-left-color: #ff3b30;">
               <div style="margin-bottom: 15px;">
                 <span style="display: inline-block; background: #ff3b30; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">新着情報</span>
                 <span style="color: #666; font-size: 0.9rem; margin-left: 10px;">2026.04.02</span>
               </div>
               <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">周東右京選手の前奏ができました</h3>
               <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                待望の周東選手の前奏が完成！歌詞と音源（順次公開）をチェックして、球場で一緒に叫びましょう。
+                待望の周東選手の前奏が完成！<br>
+                <strong>「光のその先 切り拓け 鷹の勇者（ヒーロー）」</strong><br>
+                球場で一緒に叫びましょう。
               </p>
               <div style="margin-top: auto; padding-top: 15px; font-weight: bold; color: #ff3b30;">詳細を見る <i class="fas fa-chevron-right"></i></div>
             </div>
           </a>
 
           <!-- Unified Article 1: New Songs -->
-          <div class="news-scroll-item news-card-static" style="width: 340px; flex-shrink: 0;">
-            <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #ffcc00; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
+          <div class="news-scroll-item">
+            <div class="news-card-static" style="border-left-color: #ffcc00;">
               <div style="margin-bottom: 15px;">
                 <span style="display: inline-block; background: #ffcc00; color: #111; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">お知らせ</span>
                 <span style="color: #666; font-size: 0.9rem; margin-left: 10px;">2026.04.01</span>
               </div>
               <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; line-height: 1.5;"><a href="./news/20260401-new-songs.html" style="color: #111; text-decoration: none;" onmouseover="this.style.color='#d4a700'" onmouseout="this.style.color='#111'">2026年度 新応援歌完成のお知らせ</a></h3>
-              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                松本晴選手、大山凌選手、谷川原健太選手、緒方理貢選手の新応援歌、周東佑京選手の前奏が追加されました。
+              <p style="color: #555; font-size: 0.95rem; margin: 0; line-height: 1.5;">
+                松本晴、大山凌、谷川原、緒方の新応援歌、周東選手の前奏が追加されました。
               </p>
               
               <!-- 2x2 Grid of buttons -->
-              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 20px 0;">
-                <a href="https://mach2005.github.io/tokyo-mach/FightSong/cheer-guide.html" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 10px 4px; border-radius: 6px; text-align: center; font-size: 0.72rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">スマホ応援ガイド</a>
-                <a href="https://mach2005.github.io/tokyo-mach/FightSong/digital-sheet.html" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 10px 4px; border-radius: 6px; text-align: center; font-size: 0.72rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">歌詞カード(HTML)</a>
-                <a href="https://mach2005.github.io/tokyo-mach/FightSong/ouenka_2026.pdf" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 10px 4px; border-radius: 6px; text-align: center; font-size: 0.72rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">歌詞カード(PDF版)</a>
-                <a href="https://mach2005.github.io/tokyo-mach/FightSong/print_ouenka_2026.pdf" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 10px 4px; border-radius: 6px; text-align: center; font-size: 0.72rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">印刷はこちら</a>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 15px 0;">
+                <a href="https://mach2005.github.io/tokyo-mach/FightSong/cheer-guide.html" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.7rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">スマホ応援</a>
+                <a href="https://mach2005.github.io/tokyo-mach/FightSong/digital-sheet.html" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.7rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">歌詞カード(HTML)</a>
+                <a href="https://mach2005.github.io/tokyo-mach/FightSong/ouenka_2026.pdf" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.7rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">PDF版カード</a>
+                <a href="https://mach2005.github.io/tokyo-mach/FightSong/print_ouenka_2026.pdf" target="_blank" style="background: #f8f8f8; border: 1px solid #ddd; padding: 8px 2px; border-radius: 6px; text-align: center; font-size: 0.7rem; font-weight: bold; color: #333; transition: 0.3s; line-height: 1.2; display: flex; align-items: center; justify-content: center;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#ffcc00'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#f8f8f8'; this.style.borderColor='#ddd'; this.style.transform='none'">印刷はこちら</a>
               </div>
               
-              <div style="margin-top: auto; padding-top: 10px; font-weight: bold;"><a href="./news/20260401-new-songs.html" style="color: #d4a700; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">詳細はこちら <i class="fas fa-chevron-right"></i></a></div>
+              <div style="margin-top: auto; padding-top: 5px; font-weight: bold;"><a href="./news/20260401-new-songs.html" style="color: #d4a700; text-decoration: none;" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">詳細はこちら <i class="fas fa-chevron-right"></i></a></div>
             </div>
           </div>
           
           <!-- Article 2: Downs -->
-          <a href="./news/20260401-downs.html" class="news-scroll-item news-card" style="text-decoration:none; display:block; width: 340px; flex-shrink: 0; outline:none;">
-            <div style="height: 100%; background: #fff; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); overflow: hidden; border-left: 10px solid #111; display: flex; flex-direction: column; transition: 0.3s; padding: 30px;">
+          <a href="./news/20260401-downs.html" class="news-scroll-item">
+            <div class="news-card" style="border-left-color: #111;">
               <div style="margin-bottom: 15px;">
                 <span style="display: inline-block; background: #111; color: #fff; padding: 4px 12px; border-radius: 4px; font-weight: 800; font-size: 0.85rem; box-shadow: 2px 2px 0 rgba(0,0,0,0.1);">応援のお願い</span>
                 <span style="color: #666; font-size: 0.9rem; margin-left: 10px;">2026.04.01</span>
               </div>
               <h3 style="font-size: 1.3rem; font-weight: 700; margin: 0 0 15px 0; color: #111; line-height: 1.5;">ジーター・ダウンズ選手のコール紹介</h3>
-              <p style="color: #555; font-size: 1rem; margin: 0; line-height: 1.6;">
-                皆様の熱いご声援をよろしくお願いいたします。
+              <p style="color: #555; font-size: 1.1rem; font-weight: 900; margin: 0; line-height: 1.6; text-align: center; padding: 10px 0; background: #f0f0f0; border-radius: 8px;">
+                ゴーゴーレッツゴー　ジーター
               </p>
               <div style="margin-top: auto; padding-top: 15px; font-weight: bold; color: #d4a700;">記事で詳しく見る <i class="fas fa-chevron-right"></i></div>
             </div>
@@ -134,7 +133,7 @@
         </div>
       </div>
       
-      <button class="news-scroll-next" id="newsNext" style="position: absolute; right:0; top:50%; transform:translateY(-50%); z-index:10; background:rgba(255,255,255,0.95); width:44px; height:44px; border-radius:50%; border:1px solid #ddd; cursor:pointer; box-shadow:0 4px 10px rgba(0,0,0,0.1); display:flex; align-items:center; justify-content:center; color:#333; transition:0.3s;" onmouseover="this.style.background='#ffcc00'; this.style.borderColor='#111'; this.style.color='#111'" onmouseout="this.style.background='rgba(255,255,255,0.95)'; this.style.borderColor='#ddd';"><i class="fas fa-chevron-right" style="font-weight:900;"></i></button>
+      <button class="news-scroll-next" id="newsNext"><i class="fas fa-chevron-right" style="font-weight:900;"></i></button>
     </div>
   </div>
 </section>
@@ -490,68 +489,64 @@ window.addEventListener('scroll', () => {
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.news-card > div').forEach(card => {
-      card.addEventListener('mouseover', () => card.style.transform = 'translateY(-5px)');
-      card.addEventListener('mouseout', () => card.style.transform = 'none');
-    });
-
     const inner = document.getElementById('newsInner');
-    const scroll = document.getElementById('newsScroll');
     const prevBtn = document.getElementById('newsPrev');
     const nextBtn = document.getElementById('newsNext');
-    
     if(!inner) return;
 
-    // Clone elements for loop
-    const itemsList = Array.from(inner.children);
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    const originalItems = Array.from(inner.children);
+    const itemCount = originalItems.length;
+    
+    // Triple the items to create a seamless loop (Original, Clone1, Clone2)
+    originalItems.forEach(item => inner.appendChild(item.cloneNode(true)));
+    originalItems.forEach(item => inner.appendChild(item.cloneNode(true)));
 
-    const getScrollAmount = () => itemsList.length > 0 ? itemsList[0].offsetWidth + 20 : 340;
+    let currentIndex = itemCount; // Start at the beginning of the middle set
+    let isMoving = false;
 
-    let isScrolling = false;
-    const handleLoop = () => {
-      const itemW = getScrollAmount();
-      const maxScroll = scroll.scrollWidth - scroll.clientWidth;
-      
-      if (scroll.scrollLeft >= maxScroll - itemW / 2) {
-        scroll.style.scrollBehavior = 'auto';
-        scroll.scrollLeft = (itemsList.length * itemW);
-        // Force reflow
-        void scroll.offsetWidth;
-      } else if (scroll.scrollLeft <= itemW / 2) {
-        scroll.style.scrollBehavior = 'auto';
-        scroll.scrollLeft = maxScroll - ((itemsList.length+1) * itemW);
-        void scroll.offsetWidth;
-      }
-      isScrolling = false;
+    const updateSlider = (smooth = true) => {
+      const itemWidth = originalItems[0].offsetWidth + 20; // width + gap
+      const offset = -(currentIndex * itemWidth);
+      inner.style.transition = smooth ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+      inner.style.transform = `translateX(${offset}px)`;
     };
 
-    nextBtn.addEventListener('click', () => {
-      if(isScrolling) return;
-      isScrolling = true;
-      scroll.style.scrollBehavior = 'smooth';
-      scroll.scrollLeft += getScrollAmount();
-      setTimeout(handleLoop, 400);
-    });
+    const handleNext = () => {
+      if (isMoving) return;
+      isMoving = true;
+      currentIndex += 3; // Shift 3 items at a time
+      updateSlider();
 
-    prevBtn.addEventListener('click', () => {
-      if(isScrolling) return;
-      isScrolling = true;
-      scroll.style.scrollBehavior = 'smooth';
-      scroll.scrollLeft -= getScrollAmount();
-      setTimeout(handleLoop, 400);
-    });
+      setTimeout(() => {
+        if (currentIndex >= itemCount * 2) {
+          currentIndex -= itemCount;
+          updateSlider(false);
+        }
+        isMoving = false;
+      }, 500);
+    };
 
-    // Initial position
-    setTimeout(() => {
-      if(itemsList.length > 0) {
-          scroll.style.scrollBehavior = 'auto';
-          scroll.scrollLeft = (itemsList.length * getScrollAmount());
-      }
-    }, 100);
+    const handlePrev = () => {
+      if (isMoving) return;
+      isMoving = true;
+      currentIndex -= 3;
+      updateSlider();
+
+      setTimeout(() => {
+        if (currentIndex < itemCount) {
+          currentIndex += itemCount;
+          updateSlider(false);
+        }
+        isMoving = false;
+      }, 500);
+    };
+
+    nextBtn.addEventListener('click', handleNext);
+    prevBtn.addEventListener('click', handlePrev);
+
+    // Initial positioning
+    window.addEventListener('resize', () => updateSlider(false));
+    updateSlider(false);
   });
 </script>
 </body>
