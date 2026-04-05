@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>東京真隼 TOKYO MACH - 応援歌ポータル</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
+    <link rel="shortcut icon" href="../public/favicon.png?v=2">
+    <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
+    <style>
+        :root {
+            --hawks-yellow: #ffcc00;
+            --hawks-black: #111;
+            --hawks-white: #fff;
+            --hawks-shadow: rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--hawks-black);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Hero / Header Section */
+        .hero {
+            background: linear-gradient(135deg, var(--hawks-yellow) 0%, #ffb300 100%);
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px var(--hawks-shadow);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.3) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: 4px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-top: 10px;
+            opacity: 0.9;
+            letter-spacing: 2px;
+        }
+
+        /* Grid Container */
+        .container {
+            max-width: 1000px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                margin-top: -20px;
+            }
+            .hero h1 { font-size: 2.2rem; }
+        }
+
+        /* Card Design */
+        .card {
+            background: var(--hawks-white);
+            border-radius: 16px;
+            padding: 30px;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--hawks-yellow);
+            transform: scaleX(0);
+            transition: var(--transition);
+            transform-origin: left;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+            border-color: var(--hawks-yellow);
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--hawks-black);
+            transition: var(--transition);
+        }
+
+        .card:hover i {
+            color: #d4a700;
+            transform: scale(1.1);
+        }
+
+        .card h3 {
+            margin: 10px 0;
+            font-size: 1.5rem;
+            font-weight: 900;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .card .badge {
+            margin-top: 20px;
+            padding: 6px 16px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #444;
+            transition: var(--transition);
+        }
+
+        .card:hover .badge {
+            background: var(--hawks-yellow);
+            color: var(--hawks-black);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: auto;
+            padding: 40px 20px;
+            text-align: center;
+            background: var(--hawks-black);
+            color: var(--hawks-white);
+        }
+
+        footer .logo-text {
+            font-weight: 900;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        footer .tagline {
+            font-size: 0.9rem;
+            opacity: 0.6;
+            margin-bottom: 20px;
+        }
+
+        .sns-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .sns-links a {
+            color: var(--hawks-white);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sns-links a:hover {
+            color: var(--hawks-yellow);
+            transform: scale(1.2);
+        }
+
+        .copyright {
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <h1>東京真隼</h1>
+        <p>TOKYO MACH - Official Fight Songs</p>
+    </section>
+
+    <div class="container">
+        <!-- 0. Official Website -->
+        <a href="../HP/index.html" class="card">
+            <i class="fas fa-home"></i>
+            <h3>東京真隼 公式サイト</h3>
+            <p>活動内容、試合日程、ギャラリーなど<br>最新情報はこちらからご確認ください。</p>
+            <span class="badge">OPEN OFFICIAL HP</span>
+        </a>
+
+        <!-- 1. Smartphone Site -->
+        <a href="https://mach2005.github.io/tokyo-mach/FightSong/cheer-guide.html" class="card">
+            <i class="fas fa-mobile-alt"></i>
+            <h3>モバイル応援ガイド</h3>
+            <p>球場で歌詞を確認するのに最適。<br>スマホで見やすく最適化されたサイトです。</p>
+            <span class="badge">OPEN SITE</span>
+        </a>
+
+        <!-- 2. Digital Sheet -->
+        <a href="../FightSong/digital-sheet.html" class="card">
+            <i class="fas fa-table"></i>
+            <h3>全選手対応 応援歌シート</h3>
+            <p>一覧性に優れたデジタルシート。<br>拡大・縮小もスムーズに行えます。</p>
+            <span class="badge">VIEW SHEET</span>
+        </a>
+
+        <!-- 3. PDF Version -->
+        <a href="../FightSong/ouenka_2026_v2.pdf" target="_blank" class="card">
+            <i class="far fa-file-pdf"></i>
+            <h3>応援歌PDF / A3対応</h3>
+            <p>オフラインでも閲覧可能。<br>標準的な応援歌シートのPDF版です。</p>
+            <span class="badge">DOWNLOAD PDF</span>
+        </a>
+
+        <!-- 4. Print Version -->
+        <a href="https://mach2005.github.io/tokyo-mach/FightSong/print_ouenka_2026.pdf" target="_blank" class="card">
+            <i class="fas fa-print"></i>
+            <h3>印刷用PDF（高画質）</h3>
+            <p>配布用チラシの印刷に最適。<br>「～世界最強～」タイトル入りの特別版。</p>
+            <span class="badge">PRINT READY</span>
+        </a>
+    </div>
+
+    <footer>
+        <div class="logo-text">東京真隼</div>
+        <div class="tagline">TOKYO MACH</div>
+        <div class="sns-links">
+            <a href="https://x.com/tokyo_mach" target="_blank"><i class="fab fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/tokyo_mach/" target="_blank"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">&copy; 2026 東京真隼 TOKYO MACH. All Rights Reserved.</div>
+    </footer>
+
+</body>
+</html>
