@@ -680,7 +680,7 @@ a:hover {
   transform: translateY(-50%);
   width: 36px;
   height: 36px;
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.75);
   border: none;
   border-radius: 50%;
   display: flex;
@@ -690,7 +690,7 @@ a:hover {
   cursor: pointer;
   z-index: 10;
   transition: 0.3s;
-  opacity: 0;
+  opacity: 0.85;
 }
 
 .instagram-card:hover .ig-nav-btn {
