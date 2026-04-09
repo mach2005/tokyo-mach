@@ -1058,10 +1058,14 @@ a:hover {
 }
 
 /* Utilities for Responsive Text */
-.txt-mobile { display: none; }
-.txt-desktop { display: inline; }
+.txt-mobile { display: none !important; }
+.txt-desktop { display: inline !important; }
 
-@media (max-width: 768px) {
-  .txt-desktop { display: none; }
-  .txt-mobile { display: inline; }
+@media (max-width: 1100px) {
+  .txt-desktop { display: none !important; }
+  .txt-mobile { 
+    display: inline-block !important;
+    font-size: 0.65rem !important; /* Force visibility even if parent is font-size:0 */
+    color: #111 !important;
+  }
 }
