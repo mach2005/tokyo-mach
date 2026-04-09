@@ -1056,3 +1056,12 @@ a:hover {
   color: #0056b3;
   font-weight: bold;
 }
+
+/* Utilities for Responsive Text */
+.txt-mobile { display: none; }
+.txt-desktop { display: inline; }
+
+@media (max-width: 768px) {
+  .txt-desktop { display: none; }
+  .txt-mobile { display: inline; }
+}
