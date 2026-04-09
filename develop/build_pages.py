@@ -623,16 +623,16 @@ make_page('songs.html', '応援歌', songs_content)
 
 # ===== GALLERY PAGE =====
 gallery_items = [
-    ('fa-bullhorn','応援風景'), ('fa-train','遠征の様子'), ('fa-users','集合写真'),
-    ('fa-music','トランペット演奏'), ('fa-flag','旗振り応援'), ('fa-drum','太鼓パフォーマンス'),
-    ('fa-trophy','勝利の瞬間'), ('fa-utensils','遠征グルメ'), ('fa-heart','ファン交流'),
+    'IMG_1432.JPG', 'IMG_1447.JPG', 'IMG_1448.JPG', 
+    'IMG_1450.JPG', 'IMG_1451.JPG', 'IMG_1453.JPG', 
+    'IMG_1454.JPG'
 ]
 gallery_cards = ''
-for icon, cap in gallery_items:
+for img in gallery_items:
     gallery_cards += f'''
       <div class="gallery-card">
-        <div class="gallery-placeholder"><i class="fas {icon}"></i></div>
-        <div class="gallery-caption">{cap}</div>
+        <div class="gallery-photo"><img src="../public/images/gallery/{img}" alt="東京真隼の活動" loading="lazy"></div>
+        <div class="gallery-caption">東京真隼の活動</div>
       </div>'''
 
 gallery_content = f'''
