@@ -24,7 +24,7 @@ jobs:
       - name: Run SNS update scripts
         run: |
           python develop/update_x_feed.py
-          python develop/update_ig_feed.py
+          # python develop/update_ig_feed.py # 複数画像・日付未対応のため一旦停止
           
       - name: Check for changes
         id: git-check
