@@ -332,7 +332,7 @@ a:hover {
 .legend-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 5px; display: inline-block; border: 1px solid #ccc; }
 .legend-dot.visitor { background: #ffebd6; border-color: #ff9900; }
 .legend-dot.home { background: #f4f4f4; border-color: #888; }
-.legend-dot.other { background: #fff0f5; border-color: #ff4d4d; }
+.legend-dot.other { background: #ffd9d9; border-color: #ff4d4d; }
 
 /* Nav Arrows */
 .nav-arrow {
@@ -421,7 +421,7 @@ a:hover {
 }
 .visitor-game { background: #ffebd6; border-left-color: #ff9900; }
 .home-game { background: #f4f4f4; border-left-color: #888; }
-.cs-info, .ns-info, .other-game { background: #fff0f5; border-left-color: #ff4d4d; }
+.cs-info, .ns-info, .other-game { background: #ffd9d9; border-left-color: #ff4d4d; }
 
 .game-opponent { display: flex; align-items: center; font-weight: bold; color: #111; margin-bottom: 2px; font-size: 0.8rem; }
 .game-venue, .game-time { display: block; color: #666; font-size: 0.7rem; }
