@@ -93,20 +93,23 @@ a:hover {
 /* Hero */
 .hero {
   height: 100vh;
-  background-color: var(--bg-main);
-  background-image: 
-    radial-gradient(circle at 100% 0%, rgba(255,204,0,0.15) 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, rgba(17,17,17,0.05) 0%, transparent 50%);
+  background-image: url('../public/images/hero-bg.jpg');
+  background-size: cover;
+  background-position: center;
   display: flex; align-items: center; justify-content: center; text-align: center;
   position: relative;
   overflow: hidden;
 }
-.hero::before {
-  content: ''; position: absolute; z-index: 0; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  width: 90vmin; height: 90vmin; background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 0L60 40L100 50L60 60L50 100L40 60L0 50L40 40Z" fill="%23ffcc00" opacity="0.05"/></svg>') center/contain no-repeat;
-  animation: rotateSlow 60s linear infinite; pointer-events: none;
+.hero-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
-@keyframes rotateSlow { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+/* Star animation hidden for photo background */
+.hero::before {
+  display: none;
+}
 
 .hero-content {
   position: relative; z-index: 1; max-width: 800px; padding: 0 20px;
@@ -118,14 +121,16 @@ a:hover {
   border-radius: 30px; margin-bottom: 25px; letter-spacing: 2px;
 }
 .hero-title {
-  font-size: 4.5rem; font-weight: 900; color: #111; margin-bottom: 12px;
-  text-shadow: none; letter-spacing: 3px; line-height: 1.1;
+  font-size: 4.5rem; font-weight: 900; color: #fff; margin-bottom: 12px;
+  text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 3px; line-height: 1.1;
 }
 .hero-subtitle {
-  font-size: 1.6rem; color: #333; margin-bottom: 25px; font-weight: 900; text-shadow: none; line-height: 1.4;
+  font-size: 1.6rem; color: #fff; margin-bottom: 25px; font-weight: 900; 
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5); line-height: 1.4;
 }
 .hero-desc {
-  font-size: 1.1rem; color: #555; margin-bottom: 40px; text-shadow: none; line-height: 1.8; font-weight: bold;
+  font-size: 1.1rem; color: #eee; margin-bottom: 40px; 
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5); line-height: 1.8; font-weight: bold;
 }
 .hero-buttons {
   display: flex; gap: 15px; flex-wrap: wrap; justify-content: center;
