@@ -122,7 +122,7 @@ document.querySelectorAll('.faq-question').forEach(btn => {
           <ul>
             <li><a href="./gallery.html">ギャラリー</a></li>
             <li><a href="./faq.html">Q&amp;A</a></li>
-            <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener">団員応募</a></li>
+            <li><a href="https://t.co/NuiNCqluh0" target="_blank" rel="noopener">団員募集中</a></li>
           </ul>
         </div>
         <div class="footer-col">
@@ -164,72 +164,118 @@ window.addEventListener('scroll', () => {
 
 </script>
 
-
 <script>
   window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.news-card > div').forEach(card => {
-      card.addEventListener('mouseover', () => card.style.transform = 'translateY(-5px)');
-      card.addEventListener('mouseout', () => card.style.transform = 'none');
-    });
-
     const inner = document.getElementById('newsInner');
-    const scroll = document.getElementById('newsScroll');
+    const scrollContainer = document.getElementById('newsScroll');
     const prevBtn = document.getElementById('newsPrev');
     const nextBtn = document.getElementById('newsNext');
+    if(!inner || !scrollContainer) return;
+
+    const originalItems = Array.from(inner.children);
+    const itemCount = originalItems.length;
     
-    if(!inner) return;
+    // Triple the items to create a seamless loop
+    originalItems.forEach(item => inner.appendChild(item.cloneNode(true)));
+    originalItems.forEach(item => inner.appendChild(item.cloneNode(true)));
 
-    // Clone elements for loop
-    const itemsList = Array.from(inner.children);
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
-    itemsList.forEach(item => inner.appendChild(item.cloneNode(true)));
+    let currentIndex = itemCount; 
+    let isMoving = false;
 
-    const getScrollAmount = () => itemsList.length > 0 ? itemsList[0].offsetWidth + 20 : 340;
-
-    let isScrolling = false;
-    const handleLoop = () => {
-      const itemW = getScrollAmount();
-      const maxScroll = scroll.scrollWidth - scroll.clientWidth;
+    const updateSlider = (smooth = true) => {
+      const firstItem = inner.querySelector('.news-scroll-item');
+      if(!firstItem) return;
       
-      if (scroll.scrollLeft >= maxScroll - itemW / 2) {
-        scroll.style.scrollBehavior = 'auto';
-        scroll.scrollLeft = (itemsList.length * itemW);
-        // Force reflow
-        void scroll.offsetWidth;
-      } else if (scroll.scrollLeft <= itemW / 2) {
-        scroll.style.scrollBehavior = 'auto';
-        scroll.scrollLeft = maxScroll - ((itemsList.length+1) * itemW);
-        void scroll.offsetWidth;
-      }
-      isScrolling = false;
+      // Calculate step precisely: Item width + Gap (20px)
+      const step = firstItem.offsetWidth + 20;
+      
+      const offset = -(currentIndex * step);
+      inner.style.transition = smooth ? 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)' : 'none';
+      inner.style.transform = `translateX(${offset}px)`;
     };
 
-    nextBtn.addEventListener('click', () => {
-      if(isScrolling) return;
-      isScrolling = true;
-      scroll.style.scrollBehavior = 'smooth';
-      scroll.scrollLeft += getScrollAmount();
-      setTimeout(handleLoop, 400);
-    });
+    const getJumpSize = () => window.innerWidth > 900 ? 3 : 1;
 
-    prevBtn.addEventListener('click', () => {
-      if(isScrolling) return;
-      isScrolling = true;
-      scroll.style.scrollBehavior = 'smooth';
-      scroll.scrollLeft -= getScrollAmount();
-      setTimeout(handleLoop, 400);
-    });
+    const handleNext = () => {
+      if (isMoving) return;
+      const jump = getJumpSize();
+      isMoving = true;
+      currentIndex += jump; 
+      updateSlider();
 
-    // Initial position
-    setTimeout(() => {
-      if(itemsList.length > 0) {
-          scroll.style.scrollBehavior = 'auto';
-          scroll.scrollLeft = (itemsList.length * getScrollAmount());
+      setTimeout(() => {
+        if (currentIndex >= itemCount * 2) {
+          currentIndex -= itemCount;
+          updateSlider(false);
+        }
+        isMoving = false;
+      }, 500);
+    };
+
+    const handlePrev = () => {
+      if (isMoving) return;
+      const jump = getJumpSize();
+      isMoving = true;
+      currentIndex -= jump;
+      updateSlider();
+
+      setTimeout(() => {
+        if (currentIndex < itemCount) {
+          currentIndex += itemCount;
+          updateSlider(false);
+        }
+        isMoving = false;
+      }, 500);
+    };
+
+    nextBtn.addEventListener('click', handleNext);
+    prevBtn.addEventListener('click', handlePrev);
+
+    // Swipe Support
+    let touchStartX = 0;
+    inner.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, {passive: true});
+
+    inner.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) handleNext();
+        else handlePrev();
       }
-    }, 100);
+    }, {passive: true});
+
+    // Horizontal Scroll (Wheel) Support
+    let lastWheelTime = 0;
+    scrollContainer.addEventListener('wheel', (e) => {
+      const now = Date.now();
+      if (now - lastWheelTime < 1000) return; // Prevent rapid-fire scrolls
+      
+      // Focus on horizontal scroll intent
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY) && Math.abs(e.deltaX) > 20) {
+        lastWheelTime = now;
+        if (e.deltaX > 0) handleNext();
+        else handlePrev();
+        e.preventDefault();
+      }
+    }, {passive: false});
+
+    window.addEventListener('resize', () => updateSlider(false));
+    
+    // Delay slightly to ensure initial layout is ready
+    setTimeout(() => updateSlider(false), 200);
   });
+
+  // Instagram Carousel Navigation
+  function moveIgCarousel(e, btn, direction) {
+    e.preventDefault();
+    e.stopPropagation();
+    const container = btn.closest('.ig-card-img');
+    const track = container.querySelector('.ig-carousel-track');
+    const width = track.offsetWidth;
+    track.scrollBy({ left: width * direction, behavior: 'smooth' });
+  }
 </script>
 </body>
 </html>
