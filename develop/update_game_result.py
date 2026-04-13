@@ -21,113 +21,139 @@ def fetch_html():
         return None
 
 def parse_latest_result(html):
-    # Extract month from the selected navigation item or title
-    # Yahoo uses .bb-scheduleNavi__item--selected for the current month
-    month_match = re.search(r'bb-scheduleNavi__item--selected[^>]*>(\d+)月', html)
-    if not month_match:
-        month_match = re.search(r'bb-calendarTable__title[^>]*>(\d+)年(\d+)月', html)
-        month = month_match.group(2) if month_match else str(datetime.now().month)
-    else:
-        month = month_match.group(1)
+    # Active year/month from schedule navi
+    navi_html = re.search(r'class="bb-scheduleNavi".*?</div>', html, re.DOTALL)
+    navi_text = navi_html.group(0) if navi_html else html
     
+    year_match = re.search(r'(\d+)年', navi_text)
+    month_match = re.search(r'bb-scheduleNavi__item--selected[^>]*>(\d+)月', navi_text)
+    
+    curr_year = year_match.group(1) if year_match else str(datetime.now().year)
+    curr_month = month_match.group(1) if month_match else str(datetime.now().month)
+
     days = re.findall(r'<td class="bb-calendarTable__data(.*?)</td>', html, re.DOTALL)
     
-    latest_game = None
-    latest_day = None
+    all_finished = []
     for day_html in days:
         if "試合終了" in day_html:
-            latest_game = day_html
-            # Extract day (e.g., class="bb-calendarTable__date">12)
-            day_match = re.search(r'class=["\']bb-calendarTable__date["\']>(\d+)', day_html)
-            if day_match:
-                latest_day = day_match.group(1)
-    
-    if not latest_game:
-        print("No completed game found in current view.")
+            day_m = re.search(r'class=["\']bb-calendarTable__date["\']>(\d+)', day_html)
+            dow_m = re.search(r'class=["\']bb-calendarTable__date["\']>.*?<span[^>]*>\((.*?)\)</span>', day_html, re.DOTALL)
+            day = day_m.group(1) if day_m else ""
+            dow = dow_m.group(1) if dow_m else ""
+            
+            is_home = "bb-calendarTable__data--home" in day_html
+            
+            symbol_m = re.search(r'aria-label="([^"]+)"', day_html)
+            symbol_text = symbol_m.group(1) if symbol_m else ""
+            symbol = "○" if "勝利" in symbol_text else "×" if "敗戦" in symbol_text else "△"
+            
+            h_score_m = re.search(r'class="bb-calendarTable__home[^>]*">(\d+)</span>', day_html)
+            a_score_m = re.search(r'class="bb-calendarTable__away[^>]*">(\d+)</span>', day_html)
+            h_score = h_score_m.group(1) if h_score_m else "0"
+            a_score = a_score_m.group(1) if a_score_m else "0"
+            
+            opp_name_m = re.search(r'class="bb-calendarTable__teamName">.*?>(.*?)</a>', day_html, re.DOTALL)
+            opp_name = opp_name_m.group(1) if opp_name_m else "不明"
+            
+            opp_logo_m = re.search(r'class="bb-calendarTable__versusLogo.*?--npbTeam(\d+)', day_html)
+            opp_id = opp_logo_m.group(1) if opp_logo_m else ""
+            opp_logo = f"https://npb.jp/img/common/logo/2026/logo_{get_team_code(opp_id)}_s.gif"
+            
+            venue_m = re.search(r'class="bb-calendarTable__venue">(.*?)</p>', day_html)
+            venue = venue_m.group(1) if venue_m else ""
+            
+            hawks_s, opp_s = (h_score, a_score) if is_home else (a_score, h_score)
+            
+            all_finished.append({
+                "date_str": f"{curr_year}.{curr_month.zfill(2)}.{day.zfill(2)} ({dow.upper()})",
+                "short_date": f"{curr_month}/{day} ({dow})",
+                "month": curr_month,
+                "day": day,
+                "venue": venue,
+                "hawks_score": hawks_s,
+                "opp_score": opp_s,
+                "opp_name": opp_name,
+                "opp_logo": opp_logo,
+                "symbol": symbol,
+                "is_visitor": not is_home
+            })
+            
+    if not all_finished:
         return None
-    
-    is_home = "bb-calendarTable__data--home" in latest_game
-    symbol_match = re.search(r'aria-label="([^"]+)"', latest_game)
-    symbol_text = symbol_match.group(1) if symbol_match else ""
-    
-    if "勝利" in symbol_text: symbol = "○"
-    elif "敗戦" in symbol_text: symbol = "×"
-    else: symbol = "△"
-    
-    home_score_m = re.search(r'class="bb-calendarTable__home[^>]*">(\d+)</span>', latest_game)
-    away_score_m = re.search(r'class="bb-calendarTable__away[^>]*">(\d+)</span>', latest_game)
-    
-    if not home_score_m or not away_score_m:
-        print("Could not parse scores.")
-        return None
-    
-    h_val, a_val = home_score_m.group(1), away_score_m.group(1)
-    hawks_score, opp_score = (h_val, a_val) if is_home else (a_val, h_val)
         
+    latest = all_finished[-1]
+    latest_visitor = next((g for g in reversed(all_finished) if g["is_visitor"]), None)
+    
     return {
-        "text": f"{symbol}{hawks_score}-{opp_score}",
-        "month": month,
-        "day": latest_day
+        "latest": latest,
+        "visitor": latest_visitor
     }
 
-def update_files(result):
-    if not result:
-        return
+def get_team_code(tid):
+    codes = {"1":"g", "2":"yb", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"bs", "12":"e", "376":"f"}
+    return codes.get(tid, "h")
+
+def update_files(data):
+    if not data: return
+    latest = data["latest"]
+    visitor = data["visitor"]
     
-    result_text = result["text"]
-    month = result["month"]
-    day = result["day"]
-
-    # 1. Update Landing Pages (Hero Badge)
-    landing_targets = [
-        {"path": INDEX_PATH, "label_cls": "result-label", "badge_cls": "result-badge", "indent": "      "},
-        {"path": PORTAL_PATH, "label_cls": "result-label-portal", "badge_cls": "result-badge-portal", "indent": "            "}
-    ]
-
-    for target in landing_targets:
-        path = target["path"]
-        if not os.path.exists(path): continue
-        with open(path, 'r', encoding='utf-8') as f: content = f.read()
+    # 1. Update Index (Rich Card)
+    if os.path.exists(INDEX_PATH):
+        with open(INDEX_PATH, 'r', encoding='utf-8') as f: content = f.read()
         
-        new_badge_html = f'<span class="{target["badge_cls"]}"><span class="{target["label_cls"]}">LATEST RESULT</span>{result_text}</span>'
+        new_card_html = f'''<div class="latest-result-card" style="position: relative;">
+          <div class="result-card-header">
+            <span class="result-date">{latest["date_str"]}</span>
+            <span class="result-venue">{latest["venue"]}</span>
+          </div>
+          <div class="score-main">
+            <div class="team-box">
+              <img src="https://npb.jp/img/common/logo/2026/logo_h_s.gif" alt="ソフトバンク" class="team-logo-large">
+              <span class="team-name-short">ソフトバンク</span>
+            </div>
+            <div class="score-numbers-large">
+              <div style="position: relative;">
+                {latest["hawks_score"]} <span class="win-mark">{latest["symbol"]}</span>
+              </div>
+              <span class="score-dash">-</span>
+              <div>{latest["opp_score"]}</div>
+            </div>
+            <div class="team-box">
+              <img src="{latest["opp_logo"]}" alt="{latest["opp_name"]}" class="team-logo-large">
+              <span class="team-name-short">{latest["opp_name"]}</span>
+            </div>
+          </div>
+        </div>
+        <!-- Latest Visitor Result Highlight -->
+        <div class="visitor-result-mini">
+          <span class="visitor-label">LATEST VISITOR</span>
+          <span class="visitor-date">{visitor["short_date"]}</span>
+          <span class="visitor-score">{visitor["symbol"]}{visitor["hawks_score"]}-{visitor["opp_score"]} vs {visitor["opp_name"]}</span>
+          <span class="visitor-venue">@{visitor["venue"]}</span>
+        </div>'''
+        
         pattern = r'<!-- GAME_RESULT_START -->.*?<!-- GAME_RESULT_END -->'
-        replacement = f'<!-- GAME_RESULT_START -->\n{target["indent"]}{new_badge_html}\n{target["indent"]}<!-- GAME_RESULT_END -->'
+        replacement = f'<!-- GAME_RESULT_START -->\n        {new_card_html}\n        <!-- GAME_RESULT_END -->'
         
-        if re.search(pattern, content, re.DOTALL):
-            new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-            with open(path, 'w', encoding='utf-8') as f: f.write(new_content)
-            print(f"Updated Landing: {path}")
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+        with open(INDEX_PATH, 'w', encoding='utf-8') as f: f.write(new_content)
+        print("Updated Index with Rich Card")
 
-    # 2. Update Schedule Pages (Calendar Days)
-    schedule_targets = [SCHEDULE_PATH, BUILD_PAGES_PATH]
-    for path in schedule_targets:
+    # 2. Update Schedule & Build Script (same as before)
+    res_text = f"{latest['symbol']}{latest['hawks_score']}-{latest['opp_score']}"
+    for path in [SCHEDULE_PATH, BUILD_PAGES_PATH]:
         if not os.path.exists(path): continue
-        with open(path, 'r', encoding='utf-8') as f: content = f.read()
-        
-        # Regex to find the specific month and day block
-        # We look for the month ID/title first, then the day span, then the game-time
-        # In schedule.html: <div class='calendar-wrapper' id='month-4'> ... <span class='day-num...'>12</span> ... <span class='game-time'>13:00</span>
-        
-        # This is a bit complex. We'll search for the day-num span followed by game-time.
-        # Since months are separated, we'll try to find the block for the month if possible.
-        month_pattern = rf"id=['\"]month-{month}['\"].*?day-num[^>]*>{day}</span>.*?game-time['\"]>(\d+:\d+|[○×△]\d+-\d+)</span>"
-        
-        if re.search(month_pattern, content, re.DOTALL):
-            # Replace only the time part
-            # We use a sub function to only replace the captured group
-            def repl(m):
-                full_match = m.group(0)
-                time_part = m.group(1)
-                return full_match.replace(time_part, result_text)
-            
-            new_content = re.sub(month_pattern, repl, content, flags=re.DOTALL)
-            with open(path, 'w', encoding='utf-8') as f: f.write(new_content)
+        with open(path, 'r', encoding='utf-8') as f: sc_content = f.read()
+        month_pattern = rf"id=['\"]month-{latest['month']}['\"].*?day-num[^>]*>{latest['day']}</span>.*?game-time['\"]>(\d+:\d+|[○×△]\s*\d+-\d+)</span>"
+        if re.search(month_pattern, sc_content, re.DOTALL):
+            def repl(m): return m.group(0).replace(m.group(1), res_text)
+            new_sc = re.sub(month_pattern, repl, sc_content, flags=re.DOTALL)
+            with open(path, 'w', encoding='utf-8') as f: f.write(new_sc)
             print(f"Updated Schedule: {path}")
-        else:
-            print(f"Calendar entry for {month}/{day} not found in {path}")
 
 if __name__ == "__main__":
-    print("Starting comprehensive game result update...")
+    print("Starting rich game result update...")
     html_content = fetch_html()
     if html_content:
         result_data = parse_latest_result(html_content)
