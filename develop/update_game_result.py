@@ -21,14 +21,15 @@ def fetch_html():
         return None
 
 def parse_latest_result(html):
-    # Active year/month from schedule navi
-    navi_html = re.search(r'class="bb-scheduleNavi".*?</div>', html, re.DOTALL)
-    navi_text = navi_html.group(0) if navi_html else html
+    # Focus on the main calendar area to avoid legacy support messages
+    cal_area = re.search(r'class=["\']bb-calendarTable["\'].*?</table>', html, re.DOTALL)
+    cal_html = cal_area.group(0) if cal_area else html
     
-    year_match = re.search(r'(\d+)年', navi_text)
-    month_match = re.search(r'bb-scheduleNavi__item--selected[^>]*>(\d+)月', navi_text)
+    # Try to find year/month in the selected nav item
+    month_match = re.search(r'bb-scheduleNavi__item--selected[^>]*>(\d+)月', html)
     
-    curr_year = year_match.group(1) if year_match else str(datetime.now().year)
+    # For 2026 season, we can safely default or search specifically
+    curr_year = "2026" 
     curr_month = month_match.group(1) if month_match else str(datetime.now().month)
 
     days = re.findall(r'<td class="bb-calendarTable__data(.*?)</td>', html, re.DOTALL)
