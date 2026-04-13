@@ -145,6 +145,41 @@ a:hover {
 .btn-outline { background: #fff; border: 2px solid #ddd; color: #111; }
 .btn-outline:hover { border-color: #111; color: #111; transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
 
+/* Hero Result Badge */
+.hero-result {
+  margin-bottom: 25px;
+  animation: fadeIn 1.2s ease-out;
+}
+.result-badge {
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid var(--gold);
+  padding: 8px 20px;
+  border-radius: 50px;
+  color: var(--gold);
+  font-weight: 900;
+  font-size: 1.1rem;
+  letter-spacing: 1.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.result-label {
+  font-size: 0.75rem;
+  color: #fff;
+  opacity: 0.8;
+  text-transform: uppercase;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  padding-right: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 /* Page Hero (Subpages) */
 .page-hero {
   padding: 140px 20px 60px; text-align: center;

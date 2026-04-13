@@ -2,8 +2,8 @@ name: Daily SNS Update
 
 on:
   schedule:
-    # 毎日00:05 JST (15:05 UTC) に実行
-    - cron: '5 15 * * *'
+    # 毎日00:00 JST (15:00 UTC) に実行
+    - cron: '0 15 * * *'
   workflow_dispatch: # 手動実行用
 
 jobs:
@@ -21,9 +21,10 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run SNS update scripts
+      - name: Run update scripts
         run: |
           python develop/update_x_feed.py
+          python develop/update_game_result.py
           # python develop/update_ig_feed.py # 複数画像・日付未対応のため一旦停止
           
       - name: Check for changes
@@ -38,5 +39,5 @@ jobs:
       - name: Commit and push changes
         if: steps.git-check.outputs.changed == 'true'
         run: |
-          git commit -m "chore: auto-update X feed [skip ci]"
+          git commit -m "chore: auto-update SNS and game results [skip ci]"
           git push
