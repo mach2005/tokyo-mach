@@ -32,7 +32,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add HP/index.html public/images/latest_ig.jpg
+          git add HP/index.html portal/index.html HP/schedule.html develop/build_pages.py public/images/latest_ig.jpg
           git status
           git diff --staged --quiet || echo "changed=true" >> $GITHUB_OUTPUT
 
