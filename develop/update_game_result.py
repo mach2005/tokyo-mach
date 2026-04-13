@@ -141,6 +141,16 @@ def update_files(data):
         with open(INDEX_PATH, 'w', encoding='utf-8') as f: f.write(new_content)
         print("Updated Index with Rich Card")
 
+    # 1b. Update Portal (Simple Badge)
+    if os.path.exists(PORTAL_PATH):
+        with open(PORTAL_PATH, 'r', encoding='utf-8') as f: p_content = f.read()
+        p_badge_html = f'<span class="result-badge-portal"><span class="result-label-portal">LATEST RESULT</span>{res_text}</span>'
+        p_pattern = r'<!-- GAME_RESULT_START -->.*?<!-- GAME_RESULT_END -->'
+        p_replacement = f'<!-- GAME_RESULT_START -->\n            {p_badge_html}\n            <!-- GAME_RESULT_END -->'
+        new_p_content = re.sub(p_pattern, p_replacement, p_content, flags=re.DOTALL)
+        with open(PORTAL_PATH, 'w', encoding='utf-8') as f: f.write(new_p_content)
+        print("Updated Portal with Simple Badge")
+
     # 2. Update Schedule & Build Script (same as before)
     res_text = f"{latest['symbol']}{latest['hawks_score']}-{latest['opp_score']}"
     for path in [SCHEDULE_PATH, BUILD_PAGES_PATH]:
