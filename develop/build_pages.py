@@ -84,7 +84,7 @@ schedule_content = r'''
         <div class='cal-day'><span class='day-num'>17</span></div>
         <div class='cal-day'><span class='day-num'>18</span></div>
         <div class='cal-day'><span class='day-num'>19</span></div>
-        <div class='cal-day'><span class='day-num'>20</span></div>
+        <div class='cal-day'><span class='day-num sun'>20</span></div>
         <div class='cal-day'><span class='day-num sat'>21</span></div>
         <div class='cal-day'><span class='day-num sun'>22</span></div>
         <div class='cal-day'><span class='day-num'>23</span></div>
@@ -137,7 +137,7 @@ schedule_content = r'''
         <div class='cal-day home-day'><span class='day-num sun'>26</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>鹿児島</span><span class='game-time'>14:00</span></div></div>
         <div class='cal-day'><span class='day-num'>27</span></div>
         <div class='cal-day visitor-day'><span class='day-num'>28</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>京セラD大阪</span><span class='game-time'>18:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num'>29</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>京セラD大阪</span><span class='game-time'>14:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun'>29</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>京セラD大阪</span><span class='game-time'>14:00</span></div></div>
         <div class='cal-day'><span class='day-num'>30</span></div>
         <div class='cal-day'><span class='day-num out-of-month'>1</span></div>
         <div class='cal-day'><span class='day-num sat out-of-month'>2</span></div>
@@ -155,9 +155,9 @@ schedule_content = r'''
         <div class='cal-day home-day'><span class='day-num'>1</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num sat'>2</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>14:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num sun'>3</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>13:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num'>4</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>18:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num'>5</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>14:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num'>6</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>13:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun'>4</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>18:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun'>5</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>14:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun'>6</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>13:00</span></div></div>
         <div class='cal-day'><span class='day-num'>7</span></div>
         <div class='cal-day home-day'><span class='day-num'>8</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num sat'>9</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>14:00</span></div></div>
@@ -251,7 +251,7 @@ schedule_content = r'''
         <div class='cal-day'><span class='day-num'>17</span></div>
         <div class='cal-day visitor-day'><span class='day-num sat'>18</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>ZOZOマリン</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day visitor-day'><span class='day-num sun'>19</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>ZOZOマリン</span><span class='game-time'>18:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num'>20</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>ZOZOマリン</span><span class='game-time'>17:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun'>20</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>ZOZOマリン</span><span class='game-time'>17:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>21</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>22</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>23</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
@@ -286,7 +286,7 @@ schedule_content = r'''
         <div class='cal-day visitor-day'><span class='day-num sat'>8</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day visitor-day'><span class='day-num sun'>9</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>西武球場</span><span class='game-time'>17:00</span></div></div>
         <div class='cal-day'><span class='day-num'>10</span></div>
-        <div class='cal-day home-day'><span class='day-num'>11</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>14:00</span></div></div>
+        <div class='cal-day home-day'><span class='day-num sun'>11</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>14:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>12</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>13</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_m_s.gif' alt='ロッテ' class='team-logo-img'> ロッテ</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>14</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
@@ -340,8 +340,8 @@ schedule_content = r'''
         <div class='cal-day'><span class='day-num'>18</span></div>
         <div class='cal-day visitor-day'><span class='day-num sat'>19</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>14:00</span></div></div>
         <div class='cal-day visitor-day'><span class='day-num sun'>20</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>14:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num'>21</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>13:00</span></div></div>
-        <div class='cal-day home-day'><span class='day-num'>22</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun'>21</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>13:00</span></div></div>
+        <div class='cal-day home-day'><span class='day-num sun'>22</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>18:00</span></div></div>
         <div class='cal-day home-day'><span class='day-num'>23</span><div class='game-info home-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_l_s.gif' alt='西武' class='team-logo-img'> 西武</span><span class='game-venue'>みずほPayPay</span><span class='game-time'>14:00</span></div></div>
         <div class='cal-day'><span class='day-num'>24</span></div>
         <div class='cal-day visitor-day'><span class='day-num'>25</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_b_s.gif' alt='オリックス' class='team-logo-img'> オリックス</span><span class='game-venue'>京セラD大阪</span><span class='game-time'>18:00</span></div></div>
@@ -374,7 +374,7 @@ schedule_content = r'''
         <div class='cal-day'><span class='day-num'>9</span></div>
         <div class='cal-day other-day'><span class='day-num sat'>10</span><div class='game-info other-game'><span class='game-opponent'><span class='txt-desktop'>CS 1st</span><span class='txt-mobile'>CS1st</span></span><span class='game-venue'></span></div></div>
         <div class='cal-day other-day'><span class='day-num sun'>11</span><div class='game-info other-game'><span class='game-opponent'><span class='txt-desktop'>CS 1st</span><span class='txt-mobile'>CS1st</span></span><span class='game-venue'></span></div></div>
-        <div class='cal-day other-day'><span class='day-num'>12</span><div class='game-info other-game'><span class='game-opponent'><span class='txt-desktop'>CS 1st</span><span class='txt-mobile'>CS1st</span></span><span class='game-venue'></span></div></div>
+        <div class='cal-day other-day'><span class='day-num sun'>12</span><div class='game-info other-game'><span class='game-opponent'><span class='txt-desktop'>CS 1st</span><span class='txt-mobile'>CS1st</span></span><span class='game-venue'></span></div></div>
         <div class='cal-day'><span class='day-num'>13</span></div>
         <div class='cal-day other-day'><span class='day-num'>14</span><div class='game-info other-game'><span class='game-opponent'><span class='txt-desktop'>CS Final</span><span class='txt-mobile'>CS Fin</span></span><span class='game-venue'></span></div></div>
         <div class='cal-day other-day'><span class='day-num'>15</span><div class='game-info other-game'><span class='game-opponent'><span class='txt-desktop'>CS Final</span><span class='txt-mobile'>CS Fin</span></span><span class='game-venue'></span></div></div>
@@ -517,109 +517,7 @@ window.addEventListener('load', () => {
 '''
 make_page('schedule.html', '試合日程', schedule_content)
 
-# ===== SONGS PAGE =====
-songs_content = '''
-<section class="page-hero">
-  <div class="page-hero-content">
-    <span class="page-hero-label">CHEER SONGS</span>
-    <h1>応援歌</h1>
-    <p>みんなで声を合わせて、選手を後押ししよう！</p>
-  </div>
-</section>
-<section class="section">
-  <div class="container">
-    <div class="songs-nav">
-      <button class="songs-tab active" data-target="pitchers">投手</button>
-      <button class="songs-tab" data-target="batters">野手</button>
-      <button class="songs-tab" data-target="chance">チャンステーマ</button>
-    </div>
-    <div class="songs-section active" id="pitchers">
-      <h3 class="songs-category-title"><i class="fas fa-baseball-ball"></i> 投手応援歌</h3>
-      <div class="songs-grid songs-grid-3col">
-'''
-
-pitchers = [
-    (11,'有原 航平','風を切り裂け 有原<br>唸る剛腕 打ち砕け<br>勝利を掴め 有原航平'),
-    (13,'東浜 巨','闘志を燃やせ 東浜<br>気迫の投球 見せつけろ<br>勝利をもぎ取れ 東浜巨'),
-    (15,'スチュワート','力で抑えろ スチュワート<br>唸る速球 打者を斬れ<br>勝利へ導け スチュワート'),
-    (16,'モイネロ','稲妻の如く モイネロ<br>鋭く攻めろ 三振奪え<br>守護神の誇り モイネロ'),
-    (18,'大津 亮介','腕を振れ 大津<br>魂の一球 投げ込め<br>勝利を呼べ 大津亮介'),
-    (29,'石川 柊太','気高く投げろ 石川<br>誇りを胸に マウンドへ<br>勝利を掴め 石川柊太'),
-]
-for num, name, lyrics in pitchers:
-    songs_content += f'''
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">{num}</span>
-            <span class="song-name">{name}</span>
-          </div>
-          <div class="song-lyrics-compact">{lyrics}</div>
-        </div>'''
-
-songs_content += '''
-      </div>
-    </div>
-    <div class="songs-section" id="batters">
-      <h3 class="songs-category-title"><i class="fas fa-baseball-ball"></i> 野手応援歌</h3>
-      <div class="songs-grid songs-grid-3col">
-'''
-
-batters = [
-    (1,'近藤 健介','打て打て 近藤<br>飛ばせ 遥か彼方<br>歓喜を呼べ 近藤健介'),
-    (2,'今宮 健太','華麗に決めろ 今宮<br>守備の名手 ここにあり<br>走れ 打て 今宮健太'),
-    (3,'柳田 悠岐','豪快に振り抜け ギータ<br>弾丸ライナー スタンドへ<br>轟け 柳田悠岐'),
-    (7,'中村 晃','巧みに打て 中村<br>鮮やかなバッティング<br>輝け 中村晃'),
-    (9,'甲斐 拓也','砲丸送球 甲斐<br>強肩で刺せ ランナー<br>打って守れ 甲斐拓也'),
-    (24,'栗原 陵矢','勝負強く打て 栗原<br>ここ一番で 頼れる男<br>決めろ 栗原陵矢'),
-    (32,'周東 佑京','電光石火 周東<br>誰にも止められない<br>走れ走れ 周東佑京'),
-    (51,'上林 誠知','空高く打ち上げろ 上林<br>外野を越えろ 大きく<br>見せろ 上林誠知'),
-    (65,'山川 穂高','どかんと一発 山川<br>アーチを架けろ スタンドへ<br>轟け 山川穂高'),
-]
-for num, name, lyrics in batters:
-    songs_content += f'''
-        <div class="song-card-compact common-card">
-          <div class="song-header-compact">
-            <span class="song-number">{num}</span>
-            <span class="song-name">{name}</span>
-          </div>
-          <div class="song-lyrics-compact">{lyrics}</div>
-        </div>'''
-
-songs_content += '''
-      </div>
-    </div>
-    <div class="songs-section" id="chance">
-      <h3 class="songs-category-title"><i class="fas fa-fire"></i> チャンステーマ</h3>
-'''
-
-chance_themes = [
-    ('チャンステーマ1','かっ飛ばせー（選手名）！<br>それゆけ ホークス<br>勝利をつかめ 今こそ<br>燃えろ 俺たちのホークス'),
-    ('チャンステーマ2','行くぞ ホークス<br>チャンスだ 攻めろ<br>俺たちの声で 押し出せ<br>さぁ行こう 勝利の道を'),
-    ('チャンステーマ3','燃えろよ ホークス<br>今がその時だ<br>一打に懸けろ 魂を<br>栄光を掴め ホークス'),
-]
-for name, lyrics in chance_themes:
-    songs_content += f'''
-      <div class="song-card chance-card">
-        <div class="song-header"><span class="song-name">{name}</span></div>
-        <div class="song-lyrics">{lyrics}</div>
-      </div>'''
-
-songs_content += '''
-    </div>
-  </div>
-</section>
-<script>
-document.querySelectorAll('.songs-tab').forEach(tab => {
-  tab.addEventListener('click', () => {
-    document.querySelectorAll('.songs-tab').forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelectorAll('.songs-section').forEach(s => s.classList.remove('active'));
-    document.getElementById(tab.dataset.target).classList.add('active');
-  });
-});
-</script>
-'''
-make_page('songs.html', '応援歌', songs_content)
+# (SONGS PAGE removed - managed specifically by gen_songs.py)
 
 # ===== GALLERY PAGE =====
 gallery_items = [
