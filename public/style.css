@@ -155,15 +155,16 @@ a:hover {
 }
 
 .latest-result-card {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 24px;
     padding: 30px;
     width: 100%;
     max-width: 550px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
     animation: fadeIn 1s ease-out;
+    color: #fff; /* Important: Default text to white */
 }
 
 .result-card-header {
@@ -205,16 +206,17 @@ a:hover {
 }
 
 .team-logo-large {
-    width: 64px;
-    height: 64px;
+    width: 72px; /* Slightly larger */
+    height: 72px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+    /* remove filter to keep it sharp */
 }
 
 .team-name-short {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     font-weight: 900;
-    opacity: 0.9;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
 }
 
 .score-numbers-large {

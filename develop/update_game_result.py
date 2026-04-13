@@ -91,7 +91,8 @@ def parse_latest_result(html):
     }
 
 def get_team_code(tid):
-    codes = {"1":"g", "2":"yb", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"bs", "12":"e", "376":"f"}
+    # Mapping for p.npb.jp/img/common/logo/2026/logo_{code}_l.png
+    codes = {"1":"g", "2":"db", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"b", "12":"e", "376":"f"}
     return codes.get(tid, "h")
 
 def update_files(data):
@@ -104,6 +105,10 @@ def update_files(data):
     if os.path.exists(INDEX_PATH):
         with open(INDEX_PATH, 'r', encoding='utf-8') as f: content = f.read()
         
+        # High-Res Logos
+        h_logo = "https://p.npb.jp/img/common/logo/2026/logo_h_l.png"
+        opp_logo = f"https://p.npb.jp/img/common/logo/2026/logo_{get_team_code(latest['opp_id'])}_l.png"
+
         new_card_html = f'''<div class="latest-result-card" style="position: relative;">
           <div class="result-card-header">
             <span class="result-date">{latest["date_str"]}</span>
@@ -111,7 +116,7 @@ def update_files(data):
           </div>
           <div class="score-main">
             <div class="team-box">
-              <img src="https://npb.jp/img/common/logo/2026/logo_h_s.gif" alt="ソフトバンク" class="team-logo-large">
+              <img src="{h_logo}" alt="ソフトバンク" class="team-logo-large">
               <span class="team-name-short">ソフトバンク</span>
             </div>
             <div class="score-numbers-large">
@@ -122,7 +127,7 @@ def update_files(data):
               <div>{latest["opp_score"]}</div>
             </div>
             <div class="team-box">
-              <img src="{latest["opp_logo"]}" alt="{latest["opp_name"]}" class="team-logo-large">
+              <img src="{opp_logo}" alt="{latest["opp_name"]}" class="team-logo-large">
               <span class="team-name-short">{latest["opp_name"]}</span>
             </div>
           </div>
