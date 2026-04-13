@@ -98,6 +98,7 @@ def update_files(data):
     if not data: return
     latest = data["latest"]
     visitor = data["visitor"]
+    res_text = f"{latest['symbol']}{latest['hawks_score']}-{latest['opp_score']}"
     
     # 1. Update Index (Rich Card)
     if os.path.exists(INDEX_PATH):
