@@ -6,6 +6,7 @@ from datetime import datetime
 # Settings
 TEAM_URL = "https://baseball.yahoo.co.jp/npb/teams/12/"
 INDEX_PATH = os.path.join(os.path.dirname(__file__), "../HP/index.html")
+PORTAL_PATH = os.path.join(os.path.dirname(__file__), "../portal/index.html")
 
 def fetch_html():
     try:
@@ -19,11 +20,9 @@ def fetch_html():
 
 def parse_latest_result(html):
     # Search for calendar cells
-    # Selector logic: .bb-calendarTable td
     days = re.findall(r'<td class="bb-calendarTable__data(.*?)</td>', html, re.DOTALL)
     
     latest_game = None
-    # We want the LAST game that is "試合終了" (Finished)
     for day in days:
         if "試合終了" in day:
             latest_game = day
@@ -32,24 +31,14 @@ def parse_latest_result(html):
         print("No completed game found in current view.")
         return None
     
-    # Hawks Home/Away detection
-    # bb-calendarTable__data--home class means Hawks is Home
     is_home = "bb-calendarTable__data--home" in latest_game
-    
-    # Result Symbol (aria-label="勝利" etc.)
     symbol_match = re.search(r'aria-label="([^"]+)"', latest_game)
     symbol_text = symbol_match.group(1) if symbol_match else ""
     
-    if "勝利" in symbol_text:
-        symbol = "○"
-    elif "敗戦" in symbol_text:
-        symbol = "×"
-    else:
-        symbol = "△"
+    if "勝利" in symbol_text: symbol = "○"
+    elif "敗戦" in symbol_text: symbol = "×"
+    else: symbol = "△"
     
-    # Scores
-    # <span class="bb-calendarTable__home ...">7</span>
-    # <span class="bb-calendarTable__away ...">11</span>
     home_score_m = re.search(r'class="bb-calendarTable__home[^>]*">(\d+)</span>', latest_game)
     away_score_m = re.search(r'class="bb-calendarTable__away[^>]*">(\d+)</span>', latest_game)
     
@@ -60,42 +49,45 @@ def parse_latest_result(html):
     h_val = home_score_m.group(1)
     a_val = away_score_m.group(1)
     
-    # Hawks is always on the left
     if is_home:
-        hawks_score = h_val
-        opp_score = a_val
+        hawks_score, opp_score = h_val, a_val
     else:
-        hawks_score = a_val
-        opp_score = h_val
+        hawks_score, opp_score = a_val, h_val
         
     return f"{symbol}{hawks_score}-{opp_score}"
 
-def update_index(result_text):
+def update_files(result_text):
     if not result_text:
         return
 
-    if not os.path.exists(INDEX_PATH):
-        print(f"File not found: {INDEX_PATH}")
-        return
+    targets = [
+        {"path": INDEX_PATH, "label_cls": "result-label", "badge_cls": "result-badge", "indent": "      "},
+        {"path": PORTAL_PATH, "label_cls": "result-label-portal", "badge_cls": "result-badge-portal", "indent": "            "}
+    ]
 
-    with open(INDEX_PATH, 'r', encoding='utf-8') as f:
-        content = f.read()
+    for target in targets:
+        path = target["path"]
+        if not os.path.exists(path):
+            print(f"File not found: {path}")
+            continue
 
-    # Generate the HTML snippet
-    new_badge_html = f'<span class="result-badge"><span class="result-label">LATEST RESULT</span>{result_text}</span>'
-    
-    pattern = r'<!-- GAME_RESULT_START -->.*?<!-- GAME_RESULT_END -->'
-    replacement = f'<!-- GAME_RESULT_START -->\n      {new_badge_html}\n      <!-- GAME_RESULT_END -->'
-    
-    if not re.search(pattern, content, re.DOTALL):
-        print("Marker <!-- GAME_RESULT_START --> not found in index.html")
-        return
+        with open(path, 'r', encoding='utf-8') as f:
+            content = f.read()
+
+        new_badge_html = f'<span class="{target["badge_cls"]}"><span class="{target["label_cls"]}">LATEST RESULT</span>{result_text}</span>'
         
-    new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-    
-    with open(INDEX_PATH, 'w', encoding='utf-8') as f:
-        f.write(new_content)
-    print(f"Successfully updated {INDEX_PATH} with {result_text}")
+        pattern = r'<!-- GAME_RESULT_START -->.*?<!-- GAME_RESULT_END -->'
+        replacement = f'<!-- GAME_RESULT_START -->\n{target["indent"]}{new_badge_html}\n{target["indent"]}<!-- GAME_RESULT_END -->'
+        
+        if not re.search(pattern, content, re.DOTALL):
+            print(f"Marker not found in {path}")
+            continue
+            
+        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+        
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write(new_content)
+        print(f"Successfully updated {path} with {result_text}")
 
 if __name__ == "__main__":
     print("Starting game result update...")
@@ -103,7 +95,7 @@ if __name__ == "__main__":
     if html_content:
         result = parse_latest_result(html_content)
         if result:
-            update_index(result)
+            update_files(result)
         else:
             print("Failed to parse result.")
     else:
