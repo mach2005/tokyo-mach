@@ -75,6 +75,7 @@ def parse_latest_result(html):
                 "opp_score": opp_s,
                 "opp_name": opp_name,
                 "opp_logo": opp_logo,
+                "opp_id": opp_id,
                 "symbol": symbol,
                 "is_visitor": not is_home
             })
