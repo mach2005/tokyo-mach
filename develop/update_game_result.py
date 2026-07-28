@@ -139,19 +139,68 @@ def update_schedule_all(all_results):
             else:
                 res_text = f"{game['symbol']} {game['hawks_score']}-{game['opp_score']}"
             
-            # Pattern: find the specific day within the specific month section
-            # Match day-num (possibly with css classes) followed by game-time with either time or existing result
-            month_pattern = rf"(id=['\"]month-{month}['\"].*?day-num[^>]*>{day}</span>.*?game-time['\"]>)(\d+:\d+|[○●×△]?\s*\d+-\d+|中止)(</span>)"
+            # 1. monthブロックを探す
+            month_start_idx = sc_content.find(f"id='month-{month}'")
+            if month_start_idx == -1:
+                month_start_idx = sc_content.find(f'id="month-{month}"')
+            if month_start_idx == -1:
+                continue
+                
+            month_end_idx = sc_content.find("id='month-", month_start_idx + 10)
+            if month_end_idx == -1:
+                month_end_idx = sc_content.find('id="month-', month_start_idx + 10)
+            if month_end_idx == -1:
+                month_end_idx = len(sc_content)
+                
+            month_html = sc_content[month_start_idx:month_end_idx]
             
-            match = re.search(month_pattern, sc_content, re.DOTALL)
-            if match:
-                old_val = match.group(2)
-                # Only update if it's still a time (not yet updated) or different result
-                if re.match(r'^\d+:\d+$', old_val.strip()) or old_val.strip() != res_text:
-                    new_val = match.group(1) + res_text + match.group(3)
-                    sc_content = sc_content[:match.start()] + new_val + sc_content[match.end():]
-                    updated_count += 1
-        
+            # 2. その月の該当する日の cal-day ブロックを探す
+            cal_days = re.finditer(r"<div class='cal-day([^']*)'>(.*?)</div>", month_html, re.DOTALL)
+            
+            new_month_html = month_html
+            for match in cal_days:
+                day_attrs = match.group(1)
+                day_content = match.group(2)
+                
+                # day-num をチェック
+                day_num_match = re.search(r"<span class='day-num([^']*)'>(.*?)</span>", day_content)
+                if not day_num_match:
+                    continue
+                    
+                classes = day_num_match.group(1)
+                day_text = day_num_match.group(2)
+                
+                # out-of-month がなく、該当する日付の場合
+                if day_text == str(day) and "out-of-month" not in classes:
+                    if "game-info" in day_content:
+                        # 既存の試合結果を上書き
+                        time_match = re.search(r"(<span class='game-time'>)(.*?)(</span>)", day_content)
+                        if time_match:
+                            old_val = time_match.group(2)
+                            # 時間の形式または異なる結果の場合更新
+                            if re.match(r'^\d+:\d+$', old_val.strip()) or old_val.strip() != res_text:
+                                new_day_content = day_content[:time_match.start(2)] + res_text + day_content[time_match.end(2):]
+                                new_month_html = new_month_html.replace(match.group(0), f"<div class='cal-day{day_attrs}'>{new_day_content}</div>")
+                                updated_count += 1
+                    else:
+                        # 試合情報がない（振替試合等）場合は追加
+                        is_visitor = game['is_visitor']
+                        game_class = "visitor-game" if is_visitor else "home-game"
+                        day_class = " visitor-day" if is_visitor else " home-day"
+                        
+                        new_day_attrs = day_attrs
+                        if "visitor-day" not in new_day_attrs and "home-day" not in new_day_attrs:
+                            new_day_attrs += day_class
+                            
+                        new_game_info = f"<div class='game-info {game_class}'><span class='game-opponent'><img src='{game['opp_logo']}' alt='{game['opp_name']}' class='team-logo-img'> {game['opp_name']}</span><span class='game-venue'>{game['venue']}</span><span class='game-time'>{res_text}</span></div>"
+                        new_day_content = day_content + new_game_info
+                        
+                        new_month_html = new_month_html.replace(match.group(0), f"<div class='cal-day{new_day_attrs}'>{new_day_content}</div>")
+                        updated_count += 1
+                    break # 見つけたら次の試合へ
+                    
+            sc_content = sc_content[:month_start_idx] + new_month_html + sc_content[month_end_idx:]
+            
         if updated_count > 0:
             with open(path, 'w', encoding='utf-8') as f:
                 f.write(sc_content)
