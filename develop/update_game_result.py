@@ -1,11 +1,11 @@
 import os
 import re
 import urllib.request
-import datetime
 from datetime import datetime
 
 # Settings
 TEAM_URL = "https://baseball.yahoo.co.jp/npb/teams/12/"
+WEEKDAYS_JP = ['月', '火', '水', '木', '金', '土', '日']
 INDEX_PATH = os.path.join(os.path.dirname(__file__), "../HP/index.html")
 PORTAL_PATH = os.path.join(os.path.dirname(__file__), "../portal/index.html")
 SCHEDULE_PATH = os.path.join(os.path.dirname(__file__), "../HP/schedule.html")
@@ -65,8 +65,16 @@ def parse_latest_result(html):
             
             hawks_s, opp_s = (h_score, a_score) if is_home else (a_score, h_score)
             
+            # Fallback: calculate day-of-week from date if scraping didn't get it
+            if not dow:
+                try:
+                    d = datetime(int(curr_year), int(curr_month), int(day))
+                    dow = WEEKDAYS_JP[d.weekday()]
+                except Exception:
+                    dow = ""
+            
             all_finished.append({
-                "date_str": f"{curr_year}.{curr_month.zfill(2)}.{day.zfill(2)} ({dow.upper()})",
+                "date_str": f"{curr_year}.{curr_month.zfill(2)}.{day.zfill(2)} ({dow})",
                 "short_date": f"{curr_month}/{day} ({dow})",
                 "month": curr_month,
                 "day": day,
@@ -121,9 +129,7 @@ def update_files(data):
               <span class="team-name-short">ソフトバンク</span>
             </div>
             <div class="score-numbers-large">
-              <div style="position: relative;">
-                {latest["hawks_score"]} <span class="win-mark">{latest["symbol"]}</span>
-              </div>
+              <div>{latest["hawks_score"]}</div>
               <span class="score-dash">-</span>
               <div>{latest["opp_score"]}</div>
             </div>
@@ -137,7 +143,7 @@ def update_files(data):
         <div class="visitor-result-mini">
           <span class="visitor-label">LATEST VISITOR</span>
           <span class="visitor-date">{visitor["short_date"]}</span>
-          <span class="visitor-score">{visitor["symbol"]}{visitor["hawks_score"]}-{visitor["opp_score"]} vs {visitor["opp_name"]}</span>
+          <span class="visitor-score">{visitor["hawks_score"]}-{visitor["opp_score"]} vs {visitor["opp_name"]}</span>
           <span class="visitor-venue">@{visitor["venue"]}</span>
         </div>'''
         

@@ -155,16 +155,17 @@ a:hover {
 }
 
 .latest-result-card {
-    background: rgba(0, 0, 0, 0.45);
-    backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 24px;
-    padding: 30px;
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.55) 0%, rgba(30, 30, 30, 0.5) 100%);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    padding: 28px 32px;
     width: 100%;
-    max-width: 550px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+    max-width: 520px;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
     animation: fadeIn 1s ease-out;
-    color: #fff; /* Important: Default text to white */
+    color: #fff;
 }
 
 .result-card-header {
@@ -172,107 +173,103 @@ a:hover {
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     font-weight: 900;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
 }
 
 .result-date {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     color: var(--hawks-yellow);
+    font-weight: 900;
+    letter-spacing: 1.5px;
 }
 
 .result-venue {
-    font-size: 0.85rem;
-    opacity: 0.7;
-    background: rgba(255,255,255,0.1);
-    padding: 4px 12px;
-    border-radius: 12px;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    background: rgba(255,255,255,0.12);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-weight: 700;
 }
 
 .score-main {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
 }
 
 .team-box {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    width: 120px;
+    gap: 8px;
+    width: 110px;
 }
 
 .team-logo-large {
-    width: 72px; /* Slightly larger */
-    height: 72px;
+    width: 64px;
+    height: 64px;
     object-fit: contain;
-    /* remove filter to keep it sharp */
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
 }
 
 .team-name-short {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    letter-spacing: 0.5px;
 }
 
 .score-numbers-large {
     display: flex;
     align-items: center;
-    gap: 15px;
-    font-size: 3.5rem;
+    gap: 12px;
+    font-size: 3.2rem;
     font-weight: 900;
-    font-family: 'Oswald', sans-serif; /* まだ読み込んでいない場合はNoto Sans等で代用可 */
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
 }
 
 .score-dash {
     opacity: 0.3;
+    font-weight: 300;
 }
 
+/* win-mark is no longer used but kept for backward compatibility */
 .win-mark {
-    background: var(--hawks-yellow);
-    color: var(--hawks-black);
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    box-shadow: 0 4px 10px rgba(255,204,0,0.4);
+    display: none;
 }
 
 /* Visitor Section */
 .visitor-result-mini {
-    background: rgba(233, 30, 99, 0.1);
-    border: 1px solid rgba(233, 30, 99, 0.3);
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     padding: 10px 20px;
     border-radius: 50px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     font-weight: 700;
     display: inline-flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     transition: all 0.3s ease;
+    color: rgba(255, 255, 255, 0.9);
 }
 
 .visitor-result-mini:hover {
-    background: rgba(233, 30, 99, 0.2);
+    background: rgba(255, 255, 255, 0.14);
     transform: scale(1.02);
 }
 
 .visitor-label {
-    background: #e91e63;
-    color: #fff;
-    padding: 2px 10px;
+    background: var(--hawks-yellow);
+    color: var(--hawks-black);
+    padding: 3px 10px;
     border-radius: 4px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
+    font-weight: 900;
     letter-spacing: 1px;
 }
 
@@ -282,11 +279,14 @@ a:hover {
 }
 
 @media (max-width: 768px) {
-    .latest-result-card { padding: 20px; }
-    .score-numbers-large { font-size: 2.5rem; }
-    .team-box { width: 90px; }
-    .team-logo-large { width: 48px; height: 48px; }
+    .latest-result-card { padding: 18px 16px; }
+    .score-numbers-large { font-size: 2.4rem; gap: 8px; }
+    .team-box { width: 80px; }
+    .team-logo-large { width: 44px; height: 44px; }
+    .team-name-short { font-size: 0.78rem; }
+    .visitor-result-mini { font-size: 0.78rem; gap: 6px; padding: 8px 14px; }
 }
+
 
 
 /* Page Hero (Subpages) */
