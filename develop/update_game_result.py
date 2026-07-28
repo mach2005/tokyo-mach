@@ -43,7 +43,7 @@ def parse_month_results(html, force_year="2026", force_month=None):
             
             symbol_m = re.search(r'aria-label="([^"]+)"', day_html)
             symbol_text = symbol_m.group(1) if symbol_m else ""
-            symbol = "○" if "勝利" in symbol_text else "×" if "敗戦" in symbol_text else "△"
+            symbol = "○" if "勝利" in symbol_text else "●" if "敗戦" in symbol_text else "△"
             
             h_score_m = re.search(r'class="bb-calendarTable__home[^>]*">(\d+)</span>', day_html)
             a_score_m = re.search(r'class="bb-calendarTable__away[^>]*">(\d+)</span>', day_html)
@@ -127,7 +127,7 @@ def update_schedule_all(all_results):
         for game in all_results:
             month = game['month']
             day = game['day']
-            res_text = f"{game['hawks_score']}-{game['opp_score']}"
+            res_text = f"{game['symbol']} {game['hawks_score']}-{game['opp_score']}"
             
             # Pattern: find the specific day within the specific month section
             # Match day-num (possibly with css classes) followed by game-time with either time or existing result
