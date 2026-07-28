@@ -33,7 +33,9 @@ def parse_month_results(html, force_year="2026", force_month=None):
     
     all_finished = []
     for day_html in days:
-        if "試合終了" in day_html:
+        if "試合終了" in day_html or "中止" in day_html:
+            is_cancelled = "中止" in day_html
+            
             day_m = re.search(r'class=["\']bb-calendarTable__date["\']>(\d+)', day_html)
             dow_m = re.search(r'class=["\']bb-calendarTable__date["\']>.*?<span[^>]*>\((.*?)\)</span>', day_html, re.DOTALL)
             day = day_m.group(1) if day_m else ""
@@ -41,14 +43,20 @@ def parse_month_results(html, force_year="2026", force_month=None):
             
             is_home = "bb-calendarTable__data--home" in day_html
             
-            symbol_m = re.search(r'aria-label="([^"]+)"', day_html)
-            symbol_text = symbol_m.group(1) if symbol_m else ""
-            symbol = "○" if "勝利" in symbol_text else "●" if "敗戦" in symbol_text else "△"
-            
-            h_score_m = re.search(r'class="bb-calendarTable__home[^>]*">(\d+)</span>', day_html)
-            a_score_m = re.search(r'class="bb-calendarTable__away[^>]*">(\d+)</span>', day_html)
-            h_score = h_score_m.group(1) if h_score_m else "0"
-            a_score = a_score_m.group(1) if a_score_m else "0"
+            if is_cancelled:
+                symbol = ""
+                hawks_s = "中止"
+                opp_s = ""
+            else:
+                symbol_m = re.search(r'aria-label="([^"]+)"', day_html)
+                symbol_text = symbol_m.group(1) if symbol_m else ""
+                symbol = "○" if "勝利" in symbol_text else "●" if "敗戦" in symbol_text else "△"
+                
+                h_score_m = re.search(r'class="bb-calendarTable__home[^>]*">(\d+)</span>', day_html)
+                a_score_m = re.search(r'class="bb-calendarTable__away[^>]*">(\d+)</span>', day_html)
+                h_score = h_score_m.group(1) if h_score_m else "0"
+                a_score = a_score_m.group(1) if a_score_m else "0"
+                hawks_s, opp_s = (h_score, a_score) if is_home else (a_score, h_score)
             
             opp_name_m = re.search(r'class="bb-calendarTable__teamName">.*?>(.*?)</a>', day_html, re.DOTALL)
             opp_name = opp_name_m.group(1) if opp_name_m else "不明"
@@ -58,8 +66,6 @@ def parse_month_results(html, force_year="2026", force_month=None):
             
             venue_m = re.search(r'class="bb-calendarTable__venue">(.*?)</p>', day_html)
             venue = venue_m.group(1) if venue_m else ""
-            
-            hawks_s, opp_s = (h_score, a_score) if is_home else (a_score, h_score)
             
             # Fallback: calculate day-of-week from date if scraping didn't get it
             if not dow:
@@ -81,7 +87,8 @@ def parse_month_results(html, force_year="2026", force_month=None):
                 "opp_logo": f"https://npb.jp/img/common/logo/2026/logo_{get_team_code(opp_id)}_s.gif",
                 "opp_id": opp_id,
                 "symbol": symbol,
-                "is_visitor": not is_home
+                "is_visitor": not is_home,
+                "is_cancelled": is_cancelled
             })
             
     return all_finished, curr_month
@@ -127,11 +134,14 @@ def update_schedule_all(all_results):
         for game in all_results:
             month = game['month']
             day = game['day']
-            res_text = f"{game['symbol']} {game['hawks_score']}-{game['opp_score']}"
+            if game.get('is_cancelled'):
+                res_text = "中止"
+            else:
+                res_text = f"{game['symbol']} {game['hawks_score']}-{game['opp_score']}"
             
             # Pattern: find the specific day within the specific month section
             # Match day-num (possibly with css classes) followed by game-time with either time or existing result
-            month_pattern = rf"(id=['\"]month-{month}['\"].*?day-num[^>]*>{day}</span>.*?game-time['\"]>)(\d+:\d+|[○●×△]?\s*\d+-\d+)(</span>)"
+            month_pattern = rf"(id=['\"]month-{month}['\"].*?day-num[^>]*>{day}</span>.*?game-time['\"]>)(\d+:\d+|[○●×△]?\s*\d+-\d+|中止)(</span>)"
             
             match = re.search(month_pattern, sc_content, re.DOTALL)
             if match:
@@ -233,11 +243,13 @@ if __name__ == "__main__":
         # Update schedule with ALL results
         update_schedule_all(all_results)
         
-        # Update top page with latest result
-        latest = all_results[-1]
-        latest_visitor = next((g for g in reversed(all_results) if g["is_visitor"]), None)
-        if latest_visitor:
-            update_top_page(latest, latest_visitor)
+        # Update top page with latest result (skip cancelled games)
+        finished_games = [g for g in all_results if not g.get('is_cancelled')]
+        if finished_games:
+            latest = finished_games[-1]
+            latest_visitor = next((g for g in reversed(finished_games) if g["is_visitor"]), None)
+            if latest_visitor:
+                update_top_page(latest, latest_visitor)
         
         # Auto deploy
         auto_deploy()
