@@ -798,10 +798,13 @@
             const mmToPx = 3.78; const sheetW = baseWidthMm * mmToPx; const sheetH = baseHeightMm * mmToPx;
             let scale;
             if (isZoomed) {
-                scale = Math.max(0.6, (window.innerWidth - 10) / sheetW); if (scale > 1.2) scale = 1.2;
-            } else { const scaleW = availableW / sheetW; const scaleH = availableH / sheetH; scale = Math.min(scaleW, scaleH); if (scale > 1) scale = 1; }
+                scale = window.innerWidth < 768 ? 1.0 : 1.2; 
+            } else { 
+                const scaleW = availableW / sheetW; const scaleH = availableH / sheetH; scale = Math.min(scaleW, scaleH); if (scale > 1) scale = 1; 
+            }
             sheet.style.transform = `scale(${scale})`;
             document.body.style.justifyContent = (isZoomed && window.innerWidth < sheetW * scale) ? 'flex-start' : 'center';
+            document.body.style.alignItems = (isZoomed && window.innerHeight < sheetH * scale) ? 'flex-start' : 'center';
         }
         function toggleZoom() { isZoomed = !isZoomed; const btn = document.querySelector('.zoom-btn'); btn.innerText = isZoomed ? "全" : "🔎"; scaleSheet(); if (isZoomed) window.scrollTo(0, 0); }
         window.addEventListener('resize', scaleSheet);
