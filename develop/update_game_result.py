@@ -1,6 +1,7 @@
 import os
 import re
 import urllib.request
+import time
 from datetime import datetime
 
 # Settings
@@ -11,26 +12,22 @@ PORTAL_PATH = os.path.join(os.path.dirname(__file__), "../portal/index.html")
 SCHEDULE_PATH = os.path.join(os.path.dirname(__file__), "../HP/schedule.html")
 BUILD_PAGES_PATH = os.path.join(os.path.dirname(__file__), "build_pages.py")
 
-def fetch_html():
+def fetch_html(url=None):
+    target = url or TEAM_URL
     try:
-        req = urllib.request.Request(TEAM_URL, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
+        req = urllib.request.Request(target, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
         with urllib.request.urlopen(req, timeout=15) as response:
             return response.read().decode('utf-8', errors='ignore')
     except Exception as e:
-        print(f"Failed to fetch: {e}")
+        print(f"Failed to fetch {target}: {e}")
         return None
 
-def parse_latest_result(html):
-    # Focus on the main calendar area to avoid legacy support messages
-    cal_area = re.search(r'class=["\']bb-calendarTable["\'].*?</table>', html, re.DOTALL)
-    cal_html = cal_area.group(0) if cal_area else html
-    
+def parse_month_results(html, force_year="2026", force_month=None):
+    """Parse all finished games from a Yahoo calendar page."""
     # Try to find year/month in the selected nav item
     month_match = re.search(r'bb-scheduleNavi__item--selected[^>]*>(\d+)月', html)
-    
-    # For 2026 season, we can safely default or search specifically
-    curr_year = "2026" 
-    curr_month = month_match.group(1) if month_match else str(datetime.now().month)
+    curr_year = force_year
+    curr_month = force_month or (month_match.group(1) if month_match else str(datetime.now().month))
 
     days = re.findall(r'<td class="bb-calendarTable__data(.*?)</td>', html, re.DOTALL)
     
@@ -58,7 +55,6 @@ def parse_latest_result(html):
             
             opp_logo_m = re.search(r'class="bb-calendarTable__versusLogo.*?--npbTeam(\d+)', day_html)
             opp_id = opp_logo_m.group(1) if opp_logo_m else ""
-            opp_logo = f"https://npb.jp/img/common/logo/2026/logo_{get_team_code(opp_id)}_s.gif"
             
             venue_m = re.search(r'class="bb-calendarTable__venue">(.*?)</p>', day_html)
             venue = venue_m.group(1) if venue_m else ""
@@ -82,39 +78,85 @@ def parse_latest_result(html):
                 "hawks_score": hawks_s,
                 "opp_score": opp_s,
                 "opp_name": opp_name,
-                "opp_logo": opp_logo,
+                "opp_logo": f"https://npb.jp/img/common/logo/2026/logo_{get_team_code(opp_id)}_s.gif",
                 "opp_id": opp_id,
                 "symbol": symbol,
                 "is_visitor": not is_home
             })
             
-    if not all_finished:
-        return None
-        
-    latest = all_finished[-1]
-    latest_visitor = next((g for g in reversed(all_finished) if g["is_visitor"]), None)
+    return all_finished, curr_month
+
+def fetch_all_results():
+    """Fetch results for all months that have games (March to current month)."""
+    now = datetime.now()
+    current_month = now.month
+    all_results = []
     
-    return {
-        "latest": latest,
-        "visitor": latest_visitor
-    }
+    # Fetch each month from March to current month
+    for month in range(3, current_month + 1):
+        if month == current_month:
+            # Current month uses the base schedule URL
+            url = "https://baseball.yahoo.co.jp/npb/teams/12/schedule"
+        else:
+            # Past months use ?month=YYYY-MM format
+            url = f"https://baseball.yahoo.co.jp/npb/teams/12/schedule?month=2026-{month:02d}"
+        print(f"Fetching month {month}...")
+        html = fetch_html(url)
+        if html:
+            month_results, _ = parse_month_results(html, force_year="2026", force_month=str(month))
+            all_results.extend(month_results)
+            print(f"  Found {len(month_results)} finished games in month {month}")
+        time.sleep(1)  # Be polite to the server
+    
+    return all_results
 
 def get_team_code(tid):
     # Mapping for p.npb.jp/img/common/logo/2026/logo_{code}_l.png
     codes = {"1":"g", "2":"db", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"b", "12":"e", "376":"f"}
     return codes.get(tid, "h")
 
-def update_files(data):
-    if not data: return
-    latest = data["latest"]
-    visitor = data["visitor"]
-    res_text = f"{latest['symbol']}{latest['hawks_score']}-{latest['opp_score']}"
+def update_schedule_all(all_results):
+    """Update schedule.html and build_pages.py with ALL game results."""
+    for path in [SCHEDULE_PATH, BUILD_PAGES_PATH]:
+        if not os.path.exists(path):
+            continue
+        with open(path, 'r', encoding='utf-8') as f:
+            sc_content = f.read()
+        
+        updated_count = 0
+        for game in all_results:
+            month = game['month']
+            day = game['day']
+            res_text = f"{game['hawks_score']}-{game['opp_score']}"
+            
+            # Pattern: find the specific day within the specific month section
+            # Match day-num (possibly with css classes) followed by game-time with either time or existing result
+            month_pattern = rf"(id=['\"]month-{month}['\"].*?day-num[^>]*>{day}</span>.*?game-time['\"]>)(\d+:\d+|[○●×△]?\s*\d+-\d+)(</span>)"
+            
+            match = re.search(month_pattern, sc_content, re.DOTALL)
+            if match:
+                old_val = match.group(2)
+                # Only update if it's still a time (not yet updated) or different result
+                if re.match(r'^\d+:\d+$', old_val.strip()) or old_val.strip() != res_text:
+                    new_val = match.group(1) + res_text + match.group(3)
+                    sc_content = sc_content[:match.start()] + new_val + sc_content[match.end():]
+                    updated_count += 1
+        
+        if updated_count > 0:
+            with open(path, 'w', encoding='utf-8') as f:
+                f.write(sc_content)
+            print(f"Updated {updated_count} game results in: {os.path.basename(path)}")
+        else:
+            print(f"No new updates needed for: {os.path.basename(path)}")
+
+def update_top_page(latest, visitor):
+    """Update index.html hero card and portal badge."""
+    res_text = f"{latest['hawks_score']}-{latest['opp_score']}"
     
     # 1. Update Index (Rich Card)
     if os.path.exists(INDEX_PATH):
         with open(INDEX_PATH, 'r', encoding='utf-8') as f: content = f.read()
         
-        # High-Res Logos
         h_logo = "https://p.npb.jp/img/common/logo/2026/logo_h_l.png"
         opp_logo = f"https://p.npb.jp/img/common/logo/2026/logo_{get_team_code(latest['opp_id'])}_l.png"
 
@@ -164,18 +206,6 @@ def update_files(data):
         with open(PORTAL_PATH, 'w', encoding='utf-8') as f: f.write(new_p_content)
         print("Updated Portal with Simple Badge")
 
-    # 2. Update Schedule & Build Script (same as before)
-    res_text = f"{latest['symbol']}{latest['hawks_score']}-{latest['opp_score']}"
-    for path in [SCHEDULE_PATH, BUILD_PAGES_PATH]:
-        if not os.path.exists(path): continue
-        with open(path, 'r', encoding='utf-8') as f: sc_content = f.read()
-        month_pattern = rf"id=['\"]month-{latest['month']}['\"].*?day-num[^>]*>{latest['day']}</span>.*?game-time['\"]>(\d+:\d+|[○×△]\s*\d+-\d+)</span>"
-        if re.search(month_pattern, sc_content, re.DOTALL):
-            def repl(m): return m.group(0).replace(m.group(1), res_text)
-            new_sc = re.sub(month_pattern, repl, sc_content, flags=re.DOTALL)
-            with open(path, 'w', encoding='utf-8') as f: f.write(new_sc)
-            print(f"Updated Schedule: {path}")
-
 def auto_deploy():
     """Git add, commit, push to deploy the updated game result."""
     import subprocess
@@ -194,14 +224,24 @@ def auto_deploy():
         print(f"Auto-deploy failed: {e}")
 
 if __name__ == "__main__":
-    print("Starting rich game result update...")
-    html_content = fetch_html()
-    if html_content:
-        result_data = parse_latest_result(html_content)
-        if result_data:
-            update_files(result_data)
-            auto_deploy()
-        else:
-            print("Failed to parse result.")
+    print("Starting full game result update...")
+    
+    # Fetch ALL months' results
+    all_results = fetch_all_results()
+    
+    if all_results:
+        # Update schedule with ALL results
+        update_schedule_all(all_results)
+        
+        # Update top page with latest result
+        latest = all_results[-1]
+        latest_visitor = next((g for g in reversed(all_results) if g["is_visitor"]), None)
+        if latest_visitor:
+            update_top_page(latest, latest_visitor)
+        
+        # Auto deploy
+        auto_deploy()
+        
+        print(f"Done! Updated {len(all_results)} total game results.")
     else:
-        print("Failed to fetch HTML.")
+        print("No game results found.")
