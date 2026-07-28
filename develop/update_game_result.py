@@ -176,6 +176,23 @@ def update_files(data):
             with open(path, 'w', encoding='utf-8') as f: f.write(new_sc)
             print(f"Updated Schedule: {path}")
 
+def auto_deploy():
+    """Git add, commit, push to deploy the updated game result."""
+    import subprocess
+    repo_dir = os.path.join(os.path.dirname(__file__), "..")
+    try:
+        subprocess.run(["git", "add", "-A"], cwd=repo_dir, check=True)
+        result = subprocess.run(["git", "status", "--porcelain"], cwd=repo_dir, capture_output=True, text=True)
+        if not result.stdout.strip():
+            print("No changes to deploy.")
+            return
+        now = datetime.now().strftime("%Y-%m-%d %H:%M")
+        subprocess.run(["git", "commit", "-m", f"試合結果自動更新 {now}"], cwd=repo_dir, check=True)
+        subprocess.run(["git", "push", "origin", "main"], cwd=repo_dir, check=True)
+        print("Auto-deploy completed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Auto-deploy failed: {e}")
+
 if __name__ == "__main__":
     print("Starting rich game result update...")
     html_content = fetch_html()
@@ -183,6 +200,7 @@ if __name__ == "__main__":
         result_data = parse_latest_result(html_content)
         if result_data:
             update_files(result_data)
+            auto_deploy()
         else:
             print("Failed to parse result.")
     else:
