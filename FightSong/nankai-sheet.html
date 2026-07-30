@@ -69,34 +69,40 @@
             border: 1px solid #eee; border-radius: 8px; padding: 12px; 
             background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
-        @media (min-width: 600px) {
-            .song-item { flex-direction: row; align-items: center; gap: 15px; }
+        @media (min-width: 700px) {
+            .song-item { 
+                display: grid; 
+                grid-template-columns: 45px 130px 160px 1fr; 
+                align-items: center; 
+                gap: 15px; 
+            }
         }
         .song-num { 
             background-color: var(--primary-color); color: rgb(255, 255, 255); 
             width: fit-content; min-width: 30px; padding: 4px 10px; 
             display: flex; justify-content: center; align-items: center; 
             font-weight: 900; font-size: 1rem; border-radius: 4px; 
+            box-sizing: border-box;
         }
         .song-num:empty { display: none; }
         .song-info { display: flex; flex-direction: column; gap: 6px; flex: 1; }
-        @media (min-width: 600px) {
-            .song-info { flex-direction: row; align-items: center; }
+        @media (min-width: 700px) {
+            .song-info { display: contents; }
         }
         .song-name { font-size: 1.1rem; font-weight: 900; color: #111; display: inline-block; }
         .song-name-small { font-size: 0.95rem; }
         .song-info > :nth-child(2) { 
             color: var(--primary-color); font-size: 1rem; font-weight: bold;
         }
-        @media (min-width: 600px) {
-            .song-info > :nth-child(2) { border-left: 3px solid var(--primary-color); padding-left: 10px; margin-left: 5px; min-width: 100px; }
+        @media (min-width: 700px) {
+            .song-info > :nth-child(2) { border-left: 3px solid var(--primary-color); padding-left: 15px; }
         }
         .song-info > :nth-child(3) { 
             color: #444; font-size: 1rem; line-height: 1.5; white-space: pre-wrap;
             background: #f9f9f9; padding: 10px; border-radius: 6px; margin-top: 5px;
         }
-        @media (min-width: 600px) {
-            .song-info > :nth-child(3) { background: none; padding: 0; padding-left: 10px; border-left: 3px solid #ccc; border-radius: 0; margin-top: 0; flex: 1; }
+        @media (min-width: 700px) {
+            .song-info > :nth-child(3) { background: none; padding: 0; padding-left: 15px; border-left: 3px solid #ccc; border-radius: 0; margin-top: 0; }
         }
 
         .bottom-boxes { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; width: 100%; }
