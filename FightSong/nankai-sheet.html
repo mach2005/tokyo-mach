@@ -60,7 +60,7 @@
         .song-list { display: flex; flex-direction: column; gap: 10px; width: 100%; }
         .category-header { 
             background-color: var(--category-bg); color: var(--category-text); 
-            padding: 8px 12px; font-weight: 900; font-size: 1.1rem; 
+            padding: 8px 12px; font-weight: 900; font-size: 1.3rem; 
             margin-top: 15px; margin-bottom: 5px; 
             border-radius: 5px; display: inline-block; width: fit-content;
         }
@@ -72,7 +72,7 @@
         @media (min-width: 700px) {
             .song-item { 
                 display: grid; 
-                grid-template-columns: 45px 130px 160px 1fr; 
+                grid-template-columns: 50px 145px 175px 1fr; 
                 align-items: center; 
                 gap: 15px; 
             }
@@ -81,7 +81,7 @@
             background-color: var(--primary-color); color: rgb(255, 255, 255); 
             width: fit-content; min-width: 30px; padding: 4px 10px; 
             display: flex; justify-content: center; align-items: center; 
-            font-weight: 900; font-size: 1rem; border-radius: 4px; 
+            font-weight: 900; font-size: 1.2rem; border-radius: 4px; 
             box-sizing: border-box;
         }
         .song-num:empty { display: none; }
@@ -89,16 +89,16 @@
         @media (min-width: 700px) {
             .song-info { display: contents; }
         }
-        .song-name { font-size: 1.1rem; font-weight: 900; color: #111; display: inline-block; }
-        .song-name-small { font-size: 0.95rem; }
+        .song-name { font-size: 1.3rem; font-weight: 900; color: #111; display: inline-block; }
+        .song-name-small { font-size: 1.1rem; }
         .song-info > :nth-child(2) { 
-            color: var(--primary-color); font-size: 1rem; font-weight: bold;
+            color: var(--primary-color); font-size: 1.15rem; font-weight: bold;
         }
         @media (min-width: 700px) {
             .song-info > :nth-child(2) { border-left: 3px solid var(--primary-color); padding-left: 15px; }
         }
         .song-info > :nth-child(3) { 
-            color: #444; font-size: 1rem; line-height: 1.5; white-space: pre-wrap;
+            color: #111; font-size: 1.15rem; line-height: 1.6; white-space: pre-wrap;
             background: #f9f9f9; padding: 10px; border-radius: 6px; margin-top: 5px;
         }
         @media (min-width: 700px) {
