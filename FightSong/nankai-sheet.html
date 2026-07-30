@@ -146,22 +146,22 @@
             border-radius: 10px; padding: 20px; display: flex; flex-direction: column; 
             justify-content: center; align-items: center; gap: 15px; 
             box-shadow: rgba(0, 0, 0, 0.1) 0px 5px 15px; text-align: center; height: 100%; box-sizing: border-box;
+            text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer;
         }
-        .recruit-main { flex: 1; text-align: center; }
+        .recruitment-box:hover { transform: translateY(-2px); box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 20px; }
+        .recruit-main { flex: 1; text-align: center; display: flex; flex-direction: column; justify-content: center; }
         .recruit-title { 
             font-size: 1.3rem; font-weight: 900; color: rgb(255, 255, 255); 
             border-bottom: 2px solid rgb(255, 255, 255); display: inline-block; 
-            margin-bottom: 10px; padding-bottom: 5px; 
+            margin-bottom: 10px; padding-bottom: 5px; align-self: center;
         }
         .recruit-msg { font-size: 1rem; line-height: 1.6; color: rgb(255, 255, 255); font-weight: 700; }
-        .recruit-link { 
-            background-color: rgb(255, 255, 255); color: var(--primary-color); 
-            width: 100%; max-width: 250px; padding: 12px; border-radius: 8px; 
-            text-decoration: none; font-weight: 900; font-size: 1.1rem; 
-            display: flex; align-items: center; justify-content: center; text-align: center; 
-            box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 10px; transition: 0.2s; 
+        .recruit-link-text { 
+            color: rgb(255, 255, 255); 
+            font-weight: 900; font-size: 1.1rem; 
+            margin-top: 5px; text-decoration: underline; text-underline-offset: 4px;
         }
-        .recruit-link:hover { transform: translateY(-2px); box-shadow: rgba(0, 0, 0, 0.4) 0px 6px 15px; }
+        .recruit-link-text i { margin-left: 5px; }
     </style>
 </head>
 <body>
@@ -399,7 +399,7 @@
                 </div>
                 <div>
                     <!-- 募集ボックス -->
-                    <div class="recruitment-box">
+                    <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruitment-box">
                         <div class="recruit-main">
                             <div class="recruit-title">東京真隼応援団員大募集！</div>
                             <div class="recruit-msg">
@@ -407,8 +407,8 @@
                                 未経験者、老若男女問わず大歓迎！
                             </div>
                         </div>
-                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">興味がある方は<br>こちらを<br>クリック</a>
-                    </div>
+                        <div class="recruit-link-text">興味がある方はこちらをクリック <i class="fa-solid fa-chevron-right"></i></div>
+                    </a>
                 </div>
             </div>
         </div>
