@@ -335,8 +335,60 @@ header .header-right { display: flex; align-items: center; gap: 2mm; }
     </div>
     </div>
     <div class="zoom-controls">
-        <div class="zoom-btn" id="zoomBtn">🔎</div>
-    </div>
-    
-
+        <div class="zoom-btn" id="zoomBtn" onclick="toggleZoom()">🔎</div>
+    </div>    <script>
+        let isZoomed = false;
+        function scaleSheet() {
+            const sheet = document.getElementById('ouenkaSheet');
+            if (!sheet) return;
+            if (window.matchMedia('print').matches) { 
+                sheet.style.transform = 'none'; 
+                sheet.style.margin = '0';
+                return; 
+            }
+            
+            sheet.style.flexShrink = '0';
+            
+            const baseWidthMm = 210; 
+            const baseHeightMm = 297;
+            const mmToPx = 3.78; 
+            const sheetW = baseWidthMm * mmToPx; 
+            const sheetH = baseHeightMm * mmToPx;
+            
+            const padding = 20; 
+            const availableW = window.innerWidth - padding; 
+            const availableH = window.innerHeight - padding;
+            
+            let scale;
+            if (isZoomed) {
+                scale = Math.max(1.0, (window.innerWidth - 10) / sheetW); 
+                if (scale > 1.2) scale = 1.2;
+            } else { 
+                const scaleW = availableW / sheetW; 
+                const scaleH = availableH / sheetH; 
+                scale = Math.min(scaleW, scaleH); 
+                if (scale > 1) scale = 1; 
+            }
+            
+            sheet.style.transform = `scale(${scale})`;
+            sheet.style.transformOrigin = 'center top';
+            
+            const heightDiff = sheetH * (1 - scale);
+            const widthDiff = sheetW * (1 - scale);
+            
+            sheet.style.marginBottom = `-${heightDiff}px`;
+            sheet.style.marginLeft = `-${widthDiff / 2}px`;
+            sheet.style.marginRight = `-${widthDiff / 2}px`;
+        }
+        function toggleZoom() { 
+            isZoomed = !isZoomed; 
+            const btn = document.getElementById('zoomBtn'); 
+            btn.innerText = isZoomed ? "全" : "🔎"; 
+            scaleSheet(); 
+            if (isZoomed) window.scrollTo(0, 0); 
+        }
+        window.addEventListener('resize', scaleSheet);
+        window.addEventListener('load', scaleSheet);
+        setTimeout(scaleSheet, 10);
+    </script>
 </body></html>
