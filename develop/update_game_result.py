@@ -84,7 +84,7 @@ def parse_month_results(html, force_year="2026", force_month=None):
                 "hawks_score": hawks_s,
                 "opp_score": opp_s,
                 "opp_name": opp_name,
-                "opp_logo": f"https://npb.jp/img/common/logo/2026/logo_{get_team_code(opp_id)}_s.gif",
+                "opp_logo": f"https://npb.jp/img/common/logo/2026/logo_{get_team_code(opp_id, opp_name)}_s.gif",
                 "opp_id": opp_id,
                 "symbol": symbol,
                 "is_visitor": not is_home,
@@ -117,8 +117,13 @@ def fetch_all_results():
     
     return all_results
 
-def get_team_code(tid):
-    # Mapping for p.npb.jp/img/common/logo/2026/logo_{code}_l.png
+def get_team_code(tid, tname=""):
+    name_to_code = {
+        "巨人": "g", "DeNA": "db", "阪神": "t", "広島": "c", "中日": "d", "ヤクルト": "s",
+        "西武": "l", "ロッテ": "m", "ソフトバンク": "h", "オリックス": "b", "楽天": "e", "日本ハム": "f"
+    }
+    if tname in name_to_code:
+        return name_to_code[tname]
     codes = {"1":"g", "2":"db", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"b", "12":"e", "376":"f"}
     return codes.get(tid, "h")
 
@@ -219,8 +224,7 @@ def update_top_page(latest, visitor):
         h_logo = "https://p.npb.jp/img/common/logo/2026/logo_h_l.png"
         
         # Get team code for opp_logo
-        codes = {"1":"g", "2":"db", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"b", "12":"e", "376":"f"}
-        opp_logo = f"https://p.npb.jp/img/common/logo/2026/logo_{codes.get(latest['opp_id'], 'h')}_l.png"
+        opp_logo = f"https://p.npb.jp/img/common/logo/2026/logo_{get_team_code(latest['opp_id'], latest['opp_name'])}_l.png"
 
         import re
         latest['month'] = latest['month']
