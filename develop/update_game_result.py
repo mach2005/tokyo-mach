@@ -137,75 +137,71 @@ def update_schedule_all(all_results):
         
         updated_count = 0
         for game in all_results:
-            month = game['month']
-            day = game['day']
+            month = int(game['month'])
+            day = int(game['day'])
             if game.get('is_cancelled'):
                 res_text = "中止"
             else:
                 res_text = f"{game['symbol']} {game['hawks_score']}-{game['opp_score']}"
             
-            # 1. monthブロックを探す
-            month_start_idx = sc_content.find(f"id='month-{month}'")
-            if month_start_idx == -1:
-                month_start_idx = sc_content.find(f'id="month-{month}"')
-            if month_start_idx == -1:
-                continue
-                
-            month_end_idx = sc_content.find("id='month-", month_start_idx + 10)
-            if month_end_idx == -1:
-                month_end_idx = sc_content.find('id="month-', month_start_idx + 10)
-            if month_end_idx == -1:
-                month_end_idx = len(sc_content)
-                
-            month_html = sc_content[month_start_idx:month_end_idx]
-            
-            # 2. その月の該当する日の cal-day ブロックを探す
-            cal_days = re.finditer(r"<div class='cal-day([^']*)'>(.*?)</div>", month_html, re.DOTALL)
-            
-            new_month_html = month_html
-            for match in cal_days:
-                day_attrs = match.group(1)
-                day_content = match.group(2)
-                
-                # day-num をチェック
-                day_num_match = re.search(r"<span class='day-num([^']*)'>(.*?)</span>", day_content)
-                if not day_num_match:
+            # Check the current month block, the previous month block, and the next month block
+            for t_month in [month - 1, month, month + 1]:
+                t_month_str = str(t_month)
+                month_start_idx = sc_content.find(f"id='month-{t_month_str}'")
+                if month_start_idx == -1:
+                    month_start_idx = sc_content.find(f'id="month-{t_month_str}"')
+                if month_start_idx == -1:
                     continue
                     
-                classes = day_num_match.group(1)
-                day_text = day_num_match.group(2)
-                
-                # out-of-month がなく、該当する日付の場合
-                if day_text == str(day) and "out-of-month" not in classes:
-                    if "game-info" in day_content:
-                        # 既存の試合結果を上書き
-                        time_match = re.search(r"(<span class='game-time'>)(.*?)(</span>)", day_content)
-                        if time_match:
-                            old_val = time_match.group(2)
-                            # 時間の形式または異なる結果の場合更新
-                            if re.match(r'^\d+:\d+$', old_val.strip()) or old_val.strip() != res_text:
-                                new_day_content = day_content[:time_match.start(2)] + res_text + day_content[time_match.end(2):]
-                                new_month_html = new_month_html.replace(match.group(0), f"<div class='cal-day{day_attrs}'>{new_day_content}</div>")
-                                updated_count += 1
-                    else:
-                        # 試合情報がない（振替試合等）場合は追加
-                        is_visitor = game['is_visitor']
-                        game_class = "visitor-game" if is_visitor else "home-game"
-                        day_class = " visitor-day" if is_visitor else " home-day"
-                        
-                        new_day_attrs = day_attrs
-                        if "visitor-day" not in new_day_attrs and "home-day" not in new_day_attrs:
-                            new_day_attrs += day_class
-                            
-                        new_game_info = f"<div class='game-info {game_class}'><span class='game-opponent'><img src='{game['opp_logo']}' alt='{game['opp_name']}' class='team-logo-img'> {game['opp_name']}</span><span class='game-venue'>{game['venue']}</span><span class='game-time'>{res_text}</span></div>"
-                        new_day_content = day_content + new_game_info
-                        
-                        new_month_html = new_month_html.replace(match.group(0), f"<div class='cal-day{new_day_attrs}'>{new_day_content}</div>")
-                        updated_count += 1
-                    break # 見つけたら次の試合へ
+                month_end_idx = sc_content.find("id='month-", month_start_idx + 10)
+                if month_end_idx == -1:
+                    month_end_idx = sc_content.find('id="month-', month_start_idx + 10)
+                if month_end_idx == -1:
+                    month_end_idx = len(sc_content)
                     
-            sc_content = sc_content[:month_start_idx] + new_month_html + sc_content[month_end_idx:]
-            
+                month_html = sc_content[month_start_idx:month_end_idx]
+                
+                cal_days = re.finditer(r"<div class='cal-day([^']*)'>(.*?)</div>", month_html, re.DOTALL)
+                
+                new_month_html = month_html
+                for match_cal in cal_days:
+                    day_attrs = match_cal.group(1)
+                    day_content = match_cal.group(2)
+                    
+                    day_num_match = re.search(r"<span class='day-num([^']*)'>(.*?)</span>", day_content)
+                    if not day_num_match:
+                        continue
+                        
+                    classes = day_num_match.group(1)
+                    day_text = day_num_match.group(2)
+                    
+                    try:
+                        d_val = int(day_text)
+                    except ValueError:
+                        continue
+                    
+                    is_match = False
+                    if t_month == month and d_val == day and "out-of-month" not in classes:
+                        is_match = True
+                    elif t_month == month - 1 and d_val == day and "out-of-month" in classes and d_val < 15:
+                        is_match = True
+                    elif t_month == month + 1 and d_val == day and "out-of-month" in classes and d_val > 15:
+                        is_match = True
+                    
+                    if is_match:
+                        if "game-info" in day_content:
+                            new_day_content = re.sub(
+                                r"(<span class='game-time'>).*?(</span>)", 
+                                f"\g<1>{res_text}\g<2>", 
+                                day_content
+                            )
+                            if new_day_content != day_content:
+                                new_month_html = new_month_html.replace(match_cal.group(0), f"<div class='cal-day{day_attrs}'>{new_day_content}</div>")
+                                updated_count += 1
+                        break # Found the cell for this month block, move to next t_month
+                        
+                sc_content = sc_content[:month_start_idx] + new_month_html + sc_content[month_end_idx:]
+                
         if updated_count > 0:
             with open(path, 'w', encoding='utf-8') as f:
                 f.write(sc_content)

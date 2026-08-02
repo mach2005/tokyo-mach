@@ -263,8 +263,8 @@ schedule_content = r'''
         <div class='cal-day other-day'><span class='day-num'>29</span><div class='game-info other-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_cl_s.gif' alt='セ・リーグ' class='team-logo-img'> <span class='team-name'>セントラル</span></span><span class='game-venue'>富山市民球場</span><span class='game-time'>18:30</span></div></div>
         <div class='cal-day'><span class='day-num'>30</span></div>
         <div class='cal-day visitor-day'><span class='day-num'>31</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>中止</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num sat out-of-month'>1</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>18:00</span></div></div>
-        <div class='cal-day visitor-day'><span class='day-num sun out-of-month'>2</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>16:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sat out-of-month'>1</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>○ 5-0</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num sun out-of-month'>2</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>○ 10-6</span></div></div>
       </div>
     </div>
     <div class='calendar-wrapper' id='month-8'>
@@ -275,7 +275,7 @@ schedule_content = r'''
         <div class='cal-day'><span class='day-num out-of-month'>28</span></div>
         <div class='cal-day'><span class='day-num out-of-month'>29</span></div>
         <div class='cal-day'><span class='day-num out-of-month'>30</span></div>
-        <div class='cal-day visitor-day'><span class='day-num out-of-month'>31</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>18:00</span></div></div>
+        <div class='cal-day visitor-day'><span class='day-num out-of-month'>31</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>中止</span></div></div>
         <div class='cal-day visitor-day'><span class='day-num sat'>1</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>○ 5-0</span></div></div>
         <div class='cal-day visitor-day'><span class='day-num sun'>2</span><div class='game-info visitor-game'><span class='game-opponent'><img src='https://npb.jp/img/common/logo/2026/logo_e_s.gif' alt='楽天' class='team-logo-img'> 楽天</span><span class='game-venue'>楽天モバイル</span><span class='game-time'>○ 10-6</span></div></div>
         <div class='cal-day'><span class='day-num'>3</span></div>
