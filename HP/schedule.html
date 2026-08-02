@@ -513,6 +513,14 @@ document.getElementById('scheduleSlider').addEventListener('scroll', () => {
 
 // Initial Scroll (Optional: Current Month)
 window.addEventListener('load', () => {
+  const hash = window.location.hash;
+  if (hash && hash.startsWith('#month-')) {
+    const targetMonth = hash.replace('#month-', '');
+    document.querySelectorAll('.schedule-month-btn').forEach(b => b.classList.remove('active'));
+    const targetBtn = document.querySelector(`.schedule-month-btn[data-month="${targetMonth}"]`);
+    if (targetBtn) targetBtn.classList.add('active');
+  }
+
   const activeBtn = document.querySelector('.schedule-month-btn.active');
   if (activeBtn) {
     const slider = document.getElementById('scheduleSlider');
