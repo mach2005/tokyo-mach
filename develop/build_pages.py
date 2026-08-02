@@ -501,11 +501,18 @@ document.getElementById('scheduleSlider').addEventListener('scroll', () => {
 // Initial Scroll (Optional: Current Month)
 window.addEventListener('load', () => {
   const hash = window.location.hash;
+  let targetMonth = null;
+
   if (hash && hash.startsWith('#month-')) {
-    const targetMonth = hash.replace('#month-', '');
+    targetMonth = hash.replace('#month-', '');
+  } else {
+    targetMonth = (new Date().getMonth() + 1).toString();
+  }
+
+  const targetBtn = document.querySelector(`.schedule-month-btn[data-month="${targetMonth}"]`);
+  if (targetBtn) {
     document.querySelectorAll('.schedule-month-btn').forEach(b => b.classList.remove('active'));
-    const targetBtn = document.querySelector(`.schedule-month-btn[data-month="${targetMonth}"]`);
-    if (targetBtn) targetBtn.classList.add('active');
+    targetBtn.classList.add('active');
   }
 
   const activeBtn = document.querySelector('.schedule-month-btn.active');
