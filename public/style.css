@@ -148,6 +148,7 @@ a:hover {
 /* Hero Section Latest Result Card */
 .latest-result-container {
     margin-top: 40px;
+    margin-bottom: 35px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -162,7 +163,8 @@ a:hover {
     border-radius: 20px;
     padding: 28px 32px;
     width: 100%;
-    max-width: 520px;
+    max-width: 760px;
+    box-sizing: border-box;
     box-shadow: 0 12px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08);
     animation: fadeIn 1s ease-out;
     color: #fff;
@@ -245,32 +247,97 @@ a:hover {
 
 /* Visitor Section */
 .visitor-result-mini {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 10px 20px;
+    background: linear-gradient(135deg, rgba(20,20,20,0.7) 0%, rgba(40,40,40,0.7) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 204, 0, 0.4);
+    padding: 12px 25px;
     border-radius: 50px;
-    font-size: 0.85rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    display: inline-flex;
+    display: flex;
+    width: 100%;
+    max-width: 760px;
+    box-sizing: border-box;
+    justify-content: space-between;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
     transition: all 0.3s ease;
-    color: rgba(255, 255, 255, 0.9);
+    color: #fff;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    white-space: nowrap;
 }
 
 .visitor-result-mini:hover {
-    background: rgba(255, 255, 255, 0.14);
-    transform: scale(1.02);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 204, 0, 0.15);
+    border-color: rgba(255, 204, 0, 0.8);
 }
 
 .visitor-label {
-    background: var(--hawks-yellow);
-    color: var(--hawks-black);
-    padding: 3px 10px;
-    border-radius: 4px;
-    font-size: 0.65rem;
+    background: var(--gold);
+    color: #111;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
     font-weight: 900;
     letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(255,204,0,0.3);
+}
+
+.visitor-info-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    padding-right: 20px;
+}
+
+.visitor-date {
+    color: var(--gold);
+    font-size: 1.15rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.visitor-opponent {
+    font-size: 1.15rem;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 1px;
+}
+
+.vs-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ddd;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.visitor-venue {
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: #eee;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+a.visitor-venue:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 @keyframes fadeIn {
@@ -284,7 +351,8 @@ a:hover {
     .team-box { width: 80px; }
     .team-logo-large { width: 44px; height: 44px; }
     .team-name-short { font-size: 0.78rem; }
-    .visitor-result-mini { font-size: 0.78rem; gap: 6px; padding: 8px 14px; }
+    .visitor-result-mini { font-size: 0.9rem; gap: 12px; padding: 12px 18px; flex-direction: column; border-radius: 20px; }
+    .visitor-info-group { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-right: 0; padding-bottom: 12px; flex-direction: column; gap: 8px; }
 }
 
 
@@ -411,7 +479,7 @@ a:hover {
 .schedule-nav-outer {
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 .schedule-nav {
   display: flex !important;
@@ -474,8 +542,19 @@ a:hover {
   box-sizing: border-box;
 }
 
-.schedule-legend { text-align: center; margin-bottom: 20px; color: #555; font-size: 0.9rem; font-weight: bold;}
-.legend-item { display: inline-flex; align-items: center; margin: 0 10px; }
+.schedule-legend { 
+  position: absolute; 
+  right: 110px; 
+  top: 32px; 
+  z-index: 20; 
+  margin: 0; 
+  display: flex; 
+  gap: 15px; 
+  color: #555; 
+  font-size: 0.85rem; 
+  font-weight: bold;
+}
+.legend-item { display: inline-flex; align-items: center; margin: 0; }
 .legend-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 5px; display: inline-block; border: 1px solid #ccc; }
 .legend-dot.visitor { background: #ffebd6; border-color: #ff9900; }
 .legend-dot.home { background: #f4f4f4; border-color: #888; }
@@ -565,6 +644,8 @@ a:hover {
 .day-num.sat { color: var(--sat-color); }
 .day-num.sun { color: var(--sun-color); }
 .day-num.out-of-month { color: #aaa; }
+.cal-day:has(.out-of-month) { background: #fafafa; }
+.cal-day:has(.out-of-month) .game-info { opacity: 0.65; filter: grayscale(65%); }
 
 .game-info {
   border-radius: 4px; padding: 6px; font-size: 0.75rem; 
@@ -704,6 +785,7 @@ a:hover {
 .footer-sns-icons a:hover { background: var(--gold); color: #111; }
 
 @media (max-width: 768px) {
+  .schedule-legend { position: static; justify-content: center; padding-top: 50px; margin-bottom: 10px; font-size: 0.75rem; }
   .hamburger { display: flex; }
   .grid-2, .grid-3, .footer-top, .footer-links-grid, .about-grid, .recruit-content, .links-grid, .sns-grid, .gallery-grid, .new-songs-grid { grid-template-columns: 1fr; gap: 20px; }
   .nav-links {
@@ -764,6 +846,12 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  flex-grow: 1;
+}
+
+.x-static-feed-container {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
 }
 
@@ -969,7 +1057,10 @@ a:hover {
 }
 
 /* SNS Follow Buttons */
-
+.sns-btn-wrapper {
+  margin-top: 24px;
+  text-align: center;
+}
 
 /* SNS Follow Buttons */
 .sns-btn {

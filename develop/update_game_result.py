@@ -217,16 +217,35 @@ def update_top_page(latest, visitor):
         with open(INDEX_PATH, 'r', encoding='utf-8') as f: content = f.read()
         
         h_logo = "https://p.npb.jp/img/common/logo/2026/logo_h_l.png"
-        opp_logo = f"https://p.npb.jp/img/common/logo/2026/logo_{get_team_code(latest['opp_id'])}_l.png"
+        
+        # Get team code for opp_logo
+        codes = {"1":"g", "2":"db", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"b", "12":"e", "376":"f"}
+        opp_logo = f"https://p.npb.jp/img/common/logo/2026/logo_{codes.get(latest['opp_id'], 'h')}_l.png"
 
-        new_card_html = f'''<div class="latest-result-card" style="position: relative;">
+        import re
+        latest['month'] = latest['month']
+        visitor['month'] = visitor['month']
+        
+        venue_map = {
+            '楽天モバイル': '楽天モバイルパーク宮城',
+            'ベルーナドーム': 'ベルーナドーム',
+            'ZOZOマリン': 'ZOZOマリンスタジアム',
+            '京セラD大阪': '京セラドーム大阪',
+            'エスコンF': 'エスコンフィールドHOKKAIDO',
+            'みずほPayPay': 'みずほPayPayドーム福岡',
+            '東京ドーム': '東京ドーム'
+        }
+        latest['venue_full'] = venue_map.get(latest['venue'], latest['venue'])
+        visitor['venue_full'] = venue_map.get(visitor['venue'], visitor['venue'])
+        
+        new_card_html = f'''        <div class="latest-result-card" style="position: relative;">
           <div class="result-card-header">
-            <span class="result-date">{latest["date_str"]}</span>
-            <span class="result-venue">{latest["venue"]}</span>
+            <a href="./schedule.html#month-{latest['month']}" class="result-date" style="color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.4); text-underline-offset: 4px; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"><i class="far fa-calendar-alt"></i> {latest["date_str"]}</a>
+            <a href="https://www.google.com/maps/search/?api=1&query={latest['venue_full']}" target="_blank" rel="noopener" class="result-venue" style="color: inherit; text-decoration: none; transition: opacity 0.2s;" onmouseover="this.style.opacity=0.8" onmouseout="this.style.opacity=1"><i class="fas fa-map-marker-alt"></i> {latest["venue"]}</a>
           </div>
           <div class="score-main">
             <div class="team-box">
-              <img src="{h_logo}" alt="ソフトバンク" class="team-logo-large">
+              <img src="https://p.npb.jp/img/common/logo/2026/logo_h_l.png" alt="ソフトバンク" class="team-logo-large">
               <span class="team-name-short">ソフトバンク</span>
             </div>
             <div class="score-numbers-large">
@@ -241,18 +260,20 @@ def update_top_page(latest, visitor):
           </div>
         </div>
         <!-- Latest Visitor Result Highlight -->
-        <div class="visitor-result-mini">
+        <div class="visitor-result-mini" onclick="window.location.href='./schedule.html#month-{visitor['month']}'" style="cursor: pointer;">
           <span class="visitor-label">LATEST VISITOR</span>
-          <span class="visitor-date">{visitor["short_date"]}</span>
-          <span class="visitor-score">{visitor["hawks_score"]}-{visitor["opp_score"]} vs {visitor["opp_name"]}</span>
-          <span class="visitor-venue">@{visitor["venue"]}</span>
+          <span class="visitor-info-group">
+            <span class="visitor-date"><i class="far fa-calendar-alt"></i> {visitor["short_date"]}</span>
+            <span class="visitor-opponent"><span class="vs-badge">{visitor["hawks_score"]}-{visitor["opp_score"]}</span> vs {visitor["opp_name"]}</span>
+          </span>
+          <a href="https://www.google.com/maps/search/?api=1&query={visitor['venue_full']}" target="_blank" rel="noopener" class="visitor-venue" onclick="event.stopPropagation()"><i class="fas fa-map-marker-alt"></i> @{visitor["venue"]}</a>
         </div>'''
         
         pattern = r'<!-- GAME_RESULT_START -->.*?<!-- GAME_RESULT_END -->'
         replacement = f'<!-- GAME_RESULT_START -->\n        {new_card_html}\n        <!-- GAME_RESULT_END -->'
         
-        new_content = re.sub(pattern, replacement, content, flags=re.DOTALL)
-        with open(INDEX_PATH, 'w', encoding='utf-8') as f: f.write(new_content)
+        content = re.sub(pattern, replacement, content, flags=re.DOTALL)
+        with open(INDEX_PATH, 'w', encoding='utf-8') as f: f.write(content)
         print("Updated Index with Rich Card")
 
     # 1b. Update Portal (Simple Badge)
