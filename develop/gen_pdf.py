@@ -17,4 +17,5 @@ def generate_pdf(html_path, pdf_path):
 if __name__ == '__main__':
     generate_pdf('c:/Users/user/Antigravity/東京真隼/FightSong/digital-sheet.html', 'c:/Users/user/Antigravity/東京真隼/FightSong/ouenka_2026_v2.pdf')
     generate_pdf('c:/Users/user/Antigravity/東京真隼/FightSong/print_ouenka_2026.html', 'c:/Users/user/Antigravity/東京真隼/FightSong/print_ouenka_2026.pdf')
+    generate_pdf('c:/Users/user/Antigravity/東京真隼/FightSong/print_nankai_sheet.html', 'c:/Users/user/Antigravity/東京真隼/FightSong/nankai_ouenka_2026.pdf')
     print("Done")
