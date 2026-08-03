@@ -21,15 +21,15 @@ header .header-right { display: flex; align-items: center; gap: 2mm; }
 .x-link i { color: rgb(255, 255, 255); }
 .header-apply-btn { background: rgb(255, 255, 255); color: var(--primary-color); border-radius: 2mm; text-decoration: none; font-weight: 900; font-size: 11pt; padding: 1.5mm 4mm; }
 .song-list { display: flex; flex-direction: column; justify-content: space-between; gap: 0px; }
-.category-header { background-color: var(--category-bg); color: var(--category-text); padding: 0.5mm 3mm; font-weight: 900; font-size: 10.5pt; margin-top: 2mm; margin-bottom: 1.5mm; border-radius: 1mm; display: inline-block; }
-.song-item { display: grid; grid-template-columns: 8mm 25mm 43mm 1fr; align-items: center; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 2.3mm; gap: 1.5mm; }
-.song-num { background-color: var(--primary-color); color: rgb(255, 255, 255); width: fit-content; min-width: 6mm; padding: 0px; height: 5mm; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 9pt; border-radius: 0.8mm; }
+.category-header { background-color: var(--category-bg); color: var(--category-text); padding: 0.5mm 3mm; font-weight: 900; font-size: 11pt; margin-top: 2.5mm; margin-bottom: 2mm; border-radius: 1mm; display: inline-block; }
+.song-item { display: grid; grid-template-columns: 8mm 25mm 43mm 1fr; align-items: center; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 3mm; gap: 1.5mm; }
+.song-num { background-color: var(--primary-color); color: rgb(255, 255, 255); width: fit-content; min-width: 6mm; padding: 0px; height: 5mm; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 9.5pt; border-radius: 0.8mm; }
 .song-num:empty { background-color: transparent; }
 .song-num.generic { display: none; }
 .song-name.generic { display: none; }
 .song-info { display: contents; }
-.song-name { font-size: 10.5pt; font-weight: 900; white-space: nowrap; }
-.song-lyrics { font-size: 10pt; line-height: 1.15; color: rgb(0, 0, 0); letter-spacing: -0.3px; }
+.song-name { font-size: 11pt; font-weight: 900; white-space: nowrap; }
+.song-lyrics { font-size: 10.5pt; line-height: 1.15; color: rgb(0, 0, 0); letter-spacing: -0.3px; }
 .song-info > :nth-child(2) { border-left: 1px solid rgb(204, 204, 204); padding-left: 2mm; color: var(--primary-color); text-align: left !important; justify-self: start; width: 100%; display: block; }
 .song-info > :nth-child(3) { border-left: 1px solid rgb(204, 204, 204); padding-left: 4mm; }
 .chance-theme-container { margin-top: 1.2mm; position: relative; }
@@ -55,7 +55,7 @@ header .header-right { display: flex; align-items: center; gap: 2mm; }
 .sns-tile.web-container { background: none; padding: 0px; display: flex; flex-direction: column; gap: 1.5mm; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; }
 .sns-sub-tile { flex: 1 1 0%; width: 100%; border-radius: 1mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; transition: 0.2s; padding: 0.8mm; box-sizing: border-box; background-color: rgb(230, 243, 235); color: rgb(0, 0, 0); border: 1px solid rgb(0, 112, 60); }
 .sns-sub-tile:hover { transform: translateY(-0.3mm); box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5mm 1mm; filter: brightness(1.1); }
-.sns-sub-tile i { font-size: 9pt; margin-bottom: 0.1mm; }
+.sns-sub-tile i { font-size: 9.5pt; margin-bottom: 0.1mm; }
 .sns-sub-tile .sns-label { font-size: 7.5pt; }
 .sns-tile i { font-size: 11pt; margin-bottom: 0.2mm; }
 .sns-label { font-size: 8.5pt; font-weight: 700; line-height: 1.1; text-align: center; }
@@ -63,7 +63,7 @@ header .header-right { display: flex; align-items: center; gap: 2mm; }
 .recruitment-box { grid-area: 2 / 4; background-color: #ffcc00; border: 2px solid #111; border-radius: 2mm; padding: 1.5mm; display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 1.5mm; box-sizing: border-box; height: calc(100% - 4px); box-shadow: rgba(0, 0, 0, 0.1) 0px 1mm 3mm; }
 .recruit-main { flex: 1 1 0%; text-align: left; }
 .recruit-title { font-size: 11pt; font-weight: 900; color: #111; border-bottom: 2px solid #111; display: inline-block; margin-bottom: 0.5mm; padding-bottom: 0.2mm; }
-.recruit-msg { font-size: 10pt; line-height: 1.3; color: #111; font-weight: 700; }
+.recruit-msg { font-size: 10.5pt; line-height: 1.3; color: #111; font-weight: 700; }
 .recruit-link { background-color: #111; color: #ffcc00; flex: 0 0 33%; height: 100%; border-radius: 1.5mm; text-decoration: none; font-weight: 900; font-size: 11pt; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.1; box-shadow: rgba(0, 0, 0, 0.3) 0px 1mm 2mm; white-space: nowrap; transition: 0.2s; }
 .recruit-link:hover { transform: translateY(-0.5mm); box-shadow: rgba(0, 0, 0, 0.4) 0px 2mm 4mm; filter: brightness(1.2); }
 .zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
