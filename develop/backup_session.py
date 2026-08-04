@@ -20,7 +20,7 @@ def main():
         os.path.join(DIR, '../HP/songs.html'),
         os.path.join(DIR, '../HP/gallery.html'),
         os.path.join(DIR, '../HP/faq.html'),
-        os.path.join(DIR, '../portal/index.html'),
+        os.path.join(DIR, '../members/index.html'),
     ]
     
     for target in targets:

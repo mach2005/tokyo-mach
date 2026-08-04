@@ -8,7 +8,7 @@ from datetime import datetime
 TEAM_URL = "https://baseball.yahoo.co.jp/npb/teams/12/"
 WEEKDAYS_JP = ['月', '火', '水', '木', '金', '土', '日']
 INDEX_PATH = os.path.join(os.path.dirname(__file__), "../official/index.html")
-PORTAL_PATH = os.path.join(os.path.dirname(__file__), "../portal/index.html")
+PORTAL_PATH = os.path.join(os.path.dirname(__file__), "../members/index.html")
 SCHEDULE_PATH = os.path.join(os.path.dirname(__file__), "../official/schedule.html")
 BUILD_PAGES_PATH = os.path.join(os.path.dirname(__file__), "build_pages.py")
 
