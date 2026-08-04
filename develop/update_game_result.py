@@ -7,9 +7,9 @@ from datetime import datetime
 # Settings
 TEAM_URL = "https://baseball.yahoo.co.jp/npb/teams/12/"
 WEEKDAYS_JP = ['月', '火', '水', '木', '金', '土', '日']
-INDEX_PATH = os.path.join(os.path.dirname(__file__), "../HP/index.html")
+INDEX_PATH = os.path.join(os.path.dirname(__file__), "../official/index.html")
 PORTAL_PATH = os.path.join(os.path.dirname(__file__), "../portal/index.html")
-SCHEDULE_PATH = os.path.join(os.path.dirname(__file__), "../HP/schedule.html")
+SCHEDULE_PATH = os.path.join(os.path.dirname(__file__), "../official/schedule.html")
 BUILD_PAGES_PATH = os.path.join(os.path.dirname(__file__), "build_pages.py")
 
 def fetch_html(url=None):

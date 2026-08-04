@@ -12,7 +12,7 @@ NITTER_INSTANCES = [
     "https://nitter.privacydev.net",
     "https://nitter.cz"
 ]
-INDEX_PATH = os.path.join(os.path.dirname(__file__), "../HP/index.html")
+INDEX_PATH = os.path.join(os.path.dirname(__file__), "../official/index.html")
 PROFILE_IMG = "https://pbs.twimg.com/profile_images/1907352748280221696/7BPbU0fT_400x400.jpg"
 
 def fetch_rss():

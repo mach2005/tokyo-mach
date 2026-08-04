@@ -5,7 +5,7 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(DIR)
 import backup_util
 
-with open(os.path.join(DIR, '../HP/index.html'), 'r', encoding='utf-8') as f:
+with open(os.path.join(DIR, '../official/index.html'), 'r', encoding='utf-8') as f:
     index = f.read()
 
 header_end = index.find('<!-- Hero Section -->')
@@ -17,11 +17,11 @@ def make_page(filename, title, content):
     h = header.replace('<title>東京真隼 TOKYO MACH - ホークス私設応援団</title>',
                         f'<title>{title} - 東京真隼 TOKYO MACH</title>')
     full = h + content + '\n' + footer
-    path = os.path.join(DIR, '../HP/', filename)
+    path = os.path.join(DIR, '../official/', filename)
     with open(path, 'w', encoding='utf-8') as f:
         f.write(full)
     # backup_util.backup_file(path) # 自動バックアップを停止（セッション最終版のみ対応）
-    print(f'Created: ../HP/{filename}')
+    print(f'Created: ../official/{filename}')
 
 # ===== SCHEDULE PAGE (Full Restoration Build #113) =====
 schedule_content = r'''

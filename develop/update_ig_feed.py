@@ -12,7 +12,7 @@ IG_VIEWERS = [
     "https://dumpoir.com/v",
     "https://imginn.com"
 ]
-INDEX_PATH = os.path.join(os.path.dirname(__file__), "../HP/index.html")
+INDEX_PATH = os.path.join(os.path.dirname(__file__), "../official/index.html")
 SAVE_DIR = os.path.join(os.path.dirname(__file__), "../public/images")
 
 def fetch_ig_data():
