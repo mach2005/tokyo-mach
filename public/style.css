@@ -1114,7 +1114,7 @@ a.visitor-venue:hover {
 
 /* New SNS Layout */
 .section-sns {
-  padding-top: 140px; /* Stronger clearance for fixed header */
+  padding-top: 60px;
   padding-bottom: 80px;
 }
 .sns-row {
