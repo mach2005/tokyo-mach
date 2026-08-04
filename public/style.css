@@ -454,7 +454,7 @@ a.visitor-venue:hover {
 }
 .link-card::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
-    background: linear-gradient(90deg, #ffcc00, #ff8c00);
+    background: var(--card-color, var(--gold));
     transform: scaleX(0); transition: transform 0.4s ease; transform-origin: left;
 }
 .link-card:hover { 
@@ -465,17 +465,17 @@ a.visitor-venue:hover {
 .link-card:hover::before { transform: scaleX(1); }
 .link-card-icon { 
     font-size: 2.2rem; 
-    color: #e6b800; 
+    color: var(--card-color, #e6b800); 
     margin: 0 auto 20px; 
     width: 80px; height: 80px;
     display: flex; align-items: center; justify-content: center;
-    background: rgba(255, 204, 0, 0.1);
+    background: var(--card-bg, rgba(255, 204, 0, 0.1));
     border-radius: 50%;
     transition: all 0.4s ease;
 }
 .link-card:hover .link-card-icon {
-    background: var(--gold);
-    color: #111;
+    background: var(--card-color, var(--gold));
+    color: #fff;
     transform: scale(1.1) rotate(5deg);
 }
 .link-card h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 12px; letter-spacing: 0.5px; }
@@ -485,7 +485,7 @@ a.visitor-venue:hover {
     border-radius: 50%; background: #f4f4f4; color: #aaa; font-size: 0.9rem; transition: 0.4s ease; 
 }
 .link-card:hover .link-card-arrow { 
-    background: #111; color: var(--gold); transform: translateX(5px);
+    background: #111; color: var(--card-color, var(--gold)); transform: translateX(5px);
 }
 
 /* SNS */
