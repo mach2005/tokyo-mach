@@ -17,11 +17,17 @@
   padding: 0;
 }
 
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
 body {
   font-family: 'Noto Sans JP', sans-serif;
   color: var(--text-main);
   background-color: var(--bg-main);
   line-height: 1.6;
+  position: relative;
 }
 
 a {
