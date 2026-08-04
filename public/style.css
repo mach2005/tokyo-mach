@@ -814,10 +814,38 @@ a.visitor-venue:hover {
   .hamburger { display: flex; }
   .grid-2, .grid-3, .footer-top, .footer-links-grid, .about-grid, .recruit-content, .links-grid, .sns-grid, .gallery-grid, .new-songs-grid { grid-template-columns: 1fr; gap: 20px; }
   .nav-links {
-    position: absolute; top: 100%; left: 0; width: 100%; background: #111;
-    flex-direction: column; padding: 20px; display: none;
+    position: absolute; top: 100%; left: 0; width: 100%; 
+    background: rgba(17, 17, 17, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column; padding: 0; display: none; gap: 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
   }
   .nav-links.active { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a {
+    border: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    padding: 16px 20px !important;
+    font-size: 1.05rem !important;
+    font-weight: 700 !important;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    background: rgba(255, 204, 0, 0.05) !important;
+    color: var(--gold) !important;
+    transform: none !important;
+  }
+  .nav-links li:last-child { padding: 20px; }
+  .nav-links a.nav-cta {
+    background: var(--gold) !important;
+    color: #111 !important;
+    border-radius: 8px !important;
+    border: none !important;
+    box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
+  }
   .hero-title { font-size: 2.2rem; }
   .calendar-wrapper { padding: 12px !important; }
   .calendar-grid { width: 100%; }
