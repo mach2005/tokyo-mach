@@ -130,6 +130,10 @@ a:hover {
   font-size: 4.5rem; font-weight: 900; color: var(--gold); margin-bottom: 12px;
   text-shadow: 0 4px 10px rgba(0,0,0,0.5); letter-spacing: 3px; line-height: 1.1;
 }
+.hero-title-en {
+  font-size: 2.2rem; font-weight: 700; color: #fff; margin-bottom: 25px; 
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5); letter-spacing: 4px; line-height: 1.1;
+}
 .hero-subtitle {
   font-size: 1.6rem; color: #fff; margin-bottom: 25px; font-weight: 900; 
   text-shadow: 0 2px 8px rgba(0,0,0,0.5); line-height: 1.4;
@@ -891,6 +895,7 @@ a.visitor-venue:hover {
     box-shadow: 0 4px 15px rgba(255, 204, 0, 0.2);
   }
   .hero-title { font-size: 2.2rem; }
+  .hero-title-en { font-size: 1.1rem; margin-bottom: 15px; }
   .calendar-wrapper { padding: 12px !important; }
   .calendar-grid { width: 100%; }
   .cal-header { padding: 8px 1px; font-size: 0.75rem; }
