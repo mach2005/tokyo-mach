@@ -363,7 +363,7 @@ a.visitor-venue:hover {
 }
 
 @media (max-width: 768px) {
-    .hero { min-height: auto; padding-top: 80px; padding-bottom: 30px; }
+    .hero { min-height: auto; padding-top: 110px; padding-bottom: 40px; }
     .hero-content { padding: 0 15px; }
     .hero-subtitle { font-size: 1.1rem; margin-bottom: 12px; }
     .hero-desc { font-size: 0.9rem; margin-bottom: 20px; }
