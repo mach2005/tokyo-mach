@@ -373,8 +373,11 @@ a.visitor-venue:hover {
     .team-box { width: 80px; }
     .team-logo-large { width: 44px; height: 44px; }
     .team-name-short { font-size: 0.78rem; }
-    .visitor-result-mini { font-size: 0.9rem; gap: 12px; padding: 12px 18px; flex-direction: column; border-radius: 20px; }
-    .visitor-info-group { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.2); padding-right: 0; padding-bottom: 12px; flex-direction: column; gap: 8px; }
+    .visitor-result-mini { font-size: 0.75rem; gap: 6px; padding: 8px 10px; flex-direction: row; border-radius: 50px; justify-content: space-between; align-items: center; white-space: nowrap; }
+    .visitor-info-group { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.2); padding-bottom: 0; padding-right: 6px; flex-direction: row; gap: 6px; }
+    .visitor-label { padding: 4px 6px; font-size: 0.65rem; }
+    .visitor-date, .visitor-opponent { font-size: 0.75rem; }
+    .visitor-venue { font-size: 0.7rem; padding: 4px 6px; }
     .hero-buttons { flex-direction: row; gap: 8px; }
     .hero-buttons .btn { flex: 1; padding: 10px 8px; font-size: 0.85rem; min-width: 0; white-space: nowrap; }
     .hero-buttons .btn i { margin-right: 4px; }
