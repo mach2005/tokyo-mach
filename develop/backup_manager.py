@@ -39,6 +39,14 @@ def create_backup():
             saved_count += 1
             
     print(f"[BACKUP OK] {saved_count} files backed up successfully. (Timestamp: {timestamp})")
+    
+    # 対話・指示ログも同時にバックアップ抽出
+    try:
+        import save_chat_history
+        save_chat_history.extract_chat_log()
+    except Exception as e:
+        print(f"[WARN] Failed to auto-backup chat log: {e}")
+        
     return timestamp
 
 def restore_latest():
