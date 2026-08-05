@@ -349,7 +349,7 @@ if __name__ == "__main__":
             if not next_visitor:
                 # Fallback
                 next_visitor = {
-                    "short_date": "8/6 (水)",
+                    "short_date": "8/7 (金)",
                     "month": "8",
                     "opp_name": "西武",
                     "venue": "ベルーナドーム",
