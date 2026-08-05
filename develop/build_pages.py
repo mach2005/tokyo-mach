@@ -1,9 +1,39 @@
 import os
 import sys
+import re
+
 DIR = os.path.dirname(os.path.abspath(__file__))
 # 自作バックアップユーティリティを追加
 sys.path.append(DIR)
 import backup_util
+
+def load_schedule_data():
+    data_path = os.path.join(DIR, 'data.txt')
+    games = {}
+    if os.path.exists(data_path):
+        with open(data_path, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if not line:
+                    continue
+                parts = line.split('\t')
+                if len(parts) >= 5:
+                    date_str, day_str, opponent, venue, start_time = parts[:5]
+                    m_match = re.match(r'(\d+)月(\d+)日', date_str)
+                    if m_match:
+                        month = int(m_match.group(1))
+                        day = int(m_match.group(2))
+                        games[(month, day)] = {
+                            'opponent': opponent,
+                            'venue': venue,
+                            'time': start_time,
+                            'day_str': day_str
+                        }
+    return games
+
+# 試合日程データ（data.txtより自動読み込み）
+SCHEDULE_GAMES = load_schedule_data()
+
 
 with open(os.path.join(DIR, '../official/index.html'), 'r', encoding='utf-8') as f:
     index = f.read()

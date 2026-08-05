@@ -1,0 +1,65 @@
+name: Build, Verify and Deploy Website
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-verify-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Run Build Scripts
+        run: |
+          python develop/build_pages.py
+          python develop/gen_songs.py
+
+      - name: Internal Link Verification
+        run: |
+          python -c "
+          import os, re
+          from pathlib import Path
+          base = Path('.')
+          html_files = [f for f in base.glob('**/*.html') if 'history' not in str(f) and '.git' not in str(f)]
+          broken = []
+          for h in html_files:
+              content = open(h, 'r', encoding='utf-8', errors='ignore').read()
+              links = re.findall(r'(?:href|src)=[\"\\\']([^\"\\\'#]+)[\"\\\']', content)
+              for l in links:
+                  if not l.startswith(('http', '//', 'data:', 'mailto:', '#')):
+                      target = (h.parent / l).resolve()
+                      if not target.exists():
+                          broken.append((str(h.relative_to(base)), l))
+          if broken:
+              print('⚠️ Broken links detected:')
+              for src, link in broken:
+                  print(f'  {src} -> {link}')
+              exit(1)
+          else:
+              print('✅ All internal links verified successfully!')
+          "
+
+      - name: Commit and Push if changes exist
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Auto-build & Verify: Rebuild pages on main push [skip ci]"
+            git push origin main
+          fi
