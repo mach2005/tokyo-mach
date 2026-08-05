@@ -47,6 +47,13 @@ def create_backup():
     except Exception as e:
         print(f"[WARN] Failed to auto-backup chat log: {e}")
         
+    # 一時ファイルの自動クリーンアップ
+    try:
+        import cleanup_util
+        cleanup_util.cleanup_workspace()
+    except Exception as e:
+        print(f"[WARN] Failed auto-cleanup: {e}")
+        
     return timestamp
 
 def restore_latest():

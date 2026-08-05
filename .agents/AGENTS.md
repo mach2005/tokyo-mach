@@ -1,5 +1,8 @@
 # 東京真隼（TOKYO MACH）プロジェクト開発ルール
 
+> [!IMPORTANT]
+> 過去のユーザー指示・詳細ルール・注意事項ナレッジデータベース: [.agents/rules/user_global_instructions.md](file:///c:/Users/user/Antigravity/%E6%9D%B1%E4%BA%AC%E7%9C%9F%E9%9A%BC/.agents/rules/user_global_instructions.md) 参照。
+
 ## 1. 文字コードの絶対ルール (UTF-8 厳守)
 - **PowerShellの操作禁止**: PowerShellの `Set-Content`, `Get-Content`, `>`, `>>` は UTF-16LE に変換され文字化けを引き起こすため、絶対に使用しないこと。
 - **編集ツールの限定**: ファイルの書き換えは必ず AI専用編集ツール（`replace_file_content` 等）または Python (`open(..., encoding='utf-8')`) で行うこと。
