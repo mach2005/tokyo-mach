@@ -25,6 +25,14 @@ jobs:
         with:
           python-version: '3.10'
 
+      - name: Fetch Latest X (Twitter) Feed
+        run: |
+          python develop/update_x_feed.py || echo "X feed update warning"
+
+      - name: Fetch Latest Instagram Feed
+        run: |
+          python develop/update_ig_feed.py || echo "Instagram feed update warning"
+
       - name: Fetch Latest Game Results & Next Visitor
         run: |
           python develop/update_game_result.py || echo "Result fetch completed with minor warning"
@@ -67,6 +75,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git commit -m "Auto-Update (0 AM Daily Cron): Game results, Next Visitor & schedule rebuild [skip ci]"
+            git commit -m "Auto-Update (0 AM Daily Cron): X feed, Game results, Next Visitor & schedule rebuild [skip ci]"
             git push origin main
           fi

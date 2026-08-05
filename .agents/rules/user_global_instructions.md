@@ -18,4 +18,4 @@
 
 ## 4. データ更新とビルド連動ルール
 - **日程更新**: `develop/data.txt` を編集すると `build_pages.py` が自動パースして `schedule.html` が更新される。二重管理のズレを起こさないこと。
-- **全自動0時更新**: 毎日0:15に GitHub Actions が自動で `update_game_result.py` を実行し、最新結果・ネクストビジター・カレンダーを自動更新・デプロイする。
+- **全自動0時更新**: 毎日0:15に GitHub Actions が自動起動し、`update_x_feed.py`（Twitter最新投稿）、`update_ig_feed.py`（Instagram最新投稿）、`update_game_result.py`（最新結果・ネクストビジター・カレンダー）を一括自動実行・デプロイする。
