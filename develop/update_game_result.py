@@ -259,14 +259,14 @@ def update_top_page(latest, visitor):
             </div>
           </div>
         </div>
-        <!-- Latest Visitor Result Highlight -->
+        <!-- Next Visitor Game Highlight -->
         <div class="visitor-result-mini" onclick="window.location.href='./schedule.html#month-{visitor['month']}'" style="cursor: pointer;">
-          <span class="visitor-label">LATEST VISITOR</span>
+          <span class="visitor-label">NEXT VISITOR</span>
           <span class="visitor-info-group">
             <span class="visitor-date"><i class="far fa-calendar-alt"></i> {visitor["short_date"]}</span>
-            <span class="visitor-opponent"><span class="vs-badge">{visitor["hawks_score"]}-{visitor["opp_score"]}</span> vs {visitor["opp_name"]}</span>
+            <span class="visitor-opponent">vs {visitor["opp_name"]}</span>
           </span>
-          <a href="https://www.google.com/maps/search/?api=1&query={visitor['venue_full']}" target="_blank" rel="noopener" class="visitor-venue" onclick="event.stopPropagation()"><i class="fas fa-map-marker-alt"></i> @{visitor["venue"]}</a>
+          <a href="https://www.google.com/maps/search/?api=1&query={visitor['venue_full']}" target="_blank" rel="noopener" class="visitor-venue" onclick="event.stopPropagation()"><i class="fas fa-map-marker-alt"></i> {visitor["venue"]}</a>
         </div>'''
         
         pattern = r'<!-- GAME_RESULT_START -->.*?<!-- GAME_RESULT_END -->'
