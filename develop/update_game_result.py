@@ -192,7 +192,7 @@ def update_schedule_all(all_results):
                         if "game-info" in day_content:
                             new_day_content = re.sub(
                                 r"(<span class='game-time'>).*?(</span>)", 
-                                f"\g<1>{res_text}\g<2>", 
+                                rf"\g<1>{res_text}\g<2>", 
                                 day_content
                             )
                             if new_day_content != day_content:
