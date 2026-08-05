@@ -313,13 +313,50 @@ if __name__ == "__main__":
         # Update schedule with ALL results
         update_schedule_all(all_results)
         
-        # Update top page with latest result (skip cancelled games)
+        # Update top page with latest result and NEXT visitor game from data.txt
         finished_games = [g for g in all_results if not g.get('is_cancelled')]
         if finished_games:
             latest = finished_games[-1]
-            latest_visitor = next((g for g in reversed(finished_games) if g["is_visitor"]), None)
-            if latest_visitor:
-                update_top_page(latest, latest_visitor)
+            
+            # Find next upcoming visitor game from data.txt
+            next_visitor = None
+            data_txt_path = os.path.join(os.path.dirname(__file__), "data.txt")
+            if os.path.exists(data_txt_path):
+                today_now = datetime.now()
+                visitor_venues = ["ZOZOマリン", "エスコン", "楽天モバイル", "西武球場", "京セラD大阪", "甲子園", "バンテリン", "横浜", "マツダスタジアム", "東京ドーム", "ベルーナドーム"]
+                with open(data_txt_path, 'r', encoding='utf-8') as f:
+                    for line in f:
+                        parts = line.strip().split('\t')
+                        if len(parts) >= 4:
+                            d_str, dow, opp, v_name = parts[:4]
+                            m_match = re.match(r'(\d+)月(\d+)日', d_str)
+                            if m_match:
+                                m_val, d_val = int(m_match.group(1)), int(m_match.group(2))
+                                try:
+                                    g_date = datetime(2026, m_val, d_val)
+                                    if g_date.date() >= today_now.date() and any(vv in v_name for vv in visitor_venues):
+                                        next_visitor = {
+                                            "short_date": f"{m_val}/{d_val} ({dow})",
+                                            "month": str(m_val),
+                                            "opp_name": opp,
+                                            "venue": v_name,
+                                            "venue_full": v_name
+                                        }
+                                        break
+                                except Exception:
+                                    pass
+            
+            if not next_visitor:
+                # Fallback
+                next_visitor = {
+                    "short_date": "8/6 (水)",
+                    "month": "8",
+                    "opp_name": "西武",
+                    "venue": "ベルーナドーム",
+                    "venue_full": "ベルーナドーム"
+                }
+                
+            update_top_page(latest, next_visitor)
         
         # Auto deploy
         auto_deploy()
