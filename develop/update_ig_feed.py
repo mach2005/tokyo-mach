@@ -108,8 +108,8 @@ if __name__ == "__main__":
         # フォールバック: ローカルに保存済みの画像を使用（CDN URLは使わない）
         print("Automatic fetching failed. Using saved local images (fallback).")
         manual_data = [
-            {"link": "https://www.instagram.com/tokyo_mach/p/DWOpajwiYNO/", "local_path": "public/images/ig_post_1.jpg", "img_url": None},
-            {"link": "https://www.instagram.com/tokyo_mach/p/DWoX0PICR-v/", "local_path": "public/images/ig_post_2.jpg", "img_url": None},
-            {"link": "https://www.instagram.com/tokyo_mach/p/DWOJZyfibsR/", "local_path": "public/images/ig_post_3.jpg", "img_url": None}
+            {"link": "https://www.instagram.com/tokyo_mach/p/Dbk6thTiRI3/?img_index=1", "local_path": "public/images/ig_post_1.jpg", "img_url": None},
+            {"link": "https://www.instagram.com/tokyo_mach/p/DbSyoaNCSib/", "local_path": "public/images/ig_post_2.jpg", "img_url": None},
+            {"link": "https://www.instagram.com/tokyo_mach/p/DbBFu_6iZ5W/", "local_path": "public/images/ig_post_3.jpg", "img_url": None}
         ]
         update_index(manual_data)
