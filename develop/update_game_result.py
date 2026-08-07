@@ -416,11 +416,19 @@ if __name__ == "__main__":
         if finished_games:
             latest = finished_games[-1]
             
+            # Extract latest finished game date to ensure NEXT VISITOR is strictly AFTER latest game
+            latest_date = None
+            if latest and latest.get('date_str'):
+                lm = re.search(r'(\d{4})\.(\d{2})\.(\d{2})', latest['date_str'])
+                if lm:
+                    latest_date = datetime(int(lm.group(1)), int(lm.group(2)), int(lm.group(3))).date()
+            
             # Find next upcoming visitor game from data.txt
             next_visitor = None
             data_txt_path = os.path.join(os.path.dirname(__file__), "data.txt")
             if os.path.exists(data_txt_path):
                 today_now = datetime.now()
+                compare_date = max(today_now.date(), latest_date) if latest_date else today_now.date()
                 visitor_venues = ["ZOZOマリン", "エスコン", "楽天モバイル", "西武球場", "京セラD大阪", "甲子園", "バンテリン", "横浜", "マツダスタジアム", "東京ドーム", "ベルーナドーム"]
                 with open(data_txt_path, 'r', encoding='utf-8') as f:
                     for line in f:
@@ -437,7 +445,7 @@ if __name__ == "__main__":
                                     if "祝" in dow:
                                         correct_dow += "・祝"
                                         
-                                    if g_date.date() >= today_now.date() and any(vv in v_name for vv in visitor_venues):
+                                    if g_date.date() > compare_date and any(vv in v_name for vv in visitor_venues):
                                         next_visitor = {
                                             "short_date": f"{m_val}/{d_val} ({correct_dow})",
                                             "month": str(m_val),
