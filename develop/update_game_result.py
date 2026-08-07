@@ -334,10 +334,10 @@ def update_top_page(latest, visitor):
               <span class="team-name-short">{latest["opp_name"]}</span>
             </div>
           </div>
-          <div class="result-card-footer-stats" style="margin-top: 16px; padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; justify-content: space-around; align-items: center; gap: 12px; font-size: 0.88rem; font-weight: 700; color: #fff; flex-wrap: wrap;">
-            <span style="background: linear-gradient(135deg, #d4a700, #f8d000); color: #111; padding: 4px 14px; border-radius: 14px; font-weight: 800; display: inline-flex; align-items: center; gap: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-trophy" style="font-size: 0.8rem;"></i> {standings['rank']}</span>
-            <span style="background: rgba(255, 255, 255, 0.14); padding: 4px 14px; border-radius: 14px; letter-spacing: 0.5px;">{standings['record']}</span>
-            <span style="background: rgba(212, 167, 0, 0.2); color: #ffd700; border: 1px solid rgba(212, 167, 0, 0.4); padding: 4px 14px; border-radius: 14px; font-weight: 800;"><i class="fas fa-chart-line" style="font-size: 0.8rem; margin-right: 4px;"></i>{standings['gb']}</span>
+          <div class="result-card-footer-stats" style="margin-top: 16px; padding-top: 14px; border-top: 1px solid rgba(255, 255, 255, 0.15); display: flex; justify-content: space-around; align-items: center; gap: 12px; font-size: 1.05rem; font-weight: 800; color: #fff; flex-wrap: wrap;">
+            <span style="background: linear-gradient(135deg, #d4a700, #f8d000); color: #111; padding: 6px 18px; border-radius: 18px; font-weight: 900; box-shadow: 0 2px 5px rgba(0,0,0,0.3);">{standings['rank']}</span>
+            <span style="background: rgba(255, 255, 255, 0.16); padding: 6px 18px; border-radius: 18px; letter-spacing: 0.5px;">{standings['record']}</span>
+            <span style="background: rgba(212, 167, 0, 0.22); color: #ffd700; border: 1.5px solid rgba(212, 167, 0, 0.5); padding: 6px 18px; border-radius: 18px; font-weight: 900;">{standings['gb']}</span>
           </div>
         </div>
         <!-- Next Visitor Game Highlight -->
