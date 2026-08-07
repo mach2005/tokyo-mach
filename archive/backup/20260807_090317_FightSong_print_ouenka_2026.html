@@ -137,7 +137,6 @@
         .ig-link i {
             background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
             -webkit-background-clip: text;
-            background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
@@ -529,15 +528,8 @@
                 <div class="header-left">
                     <span class="team-name">福岡ソフトバンクホークス 選手別応援歌 2026</span>
                 </div>
-                <div class="header-right">
-                    <span class="group-name">東京真隼</span>
-                    <div class="header-sns">
-                        <a href="https://x.com/tokyo_mach" target="_blank" class="x-link"><i
-                                class="fa-brands fa-square-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="ig-link"><i
-                                class="fa-brands fa-instagram"></i></a>
-                    </div>
-                    <a href="https://t.co/NuiNCqluh0" target="_blank" class="header-apply-btn">応募</a>
+                <div class="header-right" style="font-size: 19pt; font-weight: 900; color: #000; letter-spacing: 0.5mm;">
+                    東京真隼 ～世界最強～
                 </div>
             </header>
 
@@ -597,10 +589,6 @@
                     <div class="song-item">
                         <div class="song-num">汎用</div>
                         <div class="song-info"><span class="song-name">左投手</span><span class="song-lyrics">抑えるチャンス　物にするぞ　この腕で　必ず掴むぞ</span></div>
-                    </div>
-                    <div class="song-item">
-                        <div class="song-num">汎用</div>
-                        <div class="song-info"><span class="song-name">仙台 <span class="new-badge">NEW</span></span><span class="song-lyrics">どんな時も 気持ちを込めて投げ抜き　杜の都で 勝利をつかめ</span></div>
                     </div>
 
                     <div class="category-header">捕手</div>
@@ -730,10 +718,11 @@
                         <div class="chance-item">
                             <span class="chance-name">関東チャンス</span>
                             <div class="chance-lyrics-full">【前奏】
+オイオイオイ　オイオイオイ
 突き放せ　or　勝ち越しだ　or　逆転だ
 【本編】
-かっせ（選手名）　（選手名）　ここで一発
-かっせ（選手名）　狙えスタンドへ
+かっとばせ（選手名）　（選手名）　ここで一発
+かっとばせ（選手名）　狙えスタンドへ
 かせかせ（選手名）　かせかせ（選手名）いざ行け　（選手名）</div>
                         </div>
                     </div>
@@ -829,43 +818,106 @@
                         </div>
                     </div>
 
-                    <!-- SNSボックス -->
-                    <div class="sns-box">
-                        <div class="recruit-sns">
-                            <a href="https://x.com/tokyo_mach" target="_blank" class="sns-tile x">
-                                <i class="fa-brands fa-x-twitter"></i>
-                                <span class="sns-label">X(Twitter)</span>
-                                <span class="sns-id">@tokyo_mach</span>
-                            </a>
-                            <a href="https://www.instagram.com/tokyo_mach/" target="_blank" class="sns-tile ig">
-                                <i class="fa-brands fa-instagram"></i>
-                                <span class="sns-label">Instagram</span>
-                                <span class="sns-id">@tokyo_mach</span>
-                            </a>
-                            <div class="sns-tile web-container">
-                                <a href="https://mach2005.github.io/tokyo-mach/FightSong/cheer-guide.html" target="_blank"
-                                    class="sns-sub-tile">
-                                    <i class="fa-solid fa-mobile-screen-button"></i>
-                                    <span class="sns-label">スマホの方は<br>こちらから</span>
-                                </a>
-                                <a href="https://mach2005.github.io/tokyo-mach/FightSong/print_ouenka_2026.pdf" target="_blank" class="sns-sub-tile">
-                                    <i class="fa-solid fa-file-pdf"></i>
-                                    <span class="sns-label">印刷PDFは<br>こちらから</span>
-                                </a>
+                    <style>
+                        .qr-footer-print {
+                            grid-column: span 2;
+                            display: grid;
+                            grid-template-columns: 1.25fr 0.75fr; /* さらに右に伸ばす */
+                            gap: 6mm;
+                            margin-top: 3mm; /* 上に伸ばすために詰め気味にする */
+                            height: 48mm; /* 下を維持しつつ上に伸ばす */
+                            align-items: stretch;
+                            margin-bottom: 0;
+                        }
+                        .box-print {
+                            height: 100% !important;
+                            box-sizing: border-box;
+                            border-radius: 2.5mm;
+                            margin: 0;
+                        }
+                        .sns-qr-box-p {
+                            background-color: #fff;
+                            border: 3px solid #000; /* 黒に変更 */
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 0 10mm;
+                        }
+                        .qr-item-p {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            text-align: center;
+                        }
+                        .qr-item-p .label-p {
+                            font-weight: 900;
+                            font-size: 10pt;
+                            margin-bottom: 2mm;
+                            display: flex;
+                            align-items: center;
+                            gap: 2mm;
+                        }
+                        .qr-code-img-p {
+                            width: 25mm;
+                            height: 25mm;
+                            border: 1px solid #eee;
+                        }
+                        .recruit-qr-box-p {
+                            background-color: #ffcc00;
+                            border: 3px solid #000;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 0 6mm;
+                        }
+                        .recruit-content-p { flex: 1; }
+                        .recruit-title-p {
+                            font-size: 15.5pt;
+                            font-weight: 900;
+                            text-decoration: underline;
+                            margin-bottom: 2mm;
+                            white-space: nowrap;
+                        }
+                        .recruit-msg-p { font-size: 10pt; font-weight: 700; line-height: 1.4; color: #000; }
+                        
+                        .recruit-qr-side-p {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            margin-left: 2mm;
+                        }
+                        .recruit-qr-side-p img {
+                            width: 25mm;
+                            height: 25mm;
+                            background: #fff;
+                            padding: 1mm;
+                            border: 1px solid #000;
+                        }
+                    </style>
+                    <div class="qr-footer-print">
+                        <div class="box-print sns-qr-box-p">
+                            <div class="qr-item-p">
+                                <div class="label-p" style="color:#000;"><i class="fa-brands fa-square-x-twitter"></i> X(Twitter)</div>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://x.com/tokyo_mach" class="qr-code-img-p">
+                            </div>
+                            <div class="qr-item-p">
+                                <div class="label-p" style="color:#E1306C;"><i class="fa-brands fa-instagram"></i> Instagram</div>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.instagram.com/tokyo_mach/&margin=0&color=E1306C" class="qr-code-img-p">
                             </div>
                         </div>
-                    </div>
-
-                    <!-- 募集ボックス -->
-                    <div class="recruitment-box">
-                        <div class="recruit-main">
-                            <div class="recruit-title">東京真隼応援団員大募集！</div>
-                            <div class="recruit-msg">
-                                ビジター球場でも一緒に応援活動してくれる仲間を募集中！<br>
-                                未経験者、老若男女問わず大歓迎！
+                        <div class="box-print recruit-qr-box-p">
+                            <div class="recruit-content-p">
+                                <div class="recruit-title-p">東京真隼応援団員大募集！</div>
+                                <div class="recruit-msg-p">
+                                    ビジター球場でも一緒に応援活動してくれる仲間を募集中！<br>
+                                    未経験者、老若男女問わず大歓迎！
+                                </div>
+                            </div>
+                            <div class="recruit-qr-side-p">
+                                <div style="font-size:8.5pt; font-weight:900; margin-bottom:1mm; color:#000;">応援団員募集！</div>
+                                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://t.co/NuiNCqluh0">
                             </div>
                         </div>
-                        <a href="https://t.co/NuiNCqluh0" target="_blank" class="recruit-link">応募はこちらを<br>クリック</a>
                     </div>
                 </div>
             </div>
