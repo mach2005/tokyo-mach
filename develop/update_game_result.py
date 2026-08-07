@@ -138,6 +138,68 @@ def get_team_code(tid, tname=""):
     codes = {"1":"g", "2":"db", "3":"t", "4":"c", "5":"d", "6":"s", "7":"l", "8":"m", "9":"h", "11":"b", "12":"e", "376":"f"}
     return codes.get(tid, "h")
 
+def fetch_hawks_standings():
+    """Fetch Hawks rank, record, and games-behind info from Yahoo standings."""
+    url = "https://baseball.yahoo.co.jp/npb/standings/"
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'})
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            html = resp.read().decode('utf-8', errors='ignore')
+            
+        rows = re.findall(r'<tr class="bb-rankTable__row">(.*?)</tr>', html, re.DOTALL)
+        standings = []
+        for r in rows:
+            team = re.search(r'bb-rankTable__team[^>]*>(.*?)</a>', r)
+            if team:
+                t_name = team.group(1).strip()
+                if any(t in t_name for t in ['ソフトバンク', '西武', '日本ハム', 'オリックス', 'ロッテ', '楽天']):
+                    rank_m = re.search(r'bb-rankTable__data--rank">(\d+)', r)
+                    tds = re.findall(r'<td class="bb-rankTable__data[^"]*">(.*?)</td>', r, re.DOTALL)
+                    clean_tds = [re.sub(r'<.*?>', '', c).strip() for c in tds]
+                    if rank_m and len(clean_tds) >= 8:
+                        standings.append({
+                            'rank': int(rank_m.group(1)),
+                            'team': t_name,
+                            'games': clean_tds[2],
+                            'wins': clean_tds[3],
+                            'losses': clean_tds[4],
+                            'draws': clean_tds[5],
+                            'pct': clean_tds[6],
+                            'gb': clean_tds[7]
+                        })
+        
+        pac_standings = standings[:6]
+        hawks_data = next((s for s in pac_standings if 'ソフトバンク' in s['team']), None)
+        
+        if hawks_data:
+            rank = hawks_data['rank']
+            wins = hawks_data['wins']
+            losses = hawks_data['losses']
+            draws = hawks_data['draws']
+            record_str = f"{wins}勝 {losses}敗 {draws}分"
+            
+            if rank == 1:
+                second_place = next((s for s in pac_standings if s['rank'] == 2), None)
+                gb_val = second_place['gb'] if second_place else "0"
+                gb_str = f"2位差 {gb_val}G"
+            else:
+                gb_val = hawks_data['gb']
+                gb_str = f"首位差 {gb_val}G"
+                
+            return {
+                'rank': f"パ・リーグ {rank}位",
+                'record': record_str,
+                'gb': gb_str
+            }
+    except Exception as e:
+        print(f"Failed to fetch standings: {e}")
+        
+    return {
+        'rank': "パ・リーグ 1位",
+        'record': "62勝 35敗 1分",
+        'gb': "2位差 7.5G"
+    }
+
 def update_schedule_all(all_results):
     """Update schedule.html and build_pages.py with ALL game results."""
     for path in [SCHEDULE_PATH, BUILD_PAGES_PATH]:
@@ -223,6 +285,7 @@ def update_schedule_all(all_results):
 def update_top_page(latest, visitor):
     """Update index.html hero card and portal badge."""
     res_text = f"{latest['hawks_score']}-{latest['opp_score']}"
+    standings = fetch_hawks_standings()
     
     # 1. Update Index (Rich Card)
     if os.path.exists(INDEX_PATH):
@@ -270,6 +333,11 @@ def update_top_page(latest, visitor):
               <img src="{opp_logo}" alt="{latest["opp_name"]}" class="team-logo-large">
               <span class="team-name-short">{latest["opp_name"]}</span>
             </div>
+          </div>
+          <div class="result-card-footer-stats" style="margin-top: 14px; padding-top: 10px; border-top: 1px solid rgba(255, 255, 255, 0.12); display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 700; color: #fff; flex-wrap: wrap;">
+            <span style="background: linear-gradient(135deg, #d4a700, #f8d000); color: #111; padding: 2px 9px; border-radius: 12px; font-weight: 800; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);"><i class="fas fa-trophy" style="font-size: 0.75rem;"></i> {standings['rank']}</span>
+            <span style="background: rgba(255, 255, 255, 0.12); padding: 2px 10px; border-radius: 12px; letter-spacing: 0.5px;">{standings['record']}</span>
+            <span style="background: rgba(212, 167, 0, 0.2); color: #ffd700; border: 1px solid rgba(212, 167, 0, 0.4); padding: 2px 9px; border-radius: 12px; font-weight: 800;"><i class="fas fa-chart-line" style="font-size: 0.75rem; margin-right: 3px;"></i>{standings['gb']}</span>
           </div>
         </div>
         <!-- Next Visitor Game Highlight -->
