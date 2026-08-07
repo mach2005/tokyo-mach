@@ -428,7 +428,7 @@ if __name__ == "__main__":
             data_txt_path = os.path.join(os.path.dirname(__file__), "data.txt")
             if os.path.exists(data_txt_path):
                 today_now = datetime.now()
-                compare_date = max(today_now.date(), latest_date) if latest_date else today_now.date()
+                # Ensure game is after latest finished game, but allow today's upcoming game
                 visitor_venues = ["ZOZOマリン", "エスコン", "楽天モバイル", "西武球場", "京セラD大阪", "甲子園", "バンテリン", "横浜", "マツダスタジアム", "東京ドーム", "ベルーナドーム"]
                 with open(data_txt_path, 'r', encoding='utf-8') as f:
                     for line in f:
@@ -445,7 +445,7 @@ if __name__ == "__main__":
                                     if "祝" in dow:
                                         correct_dow += "・祝"
                                         
-                                    if g_date.date() > compare_date and any(vv in v_name for vv in visitor_venues):
+                                    if (latest_date is None or g_date.date() > latest_date) and any(vv in v_name for vv in visitor_venues):
                                         next_visitor = {
                                             "short_date": f"{m_val}/{d_val} ({correct_dow})",
                                             "month": str(m_val),
