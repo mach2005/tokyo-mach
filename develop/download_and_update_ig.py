@@ -9,19 +9,22 @@ POSTS = [
         "shortcode": "Dbk6thTiRI3",
         "url": "https://www.instagram.com/p/Dbk6thTiRI3/",
         "prefix": "ig_post_1",
-        "date": "2026.08.03"
+        "date": "2026.08.03",
+        "caption": "7/31(金)～8/2(日) @楽天モバイルパーク宮城\nオールスター明け中1日で始まる3連戦。なんとカシミール初出演展開に。\n猛暑の中の熱い応援、本当にお疲れ様でした！"
     },
     {
         "shortcode": "DbSyoaNCSib",
         "url": "https://www.instagram.com/p/DbSyoaNCSib/",
         "prefix": "ig_post_2",
-        "date": "2026.07.27"
+        "date": "2026.07.27",
+        "caption": "7/24(金)～7/26(日) @ベルーナドーム\nベルーナドームでは今シーズン最後のカード！\n皆様のおかげで逆転勝利を含め勝ち越し！前田純投手のプロ初勝利も達成！"
     },
     {
         "shortcode": "DbBFu_6iZ5W",
         "url": "https://www.instagram.com/p/DbBFu_6iZ5W/",
         "prefix": "ig_post_3",
-        "date": "2026.07.21"
+        "date": "2026.07.21",
+        "caption": "7/18(土)～7/20(月) @マリン\n人並みのことを言いますと、非常に暑い3連戦でした。\nまたまた人並みのことを言いますと、マリーンズを3タテしましたが、マリーンズには佐々木麟太郎選手を取られました。\nさらには、この時期のマリンビジターあるあるを言いますと、「ビジター席から花火が見えない...」"
     }
 ]
 
@@ -51,11 +54,9 @@ def fetch_pure_post_images(shortcode):
         if not filtered_imgs:
             return []
 
-        # Find post ID key from the first image
-        # e.g., 762292741_181191517... -> key = _18119151
         match = re.search(r'_\d{8,}', filtered_imgs[0])
         if match:
-            post_key = match.group(0)[:9] # match first 8-9 digits of post sequence ID
+            post_key = match.group(0)[:9]
             pure_imgs = [img for img in filtered_imgs if post_key in img]
             print(f"   [FILTER] Successfully matched {len(pure_imgs)} pure post photos (key: '{post_key}')")
             return pure_imgs
@@ -111,6 +112,10 @@ def main():
             items_html += f'                <div class="ig-carousel-item"><img src="{img_path}" alt="{p["date"]}-{idx}" loading="lazy"></div>\n'
 
         new_html += f"""          <a href="{p['url']}" target="_blank" rel="noopener" class="instagram-card">
+            <div class="ig-card-header">
+              <span class="ig-card-header-date"><i class="far fa-calendar-alt"></i> {p['date']}</span>
+              <span class="ig-card-header-icon"><i class="fab fa-instagram"></i></span>
+            </div>
             <div class="ig-card-img">
               <button class="ig-nav-btn ig-nav-prev" onclick="moveIgCarousel(event, this, -1)"><i class="fas fa-chevron-left"></i></button>
               <button class="ig-nav-btn ig-nav-next" onclick="moveIgCarousel(event, this, 1)"><i class="fas fa-chevron-right"></i></button>
@@ -119,6 +124,7 @@ def main():
 {items_html.rstrip()}
               </div>
             </div>
+            <div class="ig-card-caption">{p['caption']}</div>
           </a>\n"""
 
     with open(INDEX_PATH, 'r', encoding='utf-8') as f:
@@ -131,7 +137,7 @@ def main():
     with open(INDEX_PATH, 'w', encoding='utf-8') as f:
         f.write(updated_html)
 
-    print(f"\n[COMPLETE SUCCESS] Updated {INDEX_PATH} with pure genuine Instagram post photos & correct dates!")
+    print(f"\n[COMPLETE SUCCESS] Updated {INDEX_PATH} with top date, images & bottom caption text!")
 
 if __name__ == "__main__":
     main()
