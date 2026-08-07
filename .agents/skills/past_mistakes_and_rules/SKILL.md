@@ -121,4 +121,6 @@ Instagramセクションの追加などの際、`.container` や `.sns-row` の 
 - [x] HTMLファイルの文字コードが UTF-8 であることを確認したか（文字化けチェック）？
 - [x] HTML編集前に `backup_manager.py` で直前バックアップを取得したか？
 - [x] ユーザーとの全対話・指示ログが `archive/chat_history/` に自動保存されているか？
+- [x] Instagram更新時に `download_and_update_ig.py` を使用し、外部広告等の無関係画像を除外して純粋な投稿写真のみを保存・日付およびカルーセル機能を維持しているか？
+
 

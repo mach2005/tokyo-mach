@@ -12,3 +12,8 @@
 ## 3. 会話ログ・事前バックアップ
 - 作業前には必ず `python develop/backup_manager.py` で事前バックアップを取ること。
 - 会話ログは `archive/chat_history/` に自動テキスト抽出保存すること。
+
+## 4. Instagram自動更新＆画像ダウンロード・除外ルール
+- Instagram更新時は `develop/download_and_update_ig.py` を使用し、外部広告等の無関係画像を除外して各投稿の純粋な写真のみを `public/images/` にダウンロード保存・更新すること。
+- 正確な投稿日付（`2026.08.03` 等）を正確に反映し、カルーセル（画像送り機能 `moveIgCarousel`）のHTML構造を維持すること。
+
