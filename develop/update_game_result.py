@@ -186,18 +186,29 @@ def fetch_hawks_standings():
                 gb_val = hawks_data['gb']
                 gb_str = f"ゲーム差 {gb_val}"
                 
+            magic_m = re.search(r'M\d+', r)
+            magic_str = magic_m.group(0) if magic_m else ""
+            if not magic_str and rank == 1:
+                # Fallback search for M in clean_tds
+                for td in clean_tds:
+                    if re.match(r'^M\d+$', td):
+                        magic_str = td
+                        break
+
             return {
                 'rank': f"{rank}位",
                 'record': record_str,
-                'gb': gb_str
+                'gb': gb_str,
+                'magic': magic_str
             }
     except Exception as e:
         print(f"Failed to fetch standings: {e}")
         
     return {
         'rank': "1位",
-        'record': "62勝 35敗 1分",
-        'gb': "ゲーム差 7.5"
+        'record': "63勝 35敗 1分",
+        'gb': "ゲーム差 7.5",
+        'magic': "M35"
     }
 
 def update_schedule_all(all_results):
@@ -338,6 +349,7 @@ def update_top_page(latest, visitor):
             <span class="stat-badge stat-badge-rank">{standings['rank']}</span>
             <span class="stat-badge stat-badge-record">{standings['record']}</span>
             <span class="stat-badge stat-badge-gb">{standings['gb']}</span>
+            {f'<span class="stat-badge stat-badge-magic">{standings["magic"]}</span>' if standings.get('magic') else ''}
           </div>
         </div>
         <!-- Next Visitor Game Highlight -->
