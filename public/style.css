@@ -218,10 +218,12 @@ a:hover {
 }
 
 .score-main {
-    display: flex;
-    justify-content: space-around;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
+    justify-items: center;
     gap: 8px;
+    width: 100%;
 }
 
 .team-box {
@@ -229,7 +231,8 @@ a:hover {
     flex-direction: column;
     align-items: center;
     gap: 8px;
-    width: 110px;
+    width: 100%;
+    max-width: 130px;
 }
 
 .team-logo-large {
@@ -250,15 +253,86 @@ a:hover {
 .score-numbers-large {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
     font-size: 3.2rem;
     font-weight: 900;
     text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    padding: 0 10px;
 }
 
 .score-dash {
     opacity: 0.3;
     font-weight: 300;
+}
+
+.result-card-footer-stats {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.stat-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 18px;
+    font-size: 0.92rem;
+    font-weight: 800;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.stat-badge-rank {
+    background: linear-gradient(135deg, #d4a700, #f8d000);
+    color: #111;
+    font-weight: 900;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.stat-badge-record {
+    background: rgba(255, 255, 255, 0.16);
+    color: #fff;
+    letter-spacing: 0.5px;
+}
+
+.stat-badge-gb {
+    background: rgba(212, 167, 0, 0.22);
+    color: #ffd700;
+    border: 1.5px solid rgba(212, 167, 0, 0.5);
+    font-weight: 900;
+}
+
+@media (max-width: 520px) {
+    .score-numbers-large {
+        font-size: 2.4rem;
+        gap: 8px;
+    }
+    .stat-badge {
+        height: 32px;
+        padding: 0 10px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .score-numbers-large {
+        font-size: 2rem;
+        gap: 6px;
+    }
+    .stat-badge {
+        height: 30px;
+        padding: 0 8px;
+        font-size: 0.74rem;
+    }
 }
 
 /* win-mark is no longer used but kept for backward compatibility */

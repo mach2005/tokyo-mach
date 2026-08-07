@@ -6,7 +6,7 @@ DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(DIR, ".."))
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "archive", "chat_history")
 APPDATA_DIR = r"C:\Users\user\.gemini\antigravity-ide"
-CONVERSATION_ID = "ead8f342-49f7-42e8-9087-f6a2f4bc46e5"
+CONVERSATION_ID = "77932e3e-531d-4a28-9680-1287d2880652"
 
 TRANSCRIPT_PATH = os.path.join(APPDATA_DIR, "brain", CONVERSATION_ID, ".system_generated", "logs", "transcript.jsonl")
 
