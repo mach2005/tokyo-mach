@@ -74,17 +74,30 @@ def update_index(posts):
     # 3つの投稿HTMLを生成
     new_html = ""
     for i, post in enumerate(posts):
-        img_src = post.get('local_path') or post.get('img_url')
-        if img_src and not img_src.startswith('http'):
-            img_src = f"../{img_src}"
-            
+        images = post.get('images', [])
+        if not images:
+            img_src = post.get('local_path') or post.get('img_url')
+            if img_src and not img_src.startswith('http') and not img_src.startswith('..'):
+                img_src = f"../{img_src}"
+            images = [img_src]
+
+        date_label = post.get('date', f'2026.04.0{5-i}')
+        
+        items_html = ""
+        for idx, img_path in enumerate(images, 1):
+            items_html += f'                <div class="ig-carousel-item"><img src="{img_path}" alt="{date_label}-{idx}" loading="lazy"></div>\n'
+
         new_html += f"""          <a href="{post['link']}" target="_blank" rel="noopener" class="instagram-card">
             <div class="ig-card-img">
-              <img src="{img_src}" alt="Instagram Post {i+1}">
+              <button class="ig-nav-btn ig-nav-prev" onclick="moveIgCarousel(event, this, -1)"><i class="fas fa-chevron-left"></i></button>
+              <button class="ig-nav-btn ig-nav-next" onclick="moveIgCarousel(event, this, 1)"><i class="fas fa-chevron-right"></i></button>
               <div class="instagram-overlay"><i class="fab fa-instagram"></i></div>
+              <div class="ig-carousel-track">
+{items_html.rstrip()}
+              </div>
             </div>
             <div class="ig-card-footer">
-              <span class="ig-post-label">Latest {i+1}</span>
+              <span class="ig-post-label">{date_label}</span>
               <span class="ig-link-text">Instagramで表示</span>
             </div>
           </a>\n"""
@@ -99,17 +112,44 @@ def update_index(posts):
     print(f"Successfully updated Instagram feed with {len(posts)} posts in {INDEX_PATH}")
 
 if __name__ == "__main__":
-    ig_posts = fetch_ig_data()
-    if ig_posts:
-        for i, post in enumerate(ig_posts):
-            post['local_path'] = download_image(post['img_url'], i+1)
-        update_index(ig_posts)
-    else:
-        # フォールバック: ローカルに保存済みの画像を使用（CDN URLは使わない）
-        print("Automatic fetching failed. Using saved local images (fallback).")
-        manual_data = [
-            {"link": "https://www.instagram.com/tokyo_mach/p/Dbk6thTiRI3/?img_index=1", "local_path": "public/images/ig_post_1.jpg", "img_url": None},
-            {"link": "https://www.instagram.com/tokyo_mach/p/DbSyoaNCSib/", "local_path": "public/images/ig_post_2.jpg", "img_url": None},
-            {"link": "https://www.instagram.com/tokyo_mach/p/DbBFu_6iZ5W/", "local_path": "public/images/ig_post_3.jpg", "img_url": None}
-        ]
-        update_index(manual_data)
+    # ユーザー指定の3つのカルーセル投稿（画像送り・複数画像対応）を固定で使用
+    manual_data = [
+        {
+            "link": "https://www.instagram.com/tokyo_mach/p/Dbk6thTiRI3/?img_index=1",
+            "date": "2026.04.05",
+            "images": [
+                "../public/images/ig_post_1_1.jpg",
+                "../public/images/ig_post_1_2.jpg",
+                "../public/images/ig_post_1_3.jpg",
+                "../public/images/ig_post_1_4.jpg",
+                "../public/images/ig_post_1_5.jpg",
+                "../public/images/ig_post_1_6.jpg"
+            ]
+        },
+        {
+            "link": "https://www.instagram.com/tokyo_mach/p/DbSyoaNCSib/",
+            "date": "2026.04.04",
+            "images": [
+                "../public/images/ig_post_2_1.jpg",
+                "../public/images/ig_post_2_2.jpg",
+                "../public/images/ig_post_2_3.jpg",
+                "../public/images/ig_post_2_4.jpg",
+                "../public/images/ig_post_2_6.jpg",
+                "../public/images/ig_post_2_7.jpg",
+                "../public/images/ig_post_2_8.jpg",
+                "../public/images/ig_post_2_9.jpg"
+            ]
+        },
+        {
+            "link": "https://www.instagram.com/tokyo_mach/p/DbBFu_6iZ5W/",
+            "date": "2026.04.02",
+            "images": [
+                "../public/images/ig_post_3_1.jpg",
+                "../public/images/ig_post_3_2.jpg",
+                "../public/images/ig_post_3_3.jpg",
+                "../public/images/ig_post_3_5.jpg",
+                "../public/images/ig_post_3_6.jpg"
+            ]
+        }
+    ]
+    update_index(manual_data)
