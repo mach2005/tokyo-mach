@@ -156,6 +156,13 @@ def fetch_hawks_standings():
                     rank_m = re.search(r'bb-rankTable__data--rank">(\d+)', r)
                     tds = re.findall(r'<td class="bb-rankTable__data[^"]*">(.*?)</td>', r, re.DOTALL)
                     clean_tds = [re.sub(r'<.*?>', '', c).strip() for c in tds]
+                    magic_str = ""
+                    for td in clean_tds:
+                        m_m = re.search(r'M\d+', td)
+                        if m_m:
+                            magic_str = m_m.group(0)
+                            break
+
                     if rank_m and len(clean_tds) >= 8:
                         standings.append({
                             'rank': int(rank_m.group(1)),
@@ -165,7 +172,8 @@ def fetch_hawks_standings():
                             'losses': clean_tds[4],
                             'draws': clean_tds[5],
                             'pct': clean_tds[6],
-                            'gb': clean_tds[7]
+                            'gb': clean_tds[7],
+                            'magic': magic_str
                         })
         
         pac_standings = standings[:6]
@@ -186,14 +194,7 @@ def fetch_hawks_standings():
                 gb_val = hawks_data['gb']
                 gb_str = f"ゲーム差 {gb_val}"
                 
-            magic_m = re.search(r'M\d+', r)
-            magic_str = magic_m.group(0) if magic_m else ""
-            if not magic_str and rank == 1:
-                # Fallback search for M in clean_tds
-                for td in clean_tds:
-                    if re.match(r'^M\d+$', td):
-                        magic_str = td
-                        break
+            magic_str = hawks_data.get('magic', '')
 
             return {
                 'rank': f"{rank}位",
