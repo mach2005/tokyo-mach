@@ -66,6 +66,8 @@ def parse_month_results(html, force_year="2026", force_month=None):
             
             venue_m = re.search(r'class="bb-calendarTable__venue">(.*?)</p>', day_html)
             venue = venue_m.group(1) if venue_m else ""
+            if "ベルーナ" in venue:
+                venue = "西武球場"
             
             # Fallback: calculate day-of-week from date if scraping didn't get it
             if not dow:
@@ -228,7 +230,9 @@ def update_top_page(latest, visitor):
         
         venue_map = {
             '楽天モバイル': '楽天モバイルパーク宮城',
-            'ベルーナドーム': 'ベルーナドーム',
+            'ベルーナドーム': '西武球場',
+            'ベルーナ': '西武球場',
+            '西武球場': '西武球場',
             'ZOZOマリン': 'ZOZOマリンスタジアム',
             '京セラD大阪': '京セラドーム大阪',
             'エスコンF': 'エスコンフィールドHOKKAIDO',
@@ -352,8 +356,8 @@ if __name__ == "__main__":
                     "short_date": "8/7 (金)",
                     "month": "8",
                     "opp_name": "西武",
-                    "venue": "ベルーナドーム",
-                    "venue_full": "ベルーナドーム"
+                    "venue": "西武球場",
+                    "venue_full": "西武球場"
                 }
                 
             update_top_page(latest, next_visitor)
