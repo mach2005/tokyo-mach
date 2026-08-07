@@ -1,7 +1,16 @@
 import os
 import re
+import sys
 import urllib.request
 from datetime import datetime, timezone, timedelta
+
+# UTF-8 stdout configuration for Windows environment
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 # 設定
 X_ACCOUNT = "tokyo_mach"
@@ -103,9 +112,15 @@ def update_index(posts):
     print(f"Successfully updated {INDEX_PATH}")
 
 if __name__ == "__main__":
-    xml = fetch_rss()
-    if xml:
-        posts = parse_rss(xml)
-        update_index(posts)
-    else:
-        print("Could not fetch X feed from any instance.")
+    try:
+        xml = fetch_rss()
+        if xml:
+            posts = parse_rss(xml)
+            if posts:
+                update_index(posts)
+            else:
+                print("No X posts parsed.")
+        else:
+            print("Could not fetch X feed from any instance. Keeping existing feed intact.")
+    except Exception as e:
+        print(f"Notice: X feed update skipped due to error: {e}")

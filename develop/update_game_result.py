@@ -1,8 +1,17 @@
 import os
 import re
+import sys
 import urllib.request
 import time
 from datetime import datetime
+
+# UTF-8 stdout configuration for Windows environment
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 # Settings
 TEAM_URL = "https://baseball.yahoo.co.jp/npb/teams/12/"
@@ -293,19 +302,23 @@ def update_top_page(latest, visitor):
 def auto_deploy():
     """Git add, commit, push to deploy the updated game result."""
     import subprocess
+    if os.environ.get("GITHUB_ACTIONS"):
+        print("Running inside GitHub Actions workflow. Skipping internal git push.")
+        return
+
     repo_dir = os.path.join(os.path.dirname(__file__), "..")
     try:
-        subprocess.run(["git", "add", "-A"], cwd=repo_dir, check=True)
-        result = subprocess.run(["git", "status", "--porcelain"], cwd=repo_dir, capture_output=True, text=True)
+        subprocess.run(["git", "add", "-A"], cwd=repo_dir, check=True, timeout=30)
+        result = subprocess.run(["git", "status", "--porcelain"], cwd=repo_dir, capture_output=True, text=True, timeout=30)
         if not result.stdout.strip():
             print("No changes to deploy.")
             return
         now = datetime.now().strftime("%Y-%m-%d %H:%M")
-        subprocess.run(["git", "commit", "-m", f"試合結果自動更新 {now}"], cwd=repo_dir, check=True)
-        subprocess.run(["git", "push", "origin", "main"], cwd=repo_dir, check=True)
+        subprocess.run(["git", "commit", "-m", f"試合結果自動更新 {now}"], cwd=repo_dir, check=True, timeout=30)
+        subprocess.run(["git", "push", "origin", "main"], cwd=repo_dir, check=True, timeout=60)
         print("Auto-deploy completed successfully.")
-    except subprocess.CalledProcessError as e:
-        print(f"Auto-deploy failed: {e}")
+    except Exception as e:
+        print(f"Auto-deploy notice (non-fatal): {e}")
 
 if __name__ == "__main__":
     print("Starting full game result update...")

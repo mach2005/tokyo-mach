@@ -1,8 +1,17 @@
 import os
 import re
+import sys
 import urllib.request
 import json
 from datetime import datetime
+
+# UTF-8 stdout configuration for Windows environment
+if hasattr(sys.stdout, 'reconfigure'):
+    try:
+        sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+        sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 # 設定
 IG_ACCOUNT = "tokyo_mach"
