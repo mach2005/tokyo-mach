@@ -432,9 +432,14 @@ if __name__ == "__main__":
                                 m_val, d_val = int(m_match.group(1)), int(m_match.group(2))
                                 try:
                                     g_date = datetime(2026, m_val, d_val)
+                                    # Always auto-calculate correct day-of-week to prevent human error
+                                    correct_dow = WEEKDAYS_JP[g_date.weekday()]
+                                    if "祝" in dow:
+                                        correct_dow += "・祝"
+                                        
                                     if g_date.date() >= today_now.date() and any(vv in v_name for vv in visitor_venues):
                                         next_visitor = {
-                                            "short_date": f"{m_val}/{d_val} ({dow})",
+                                            "short_date": f"{m_val}/{d_val} ({correct_dow})",
                                             "month": str(m_val),
                                             "opp_name": opp,
                                             "venue": v_name,
@@ -445,10 +450,12 @@ if __name__ == "__main__":
                                     pass
             
             if not next_visitor:
-                # Fallback
+                # Dynamic fallback with guaranteed correct weekday calculation
+                today_dt = datetime.now()
+                correct_dow = WEEKDAYS_JP[today_dt.weekday()]
                 next_visitor = {
-                    "short_date": "8/7 (金)",
-                    "month": "8",
+                    "short_date": f"{today_dt.month}/{today_dt.day} ({correct_dow})",
+                    "month": str(today_dt.month),
                     "opp_name": "西武",
                     "venue": "西武球場",
                     "venue_full": "西武球場"
