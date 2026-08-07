@@ -119,10 +119,6 @@ def main():
 {items_html.rstrip()}
               </div>
             </div>
-            <div class="ig-card-footer">
-              <span class="ig-post-label">{p['date']}</span>
-              <span class="ig-link-text">Instagramで表示</span>
-            </div>
           </a>\n"""
 
     with open(INDEX_PATH, 'r', encoding='utf-8') as f:
