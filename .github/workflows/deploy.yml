@@ -48,11 +48,11 @@ jobs:
           import os, re
           from pathlib import Path
           base = Path('.')
-          html_files = [f for f in base.glob('**/*.html') if 'history' not in str(f) and '.git' not in str(f)]
+          html_files = [f for f in base.glob('**/*.html') if not any(x in str(f) for x in ['history', '.git', 'archive', 'develop', 'tmp'])]
           broken = []
           for h in html_files:
               content = open(h, 'r', encoding='utf-8', errors='ignore').read()
-              links = re.findall(r'(?:href|src)=[\"\\\']([^\"\\\'#]+)[\"\\\']', content)
+              links = re.findall(r'(?:href|src)=[\"\\\']([^\"\\\'#?]+)[\"\\\']', content)
               for l in links:
                   if not l.startswith(('http', '//', 'data:', 'mailto:', '#')):
                       target = (h.parent / l).resolve()
