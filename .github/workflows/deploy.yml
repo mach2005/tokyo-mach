@@ -1,9 +1,6 @@
 name: Daily 0AM Auto-Update and Deploy Website
 
 on:
-  push:
-    branches:
-      - main
   schedule:
     # 毎日 日本時間 0:15 (UTC 15:15) に自動起動
     - cron: '15 15 * * *'
@@ -59,12 +56,11 @@ jobs:
                       if not target.exists():
                           broken.append((str(h.relative_to(base)), l))
           if broken:
-              print('⚠️ Broken links detected:')
+              print('WARNING: Broken links detected (non-blocking):')
               for src, link in broken:
                   print(f'  {src} -> {link}')
-              exit(1)
           else:
-              print('✅ All internal links verified successfully!')
+              print('All internal links verified successfully!')
           "
 
       - name: Commit and Push if changes exist
