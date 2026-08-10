@@ -423,34 +423,68 @@ if __name__ == "__main__":
                 if lm:
                     latest_date = datetime(int(lm.group(1)), int(lm.group(2)), int(lm.group(3))).date()
             
-            # Find next upcoming visitor game from data.txt
-            next_visitor = None
-            data_txt_path = os.path.join(os.path.dirname(__file__), "data.txt")
-            if os.path.exists(data_txt_path):
-                today_now = datetime.now()
-                # Ensure game is after latest finished game, but allow today's upcoming game
-                visitor_venues = ["ZOZOマリン", "エスコン", "楽天モバイル", "西武球場", "京セラD大阪", "甲子園", "バンテリン", "横浜", "マツダスタジアム", "東京ドーム", "ベルーナドーム"]
-                with open(data_txt_path, 'r', encoding='utf-8') as f:
-                    for line in f:
-                        parts = line.strip().split('\t')
-                        if len(parts) >= 4:
-                            d_str, dow, opp, v_name = parts[:4]
-                            m_match = re.match(r'(\d+)月(\d+)日', d_str)
-                            if m_match:
-                                m_val, d_val = int(m_match.group(1)), int(m_match.group(2))
-                                try:
-                                    g_date = datetime(2025, m_val, d_val)
-                                    if (latest_date is None or g_date.date() > latest_date) and any(vv in v_name for vv in visitor_venues):
-                                        next_visitor = {
-                                            "short_date": f"{m_val}/{d_val} ({dow})",
-                                            "month": str(m_val),
-                                            "opp_name": opp,
-                                            "venue": v_name,
-                                            "venue_full": v_name
-                                        }
-                                        break
-                                except Exception:
-                                    pass
+def find_next_visitor_from_schedule():
+    """Find next upcoming visitor game by directly parsing official/schedule.html as primary source."""
+    if not os.path.exists(SCHEDULE_PATH):
+        return None
+    
+    with open(SCHEDULE_PATH, 'r', encoding='utf-8') as f:
+        html = f.read()
+        
+    months = re.findall(r"id='month-(\d+)'.*?<h3[^>]*>(\d{4})年(\d+)月</h3>(.*?)(?=<div class='calendar-wrapper'|</div>\s*</div>\s*<button|\Z)", html, re.DOTALL)
+    
+    for m_id, year_str, month_num, month_html in months:
+        cal_days = re.findall(r"<div class='cal-day([^']*)'>(.*?)</div>", month_html, re.DOTALL)
+        for attrs, day_content in cal_days:
+            if 'visitor-day' in attrs:
+                day_num_m = re.search(r"<span class='day-num([^']*)'>(\d+)</span>", day_content)
+                if not day_num_m:
+                    continue
+                day_classes = day_num_m.group(1)
+                day_text = day_num_m.group(2)
+                if 'out-of-month' in day_classes:
+                    continue
+                
+                opp_m = re.search(r"alt='([^']+)'", day_content)
+                venue_m = re.search(r"<span class='game-venue'>([^<]+)</span>", day_content)
+                time_m = re.search(r"<span class='game-time'>([^<]+)</span>", day_content)
+                
+                if day_num_m and opp_m and venue_m and time_m:
+                    d_val = int(day_text)
+                    opp = opp_m.group(1).strip()
+                    venue = venue_m.group(1).strip()
+                    g_time = time_m.group(1).strip()
+                    
+                    # If game time is upcoming (not completed result)
+                    if not any(sym in g_time for sym in ['○', '●', '△', '中止']):
+                        dt = datetime(int(year_str), int(month_num), d_val)
+                        dow = WEEKDAYS_JP[dt.weekday()]
+                        return {
+                            "short_date": f"{month_num}/{d_val} ({dow})",
+                            "month": str(month_num),
+                            "opp_name": opp,
+                            "venue": venue,
+                            "venue_full": venue
+                        }
+    return None
+
+if __name__ == "__main__":
+    print("Starting full game result update...")
+    
+    # Fetch ALL months' results
+    all_results = fetch_all_results()
+    
+    if all_results:
+        # Update schedule with ALL results
+        update_schedule_all(all_results)
+        
+        # Update top page with latest result and NEXT visitor game from schedule.html
+        finished_games = [g for g in all_results if not g.get('is_cancelled')]
+        if finished_games:
+            latest = finished_games[-1]
+            
+            # Primary authority: parse schedule.html for NEXT VISITOR
+            next_visitor = find_next_visitor_from_schedule()
             
             if not next_visitor:
                 # Dynamic fallback with guaranteed correct weekday calculation
