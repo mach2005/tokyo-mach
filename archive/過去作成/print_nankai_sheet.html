@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+@charset "utf-8";
+:root { --primary-color: #00703C; --secondary-color: #111; --accent-color: #000; --bg-white: #fff; --border-width: 1px; --category-bg: #111; --category-text: #fff; }
+@page { size: a4; margin: 0px; }
+body { margin: 0px; padding: 0px; font-family: "Noto Sans JP", sans-serif; background-color: rgb(240, 240, 240); display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: auto; }
+.container-wrapper { padding: 20px; display: flex; justify-content: center; align-items: center; }
+.sheet { width: 210mm; height: 297mm; background-color: var(--bg-white); box-sizing: border-box; padding: 2mm 8mm 2mm; position: relative; overflow: hidden; display: flex; flex-direction: column; box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 20px; transform-origin: center top; }
+@media print {
+  body { background: none; margin: 0px !important; padding: 0px !important; overflow: visible !important; }
+  .container-wrapper { padding: 0px !important; margin: 0px !important; }
+  .sheet { box-shadow: none; margin: 0px; width: 210mm; height: 297mm; break-after: page; transform: none !important; }
+  .zoom-controls { display: none !important; }
+}
+header { display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid rgb(0, 80, 42); padding: 2.5mm 4mm; margin-bottom: 1mm; z-index: 10; background-color: var(--primary-color); border-radius: 1mm; }
+header .team-name { font-size: 17pt; font-weight: 900; color: rgb(255, 255, 255); }
+header .header-right { display: flex; align-items: center; gap: 2mm; }
+        .group-name { font-size: 17pt; font-weight: 900; color: #ffcc00; }
+.header-sns { display: flex; gap: 3mm; align-items: center; }
+.header-sns a { font-size: 17pt; text-decoration: none; color: rgb(255, 255, 255); }
+.ig-link i { background: linear-gradient(45deg, rgb(240, 148, 51) 0%, rgb(230, 104, 60) 25%, rgb(220, 39, 67) 50%, rgb(204, 35, 102) 75%, rgb(188, 24, 136) 100%) text; -webkit-text-fill-color: transparent; }
+.x-link i { color: rgb(255, 255, 255); }
+.header-apply-btn { background: rgb(255, 255, 255); color: var(--primary-color); border-radius: 2mm; text-decoration: none; font-weight: 900; font-size: 11pt; padding: 1.5mm 4mm; }
+.song-list { display: flex; flex-direction: column; justify-content: space-between; gap: 0px; }
+.category-header { background-color: var(--category-bg); color: var(--category-text); padding: 0.5mm 3mm; font-weight: 900; font-size: 11pt; margin-top: 2.5mm; margin-bottom: 2mm; border-radius: 1mm; display: inline-block; }
+.song-item { display: grid; grid-template-columns: 8mm 25mm 43mm 1fr; align-items: center; border-bottom: 1px solid rgb(238, 238, 238); padding-bottom: 3mm; gap: 1.5mm; }
+.song-num { background-color: var(--primary-color); color: rgb(255, 255, 255); width: fit-content; min-width: 6mm; padding: 0px; height: 5mm; display: flex; justify-content: center; align-items: center; font-weight: 900; font-size: 9.5pt; border-radius: 0.8mm; }
+.song-num:empty { background-color: transparent; }
+.song-num.generic { display: none; }
+.song-name.generic { display: none; }
+.song-info { display: contents; }
+.song-name { font-size: 11pt; font-weight: 900; white-space: nowrap; }
+.song-lyrics { font-size: 10.5pt; line-height: 1.15; color: rgb(0, 0, 0); letter-spacing: -0.3px; }
+.song-info > :nth-child(2) { border-left: 1px solid rgb(204, 204, 204); padding-left: 2mm; color: var(--primary-color); text-align: left !important; justify-self: start; width: 100%; display: block; }
+.song-info > :nth-child(3) { border-left: 1px solid rgb(204, 204, 204); padding-left: 4mm; }
+.chance-theme-container { margin-top: 1.2mm; position: relative; }
+.chance-header-wrapper { display: flex; align-items: center; margin-bottom: -1px; z-index: 10; }
+.chance-theme-headers { display: grid; grid-template-columns: repeat(3, 1fr) 25%; gap: 2mm; margin-bottom: 0.5mm; }
+.chance-title-box { background: rgb(102, 102, 102); color: rgb(255, 255, 255); padding: 1mm 4mm; font-size: 11pt; font-weight: 900; border-radius: 1mm; text-align: center; letter-spacing: 1mm; box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5mm 1mm; }
+.chance-title-box.chan { grid-column: span 3; }
+.chance-title-box.multi { grid-column: span 1; background: rgb(102, 102, 102); }
+.chance-layout-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0px; }
+.chance-col { border: 2px solid var(--primary-color); padding: 1.8mm; display: flex; flex-direction: column; gap: 1.5mm; margin-right: -2px; background-color: rgb(255, 255, 255); }
+.chance-col:last-child { margin-right: 0px; }
+.chance-col.full-col { grid-row: span 2; }
+.chance-col.short-col { grid-row: span 1; border-bottom: 2px solid var(--primary-color); }
+.chance-item { font-size: 7.8pt; border: 1px solid rgb(238, 238, 238); padding: 1.2mm; border-radius: 1.2mm; line-height: 1.25; }
+.chance-name { font-weight: 900; color: rgb(0, 0, 0); border-bottom: 2px solid var(--primary-color); margin-bottom: 1.2mm; display: block; font-size: 8.5pt; }
+.chance-lyrics-full { white-space: pre-wrap; }
+.sns-box { grid-area: 2 / 3; background-color: rgb(255, 255, 255); border: 2px solid var(--primary-color); border-radius: 2mm; padding: 1.5mm; display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 1.5mm; box-sizing: border-box; height: calc(100% - 4px); }
+.recruit-sns { display: flex; gap: 1.5mm; width: 100%; height: 100%; }
+.sns-tile { flex: 1 1 0%; height: 100%; border-radius: 1.2mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; transition: transform 0.2s; color: rgb(255, 255, 255); padding: 1.5mm; box-sizing: border-box; }
+.sns-tile.x { background-color: rgb(0, 0, 0); }
+.sns-tile.ig { background: linear-gradient(45deg, rgb(240, 148, 51) 0%, rgb(230, 104, 60) 25%, rgb(220, 39, 67) 50%, rgb(204, 35, 102) 75%, rgb(188, 24, 136) 100%); }
+.sns-tile:hover { transform: scale(1.05); }
+.sns-tile.web-container { background: none; padding: 0px; display: flex; flex-direction: column; gap: 1.5mm; border-width: medium; border-style: none; border-color: currentcolor; border-image: none; }
+.sns-sub-tile { flex: 1 1 0%; width: 100%; border-radius: 1mm; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; transition: 0.2s; padding: 0.8mm; box-sizing: border-box; background-color: rgb(230, 243, 235); color: rgb(0, 0, 0); border: 1px solid rgb(0, 112, 60); }
+.sns-sub-tile:hover { transform: translateY(-0.3mm); box-shadow: rgba(0, 0, 0, 0.2) 0px 0.5mm 1mm; filter: brightness(1.1); }
+.sns-sub-tile i { font-size: 9.5pt; margin-bottom: 0.1mm; }
+.sns-sub-tile .sns-label { font-size: 7.5pt; }
+.sns-tile i { font-size: 11pt; margin-bottom: 0.2mm; }
+.sns-label { font-size: 8.5pt; font-weight: 700; line-height: 1.1; text-align: center; }
+.sns-id { font-size: 6.5pt; font-weight: 400; opacity: 0.9; margin-top: 0.2mm; text-align: center; }
+.recruitment-box { grid-area: 2 / 4; background-color: #ffcc00; border: 2px solid #111; border-radius: 2mm; padding: 1.5mm; display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 1.5mm; box-sizing: border-box; height: calc(100% - 4px); box-shadow: rgba(0, 0, 0, 0.1) 0px 1mm 3mm; }
+.recruit-main { flex: 1 1 0%; text-align: left; }
+.recruit-title { font-size: 11pt; font-weight: 900; color: #111; border-bottom: 2px solid #111; display: inline-block; margin-bottom: 0.5mm; padding-bottom: 0.2mm; }
+.recruit-msg { font-size: 10.5pt; line-height: 1.3; color: #111; font-weight: 700; }
+.recruit-link { background-color: #111; color: #ffcc00; flex: 0 0 33%; height: 100%; border-radius: 1.5mm; text-decoration: none; font-weight: 900; font-size: 11pt; display: flex; align-items: center; justify-content: center; text-align: center; line-height: 1.1; box-shadow: rgba(0, 0, 0, 0.3) 0px 1mm 2mm; white-space: nowrap; transition: 0.2s; }
+.recruit-link:hover { transform: translateY(-0.5mm); box-shadow: rgba(0, 0, 0, 0.4) 0px 2mm 4mm; filter: brightness(1.2); }
+.zoom-controls { position: fixed; bottom: 20px; right: 20px; z-index: 1000; }
+.zoom-btn { background-color: rgb(255, 255, 255); color: var(--primary-color); width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 2px solid var(--primary-color); }
+</style>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.1, maximum-scale=5.0, user-scalable=yes">
+    <title>南海ホークス 応援歌シート</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/png" href="../public/favicon.png?v=2">
+    <link rel="shortcut icon" href="../public/favicon.png?v=2">
+    <link rel="apple-touch-icon" href="../public/apple-touch-icon.png?v=2">
+    
+</head>
+<body>
+    <div class="container-wrapper">
+        <div class="sheet" id="ouenkaSheet">
+            <header>
+                <div class="header-left">
+                    <span class="team-name">南海ホークス 復刻応援歌</span>
+                </div>
+                <div class="header-right" style="font-size: 19pt; font-weight: 900; color: #ffcc00; letter-spacing: 0.5mm;">
+                    東京真隼 ～世界最強～
+                </div>
+            </header>
+            <main style="display: flex; flex-direction: column; width: 100%; flex: 1;">
+                <div class="song-list" style="width: 100%;">
+                    <div class="category-header" style="margin-bottom: 2mm;">捕手</div>
+                    <div class="song-item">
+                        <div class="song-num">39</div>
+                        <div class="song-info">
+                            <span class="song-name">山本 祐大</span>
+                            <span class="song-name">35 吉田 博之</span>
+                            <span class="song-lyrics">今だ打て狙い打て　ホームランかっ飛ばせ祐大<br>今だ打て狙い打て　お前も男なら</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">45</div>
+                        <div class="song-info">
+                            <span class="song-name">谷川原 健太</span>
+                            <span class="song-name">&ensp;7 湯上谷 竑志</span>
+                            <span class="song-lyrics">燃えろよ谷川原　我らの谷川原　お前のバットで　勝負を決めろ</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">62</div>
+                        <div class="song-info">
+                            <span class="song-name">海野 隆司</span>
+                            <span class="song-name">35 吉田 博之</span>
+                            <span class="song-lyrics">今だ打て狙い打て　ホームランかっ飛ばせ海野<br>今だ打て狙い打て　お前も男なら</span>
+                        </div>
+                    </div>
+                    <div class="category-header" style="margin-top: 6mm; margin-bottom: 3mm;">内野手</div>
+                    <div class="song-item">
+                        <div class="song-num">0</div>
+                        <div class="song-info">
+                            <span class="song-name">川瀬 晃</span>
+                            <span class="song-name">&ensp;7 藤原 満</span>
+                            <span class="song-lyrics">川瀬　川瀬　川瀬　さあ頼むぞ川瀬</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">4</div>
+                        <div class="song-info">
+                            <span class="song-name" style="display: inline-block; transform: scaleX(0.75); transform-origin: left;">ジーター・ダウンズ</span>
+                            <span class="song-name">&ensp;9 <span style="display: inline-block; transform: scaleX(0.75); transform-origin: left; width: 33mm; margin-right: -10mm;">デビッド・ホステトラー</span></span>
+                            <span class="song-lyrics">（歌詞なし）</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">6</div>
+                        <div class="song-info">
+                            <span class="song-name">今宮 健太</span>
+                            <span class="song-name">&ensp;4 森脇 浩司</span>
+                            <span class="song-lyrics">それ行け今宮　ボールに食らいつけ<br>鉄壁のディフェンスだ　そして勝利へつなげ</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">8</div>
+                        <div class="song-info">
+                            <span class="song-name">牧原 大成</span>
+                            <span class="song-name">29 山本 和範</span>
+                            <span class="song-lyrics">大空に羽ばたく　牧原大成　豪快な打球をぶちかませよ</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">24</div>
+                        <div class="song-info">
+                            <span class="song-name">栗原 陵矢</span>
+                            <span class="song-name">44 岸川 勝也</span>
+                            <span class="song-lyrics">闘志を燃やし行け栗原　期待に応えホームラン</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">25</div>
+                        <div class="song-info">
+                            <span class="song-name">庄子 雄大</span>
+                            <span class="song-name" style="display: inline-block; transform: scaleX(0.75); transform-origin: left; width: 33mm; margin-right: -10mm;">&ensp;6 ジョージ・ライト</span>
+                            <span class="song-lyrics">さあ打つぞ　ショージ　ホームラン　ショージ<br>ここで勝負を決めろ　我らの星　ショージ</span>
+                        </div>
+                    </div>
+                    
+                    <div class="song-item">
+                        <div class="song-num">99</div>
+                        <div class="song-info">
+                            <span class="song-name">野村 勇</span>
+                            <span class="song-name" style="display: inline-block; transform: scaleX(0.75); transform-origin: left; width: 33mm; margin-right: -10mm;">&ensp;9 トニー・バナザード</span>
+                            <span class="song-lyrics">勝利を決めるこの一打　野村のパワー<br>Go　Go　Let's　Go　勇　我らの勇</span>
+                        </div>
+                    </div>
+                    <div class="category-header" style="margin-top: 6mm; margin-bottom: 3mm;">外野手</div>
+                    <div class="song-item">
+                        <div class="song-num">3</div>
+                        <div class="song-info">
+                            <span class="song-name">近藤 健介</span>
+                            <span class="song-name">&ensp;8 河埜 敬幸</span>
+                            <span class="song-lyrics">(前奏)→(テーマ)打つぞ打つぞ　近藤一撃<br>飛ばせライトへホームラン</span>
+                        </div>
+                    </div>
+                    
+                    <div class="song-item">
+                        <div class="song-num">9</div>
+                        <div class="song-info">
+                            <span class="song-name">柳田 悠岐</span>
+                            <span class="song-name">60 門田 博光</span>
+                            <span class="song-lyrics">行けそれ打てギータ　右へ左へホームラン<br>打てそれ打てギータ　目指せ60本</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">23</div>
+                        <div class="song-info">
+                            <span class="song-name">周東 佑京</span>
+                            <span class="song-name">33 山口 裕二</span>
+                            <span class="song-lyrics">走りのスペシャリスト　グランドの砂を蹴り<br>電光石火だ　風を切りホームまで</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">31</div>
+                        <div class="song-info">
+                            <span class="song-name">正木 智也</span>
+                            <span class="song-name">&ensp;0 佐々木 誠</span>
+                            <span class="song-lyrics">打て正木　ホームラン　打て我らの核弾頭</span>
+                        </div>
+                    </div>
+                    <div class="song-item">
+                        <div class="song-num">32</div>
+                        <div class="song-info">
+                            <span class="song-name">柳町 達</span>
+                            <span class="song-name">23 高柳 秀樹</span>
+                            <span class="song-lyrics">(前奏)君が望むなら　タツル！　ここでホームラン　タツル！<br>(テーマ)かっ飛ばせ　ここでホームラン　空に羽ばたく<br>鷹の名はタツル</span>
+                        </div>
+                    </div>
+                    
+                    <div class="song-item">
+                        <div class="song-num">61</div>
+                        <div class="song-info">
+                            <span class="song-name">川村 友斗</span>
+                            <span class="song-name">15 畠山 準</span>
+                            <span class="song-lyrics">俊足巧打のスラッガー　川村友斗<br>アーチを突き刺せスタンドへ　弾丸ライナー</span>
+                        </div>
+                    </div>
+                    
+                        <div class="category-header" style="margin-top: 2.5mm; margin-bottom: 1.5mm;">その他</div>
+                    <div class="song-item" style="border-bottom: none;">
+                        <div class="song-num">♪</div>
+                        <div class="song-info">
+                            <span class="song-name">その他</span>
+                            <span class="song-name">メインテーマ</span>
+                            <span class="song-lyrics">かっ飛ばせ○○(選手名)　○○(選手名)　ここで一発<br>かっ飛ばせ○○(選手名)　狙えスタンドへ</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <style>
+                .qr-footer-nankai {
+                    display: flex;
+                    justify-content: space-between;
+                    gap: 4mm;
+                    margin-top: 5px;
+                    height: 32mm;
+                    width: 100%;
+                }
+                .box-nankai {
+                    flex: 0 0 49%;
+                    height: 100%;
+                    box-sizing: border-box;
+                    border-radius: 1mm;
+                }
+                .sns-qr-box-n {
+                    background-color: #fff;
+                    border: 2px solid var(--primary-color);
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 6mm;
+                }
+                .qr-item-n {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    text-align: center;
+                }
+                .qr-item-n .label-n {
+                    font-weight: 900;
+                    font-size: 8.5pt;
+                    margin-bottom: 1.5mm;
+                    display: flex;
+                    align-items: center;
+                    gap: 1.5mm;
+                }
+                .qr-code-img-n {
+                    width: 22mm;
+                    height: 22mm;
+                    border: 1px solid #eee;
+                }
+                .recruit-qr-box-n {
+                    background-color: #ffcc00;
+                    border: 2px solid #111;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 4mm;
+                }
+                .recruit-content-n { flex: 1; color: #111; }
+                .recruit-title-n {
+                    font-size: 13pt;
+                    font-weight: 900;
+                    text-decoration: underline;
+                    margin-bottom: 1.5mm;
+                    white-space: nowrap;
+                }
+                .recruit-msg-n { font-size: 8.5pt; font-weight: 700; line-height: 1.4; color: #111; }
+                
+                .recruit-qr-side-n {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    margin-left: 1mm;
+                }
+                .recruit-qr-side-n img {
+                    width: 22mm;
+                    height: 22mm;
+                    background: #fff;
+                    padding: 0.5mm;
+                    border: 1px solid #fff;
+                }
+            </style>
+            <div class="qr-footer-nankai">
+                <div class="box-nankai sns-qr-box-n">
+                    <div class="qr-item-n">
+                        <div class="label-n" style="color:#000;"><i class="fa-brands fa-square-x-twitter"></i> X(Twitter)</div>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://x.com/tokyo_mach" class="qr-code-img-n">
+                    </div>
+                    <div class="mascot-center" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                        <div style="font-size: 6pt; font-weight:900; color:var(--primary-color); white-space:nowrap; margin-bottom: 0.5mm;">＼両方フォローしてね！／</div>
+                        <img src="../public/images/nankai_sticker_processed.png" style="width: 25mm; height: 25mm; object-fit: contain;">
+                    </div>
+                    <div class="qr-item-n">
+                        <div class="label-n" style="color:#E1306C;"><i class="fa-brands fa-instagram"></i> Instagram</div>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://www.instagram.com/tokyo_mach/&margin=0&color=E1306C" class="qr-code-img-n">
+                    </div>
+                </div>
+                <div class="box-nankai recruit-qr-box-n">
+                    <div class="recruit-content-n">
+                        <div class="recruit-title-n">東京真隼応援団員大募集！</div>
+                        <div class="recruit-msg-n">
+                            ビジター球場でも一緒に応援活動してく<br>れる仲間を募集中！<br>
+                            未経験者、老若男女問わず大歓迎！
+                        </div>
+                    </div>
+                    <div class="recruit-qr-side-n">
+                        <div style="font-size:7.5pt; font-weight:900; margin-bottom:1mm; color:#111;">応援団員募集！</div>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://t.co/NuiNCqluh0">
+                    </div>
+                </div>
+            </div>
+    </div>
+    </div>
+    <div class="zoom-controls">
+        <div class="zoom-btn" id="zoomBtn">🔎</div>
+    </div>
+    
+
+</body></html>

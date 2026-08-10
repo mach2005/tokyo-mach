@@ -37,7 +37,7 @@ if __name__ == '__main__':
         shutil.copy2(pdf_v2, pdf_v1)
         
     generate_pdf(print_html, pdf_print, format_size='A3', landscape=True)
-    if os.path.exists(nankai_html):
-        generate_pdf(nankai_html, pdf_nankai, format_size='A4', landscape=False)
+    # if os.path.exists(nankai_html):
+    #     generate_pdf(nankai_html, pdf_nankai, format_size='A4', landscape=False)
         
     print("All PDFs successfully re-generated!")
