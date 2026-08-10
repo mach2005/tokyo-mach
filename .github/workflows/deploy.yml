@@ -6,6 +6,10 @@ on:
     - cron: '15 15 * * *'
   workflow_dispatch:
 
+concurrency:
+  group: deploy-auto-update
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
@@ -30,14 +34,14 @@ jobs:
         run: |
           python develop/update_ig_feed.py || echo "Instagram feed update warning"
 
-      - name: Fetch Latest Game Results & Next Visitor
-        run: |
-          python develop/update_game_result.py || echo "Result fetch completed with minor warning"
-
-      - name: Run Build Scripts
+      - name: Run Build Scripts (Base HTML generation)
         run: |
           python develop/build_pages.py
           python develop/gen_songs.py
+
+      - name: Fetch Latest Game Results & Next Visitor (Apply to index.html & schedule.html)
+        run: |
+          python develop/update_game_result.py || echo "Result fetch completed with minor warning"
 
       - name: Internal Link Verification
         run: |
