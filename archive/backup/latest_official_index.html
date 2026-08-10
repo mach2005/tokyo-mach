@@ -397,7 +397,7 @@
         <div class="x-static-feed-container">
           <!-- X_FEED_START -->
           <!-- Post 1 -->
-          <a href="https://x.com/tokyo_mach/status/2085726221745479825#m" target="_blank" rel="noopener" class="x-post-card">
+          <a href="https://x.com/tokyo_mach/status/2086445915972505626#m" target="_blank" rel="noopener" class="x-post-card">
             <div class="x-post-header">
               <div class="x-user-icon"><img src="https://pbs.twimg.com/profile_images/1907352748280221696/7BPbU0fT_400x400.jpg" alt="東京真隼"></div>
               <div class="x-user-info">
@@ -406,17 +406,19 @@
               </div>
               <i class="fab fa-x-twitter x-logo"></i>
             </div>
-            <div class="x-post-content">4週連続で週末は応援してますin東日本
-今日は代打柳町と祐大の見事な3塁打、そして松本晴の見事な投球でカード初戦を勝利
-アレも点灯中ですが、ロマンティック浮かれモードにならぬよう頑張ります!
+            <div class="x-post-content">早いもので所沢最終戦
+近藤の生誕HR爆誕
+5番祐大の走者一掃
+前田は無傷の10勝目
+4番不在を感じさせない戦いでした
+2年連続ベルーナ胴上げはなりませんでしたが、必ずやリーグ3連覇の胴上げを観るその日まで応援頑張ります!
 #東京真隼
 #団員募集中
 #sbhawks
-#松本から松本そしてお杉
-#祐大のタマはご無事かな
-#ミキティ〜</div>
+#川瀬の選球眼
+#アレルギー症状が気になる</div>
             <div class="x-post-footer">
-              <span class="x-post-date">2026/08/07 22:54</span>
+              <span class="x-post-date">2026/08/09 22:34</span>
               <span class="x-link-text">Xで表示</span>
             </div>
           </a>
@@ -633,14 +635,27 @@ window.addEventListener('scroll', () => {
     setTimeout(() => updateSlider(false), 200);
   });
 
-  // Instagram Carousel Navigation
+  // Instagram Carousel Navigation (Endless loop)
   function moveIgCarousel(e, btn, direction) {
     e.preventDefault();
     e.stopPropagation();
     const container = btn.closest('.ig-card-img');
     const track = container.querySelector('.ig-carousel-track');
+    const slides = track.children;
+    if (!slides || slides.length <= 1) return;
+    
     const width = track.offsetWidth;
-    track.scrollBy({ left: width * direction, behavior: 'smooth' });
+    const total = slides.length;
+    let currentIndex = Math.round(track.scrollLeft / width);
+    let nextIndex = currentIndex + direction;
+    
+    if (nextIndex >= total) {
+      nextIndex = 0;
+    } else if (nextIndex < 0) {
+      nextIndex = total - 1;
+    }
+    
+    track.scrollTo({ left: nextIndex * width, behavior: 'smooth' });
   }
 </script>
 </body>

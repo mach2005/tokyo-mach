@@ -19,7 +19,10 @@ NITTER_INSTANCES = [
     "https://nitter.net",
     "https://nitter.poast.org",
     "https://nitter.privacydev.net",
-    "https://nitter.cz"
+    "https://nitter.cz",
+    "https://nitter.lucabased.xyz",
+    "https://nitter.soopy.moe",
+    "https://nitter.pericles.host"
 ]
 INDEX_PATH = os.path.join(os.path.dirname(__file__), "../official/index.html")
 PROFILE_IMG = "https://pbs.twimg.com/profile_images/1907352748280221696/7BPbU0fT_400x400.jpg"
@@ -29,7 +32,7 @@ def fetch_rss():
         url = f"{instance}/{X_ACCOUNT}/rss"
         try:
             print(f"Fetching from {url}...")
-            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
             with urllib.request.urlopen(req, timeout=10) as response:
                 return response.read().decode('utf-8')
         except Exception as e:
@@ -37,41 +40,45 @@ def fetch_rss():
     return None
 
 def parse_rss(xml_content):
-    # 簡単な正規表現によるパース（外部ライブラリ不要）
     items = re.findall(r'<item>(.*?)</item>', xml_content, re.DOTALL)
-    posts = []
-    for item in items[:1]: # 最新1件
+    parsed_items = []
+    JST = timezone(timedelta(hours=9))
+    
+    for item in items:
         title = re.search(r'<title>(.*?)</title>', item, re.DOTALL)
         link = re.search(r'<link>(.*?)</link>', item, re.DOTALL)
         pub_date = re.search(r'<pubDate>(.*?)</pubDate>', item, re.DOTALL)
         description = re.search(r'<description>(.*?)</description>', item, re.DOTALL)
         
         if title and link and pub_date:
-            # リンクをnitterからx.comに変換
-            x_link = link.group(1).replace("nitter.net", "x.com").replace("nitter.poast.org", "x.com")
+            raw_link = link.group(1).strip()
+            x_link = re.sub(r'^https?://[^/]+', 'https://x.com', raw_link)
             
-            # 日時パース (RSS は GMT/UTC: 例: Fri, 03 Apr 2026 05:24:00 GMT) → JST (+9)
+            raw_date = pub_date.group(1).strip()
             try:
-                JST = timezone(timedelta(hours=9))
-                date_obj = datetime.strptime(pub_date.group(1).strip(), '%a, %d %b %Y %H:%M:%S %Z')
+                date_obj = datetime.strptime(raw_date, '%a, %d %b %Y %H:%M:%S %Z')
                 date_obj = date_obj.replace(tzinfo=timezone.utc).astimezone(JST)
                 formatted_date = date_obj.strftime('%Y/%m/%d %H:%M')
-            except:
-                formatted_date = pub_date.group(1)
+            except Exception:
+                date_obj = datetime.min.replace(tzinfo=JST)
+                formatted_date = raw_date
             
-            # 本文（HTMLタグ除去やエンティティ復元は簡易的に）
-            content = description.group(1)
-            content = content.replace('<![CDATA[', '').replace(']]>', '') # CDATA除去
-            content = re.sub(r'<.*?>', '', content) # タグ除去
+            content = description.group(1) if description else title.group(1)
+            content = content.replace('<![CDATA[', '').replace(']]>', '')
+            content = re.sub(r'<.*?>', '', content)
             content = content.replace('&lt;', '<').replace('&gt;', '>').replace('&amp;', '&').replace('&quot;', '"')
-            content = re.sub(r'\n\s*\n', '\n', content).strip() # 連続改行をまとめる
+            content = re.sub(r'\n\s*\n', '\n', content).strip()
             
-            posts.append({
+            parsed_items.append({
                 'link': x_link,
                 'content': content[:200] + ("..." if len(content) > 200 else ""),
-                'date': formatted_date
+                'date': formatted_date,
+                'datetime_obj': date_obj
             })
-    return posts
+            
+    # Sort strictly by real datetime descending to eliminate pinned-tweet ordering issues
+    parsed_items.sort(key=lambda x: x['datetime_obj'], reverse=True)
+    return parsed_items[:1]
 
 def update_index(posts):
     if not posts:
