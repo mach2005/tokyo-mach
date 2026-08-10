@@ -709,27 +709,14 @@ window.addEventListener('scroll', () => {
     setTimeout(() => updateSlider(false), 200);
   });
 
-  // Instagram Carousel Navigation (Endless loop)
+  // Instagram Carousel Navigation
   function moveIgCarousel(e, btn, direction) {
     e.preventDefault();
     e.stopPropagation();
     const container = btn.closest('.ig-card-img');
     const track = container.querySelector('.ig-carousel-track');
-    const slides = track.children;
-    if (!slides || slides.length <= 1) return;
-    
     const width = track.offsetWidth;
-    const total = slides.length;
-    let currentIndex = Math.round(track.scrollLeft / width);
-    let nextIndex = currentIndex + direction;
-    
-    if (nextIndex >= total) {
-      nextIndex = 0;
-    } else if (nextIndex < 0) {
-      nextIndex = total - 1;
-    }
-    
-    track.scrollTo({ left: nextIndex * width, behavior: 'smooth' });
+    track.scrollBy({ left: width * direction, behavior: 'smooth' });
   }
 </script>
 </body>
