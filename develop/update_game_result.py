@@ -439,15 +439,10 @@ if __name__ == "__main__":
                             if m_match:
                                 m_val, d_val = int(m_match.group(1)), int(m_match.group(2))
                                 try:
-                                    g_date = datetime(2026, m_val, d_val)
-                                    # Always auto-calculate correct day-of-week to prevent human error
-                                    correct_dow = WEEKDAYS_JP[g_date.weekday()]
-                                    if "祝" in dow:
-                                        correct_dow += "・祝"
-                                        
+                                    g_date = datetime(2025, m_val, d_val)
                                     if (latest_date is None or g_date.date() > latest_date) and any(vv in v_name for vv in visitor_venues):
                                         next_visitor = {
-                                            "short_date": f"{m_val}/{d_val} ({correct_dow})",
+                                            "short_date": f"{m_val}/{d_val} ({dow})",
                                             "month": str(m_val),
                                             "opp_name": opp,
                                             "venue": v_name,
