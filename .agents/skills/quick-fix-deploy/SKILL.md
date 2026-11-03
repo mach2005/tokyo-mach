@@ -58,3 +58,4 @@ Get-ChildItem -Path "." -Filter "__pycache__" -Recurse | Remove-Item -Force -Rec
 | デジタルシート | `FightSong/digital-sheet.html` |
 | 印刷用HTML | `FightSong/print_ouenka_2026.html` |
 | チアガイド | `FightSong/print-sheet.html` |
+
