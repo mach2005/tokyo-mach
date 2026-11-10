@@ -17,3 +17,24 @@ Thumbs.db
 .venv/
 venv/
 env/
+
+
+# Antigravity 共通追加設定
+_agents_backup_*/
+.agents_backup_*/
+*.bak
+*.backup
+temp/
+temp_*
+diff_*.txt
+*.env
+*.log
+ehthumbs.db
+Desktop.ini
+desktop.ini
+$RECYCLE.BIN/
+.vscode/*
+!.vscode/settings.json
+~$*.xlsx
+~$*.docx
+~$*.pptx
